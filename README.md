@@ -1,6 +1,8 @@
 # Фабрика презентаций «Вэбтех»
 
-[Примеры слайдов и шаблоны](https://vebtech-ds.vercel.app) · [Группа в VK Teams - Deck Factory](https://myteam.mail.ru/profile/DeckFactory)
+Пришлите материалы и опишите задачу. ИИ-агент соберёт её в фирменном стиле.
+
+[Примеры слайдов и шаблоны](https://vebtech-ds.vercel.app) · [Группа Deck Factory](https://myteam.mail.ru/profile/DeckFactory)
 
 ## Содержание
 - [Что можно получить](#что-можно-получить)
@@ -24,16 +26,12 @@
 **Из чего собрать:** Word, PowerPoint, Excel, PDF, картинки или просто текст в чате.
 
 ## Подключить
-**1. Отправьте сообщение своему агенту** — Claude Code, Codex или Cursor:
+Выберите папку, в которой вам удобно работать, и откройте её в своём агенте: Claude Code, Codex или Cursor. Напишите:
 ```text
-Подключи фабрику презентаций:
-1. Проверь Git, Node.js 20+, Python 3 и Google Chrome. Недостающее помоги установить.
-2. Склонируй https://github.com/dsgnasd/vebtech-presentations.git в папку «Документы».
-3. В папке vebtech-presentations выполни node tools/update.mjs и дождись строки «Готово».
-4. Прочитай AGENTS.md и скажи, что фабрика готова.
+Разверни здесь фабрику презентаций по инструкции из AGENTS.md:
+https://github.com/dsgnasd/vebtech-presentations
 ```
-
-**2. Откройте в агенте папку `vebtech-presentations`** из «Документов». Все презентации делайте в ней.
+Агент всё установит и скажет, когда можно начинать. Дальше работайте в этой же папке.
 
 ## Сделать презентацию
 **1. Прикрепите файлы и напишите задачу:**
