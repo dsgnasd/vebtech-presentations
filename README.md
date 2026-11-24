@@ -2,7 +2,7 @@
 
 Пришлите материалы и опишите задачу. ИИ-агент соберёт её в фирменном стиле.
 
-[Примеры слайдов и шаблоны](https://vebtech-ds.vercel.app) · [Группа Deck Factory](https://myteam.mail.ru/profile/DeckFactory)
+[Примеры слайдов и шаблоны](https://vebtech-ds.vercel.app) · [Группа в VK Teams - Deck Factory](https://myteam.mail.ru/profile/DeckFactory)
 
 ## Содержание
 - [Что можно получить](#что-можно-получить)
