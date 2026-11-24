@@ -1,0 +1,16 @@
+<!-- @dsCard group="Списки" height=560 width=1920 -->
+<!doctype html>
+<html lang="ru">
+<head><meta charset="utf-8"><title>BulletList</title>
+<style>html,body{margin:0;background:var(--surface);font-family:var(--font-sans);color:var(--ink)}#root{padding:48px}</style>
+</head>
+<body>
+<div id="root"></div>
+<script>
+var W = window.Webtech, h = React.createElement;
+var { BulletList } = W;
+const view = /* @__PURE__ */ h("div", { style: { display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 64 } }, /* @__PURE__ */ h(BulletList, { items: ["Запустили облачную платформу", "Вышли во все областные центры", "Сократили срок внедрения до 9 дней"] }), /* @__PURE__ */ h(BulletList, { marker: "number", items: [{ title: "Аудит", text: "Анализ текущих процессов и систем" }, { title: "Проектирование", text: "Целевая архитектура и план" }, { title: "Внедрение", text: "Пилот и тиражирование" }] }), /* @__PURE__ */ h(BulletList, { items: [{ text: "Готовые модули", marker: "check" }, { text: "Поддержка 24/7", marker: "check" }, { text: "Нужна интеграция с 1С", marker: "cross" }] }));
+ReactDOM.createRoot(document.getElementById('root')).render(view);
+</script>
+</body>
+</html>

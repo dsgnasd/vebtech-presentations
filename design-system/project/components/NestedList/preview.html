@@ -1,0 +1,20 @@
+<!-- @dsCard group="Списки" height=560 width=1600 -->
+<!doctype html>
+<html lang="ru">
+<head><meta charset="utf-8"><title>NestedList</title>
+<style>html,body{margin:0;background:var(--surface);font-family:var(--font-sans);color:var(--ink)}#root{padding:48px}</style>
+</head>
+<body>
+<div id="root"></div>
+<script>
+var W = window.Webtech, h = React.createElement;
+var { NestedList } = W;
+const view = /* @__PURE__ */ h(NestedList, { numbered: true, items: [
+  { title: "Рост в корпоративном сегменте", items: ["Отраслевые решения для банков и ритейла", "Партнёрская программа с интеграторами"] },
+  { title: "Развитие облачной платформы", items: ["Managed Kubernetes и базы данных", "Аттестация по требованиям ОАЦ"] },
+  { title: "Операционная эффективность", items: ["Автоматизация поддержки первой линии"] }
+] });
+ReactDOM.createRoot(document.getElementById('root')).render(view);
+</script>
+</body>
+</html>

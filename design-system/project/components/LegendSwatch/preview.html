@@ -1,0 +1,16 @@
+<!-- @dsCard group="Атомы" height=180 width=1200 -->
+<!doctype html>
+<html lang="ru">
+<head><meta charset="utf-8"><title>LegendSwatch</title>
+<style>html,body{margin:0;background:var(--surface);font-family:var(--font-sans);color:var(--ink)}#root{padding:48px}</style>
+</head>
+<body>
+<div id="root"></div>
+<script>
+var W = window.Webtech, h = React.createElement;
+var { LegendSwatch } = W;
+const view = /* @__PURE__ */ h("div", { style: { display: "flex", gap: 48 } }, /* @__PURE__ */ h(LegendSwatch, { color: "var(--chart-1)", label: "Факт" }), /* @__PURE__ */ h(LegendSwatch, { color: "var(--chart-2)", shape: "line", label: "План" }), /* @__PURE__ */ h(LegendSwatch, { color: "var(--chart-3)", shape: "circle", label: "Партнёры" }), /* @__PURE__ */ h(LegendSwatch, { color: "var(--chart-other)", label: "Прочее" }));
+ReactDOM.createRoot(document.getElementById('root')).render(view);
+</script>
+</body>
+</html>

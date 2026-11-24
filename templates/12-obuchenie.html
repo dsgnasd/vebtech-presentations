@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="ru">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Обучение / воркшоп — Вэбтех</title>
+<link rel="stylesheet" href="lib/webtech.css">
+<style>body{margin:0;background:var(--brand-50);font-family:var(--font-sans)}#root{max-width:1600px;margin:0 auto;padding:32px 16px}
+.bar{max-width:1600px;margin:0 auto;padding:24px 16px 0;display:flex;justify-content:space-between;align-items:center;gap:16px;font:600 16px/24px var(--font-sans);color:var(--ink-secondary)}
+.bar button{font:700 16px/24px var(--font-sans);padding:10px 20px;border:0;border-radius:999px;background:var(--brand-strong);color:#fff;cursor:pointer}
+@media print{.bar{display:none}#root{padding:0;max-width:none}}</style>
+</head>
+<body>
+<div class="bar wt-no-print"><span>Обучение / воркшоп · 11 слайдов · шаблон, ДС 1.18.4</span><button onclick="print()">Сохранить в PDF</button></div>
+<div id="root"></div>
+<script src="lib/react.production.min.js"></script>
+<script src="lib/react-dom.production.min.js"></script>
+<script src="lib/webtech.js"></script>
+<script>
+var W = window.Webtech, h = React.createElement;
+var { TitleSlide, ContentSlide, KpiCard, AgendaSlide, SectionSlide, TwoColumnSlide, GridSlide, Card, BulletList, ProcessSlide, Cycle, NestedList, Text, Badge, Callout, Checklist, ContactSlide } = W;
+const slides = [
+  /* @__PURE__ */ h(TitleSlide, { composition: "band", overline: "Воркшоп", title: "Презентации, которые убеждают", subtitle: "Практикум для руководителей и менеджеров", author: "Анна Смирнова, ведущая", date: "3 часа" }),
+  /* @__PURE__ */ h(ContentSlide, { overline: "Цели", title: "Что вы унесёте с воркшопа", bullets: ["Структура «вывод → доказательство → действие»", "Правила графиков, которым верят", "Своя презентация, пересобранная по шаблону Вэбтех"], marker: "check", aside: /* @__PURE__ */ h(KpiCard, { variant: "brand", value: "3", unit: "часа", label: "Теория, практика и разбор" }), section: "Воркшоп" }),
+  /* @__PURE__ */ h(AgendaSlide, { title: "Программа", items: [{ title: "Структура и заголовки", time: "40 мин" }, { title: "Графики и данные", time: "40 мин" }, { title: "Перерыв", time: "15 мин" }, { title: "Практика", time: "60 мин" }, { title: "Разбор и итоги", time: "25 мин" }] }),
+  /* @__PURE__ */ h(SectionSlide, { number: 1, title: "Структура и заголовки" }),
+  /* @__PURE__ */ h(TwoColumnSlide, { overline: "Правило 1", title: "Заголовок — это вывод, а не тема", left: { title: "Тема", bullets: ["Выручка", "Результаты проекта", "Риски"], marker: "cross" }, right: { title: "Вывод", tint: true, bullets: ["Выручка выросла на 32%", "Проект запущен на 2 недели раньше", "Два риска требуют решения"], marker: "check" }, section: "Воркшоп" }),
+  /* @__PURE__ */ h(
+    GridSlide,
+    {
+      overline: "Анатомия",
+      title: "Сильный слайд состоит из пяти элементов",
+      layout: "feature-left",
+      section: "Воркшоп",
+      cells: [
+        /* @__PURE__ */ h(Card, { icon: "layout-grid", title: "Пять элементов", style: { padding: "32px 48px", gap: 24 } }, /* @__PURE__ */ h(BulletList, { marker: "number", items: [{ title: "Заголовок-вывод", text: "Одна мысль, до двух строк" }, { title: "Подзаголовок", text: "Контекст одним предложением" }, { title: "Доказательство", text: "График, цифры или пример" }, { title: "Источник", text: "Откуда данные" }, { title: "Действие", text: "Что просим решить" }] })),
+        /* @__PURE__ */ h(KpiCard, { variant: "brand", size: "lg", value: "3", unit: "сек", label: "чтобы понять слайд", delta: "если заголовок — вывод", style: { justifyContent: "center", padding: "32px 48px" } }),
+        /* @__PURE__ */ h(Card, { tone: "warning", icon: "triangle-alert", title: "Частые ошибки", style: { padding: "32px 48px", gap: 24 } }, /* @__PURE__ */ h(BulletList, { size: "lead", marker: "cross", items: ["Заголовок-тема: «Итоги»", "Три мысли на слайде", "График без подписей"] }))
+      ]
+    }
+  ),
+  /* @__PURE__ */ h(ProcessSlide, { overline: "Метод", title: "Презентация готовится циклом: цель, структура, слайды, прогон", process: /* @__PURE__ */ h(Cycle, { size: 680, center: "Итерация", steps: [{ title: "Цель", icon: "target" }, { title: "Структура", icon: "list-checks" }, { title: "Слайды", icon: "layout-grid" }, { title: "Прогон", icon: "message-square" }] }), section: "Воркшоп" }),
+  /* @__PURE__ */ h(ContentSlide, { overline: "Упражнение", title: "Практика: пересоберите свои три слайда", section: "Воркшоп" }, /* @__PURE__ */ h(NestedList, { numbered: true, items: [{ title: "Перепишите заголовки", items: ["Каждый — вывод в одно предложение"] }, { title: "Проверьте графики", items: ["Одна ось, подписи значений, источник"] }, { title: "Покажите соседу", items: ["Понятен ли вывод за 5 секунд?"] }] })),
+  /* @__PURE__ */ h(
+    GridSlide,
+    {
+      overline: "Практика",
+      title: "Три упражнения по 10 минут",
+      layout: "bottom-3",
+      section: "Воркшоп",
+      cells: [
+        /* @__PURE__ */ h(Card, { icon: "file-text", overline: "Упражнение 1", title: "Заголовки" }, /* @__PURE__ */ h(Text, { variant: "body", tone: "secondary" }, "Перепишите заголовки трёх слайдов как выводы"), /* @__PURE__ */ h(Badge, { tone: "brand", icon: "clock", style: { alignSelf: "flex-start", marginTop: "auto" } }, "10 минут")),
+        /* @__PURE__ */ h(Card, { icon: "chart-column", overline: "Упражнение 2", title: "Данные" }, /* @__PURE__ */ h(Text, { variant: "body", tone: "secondary" }, "Оставьте на графике одну мысль и подпишите значения"), /* @__PURE__ */ h(Badge, { tone: "brand", icon: "clock", style: { alignSelf: "flex-start", marginTop: "auto" } }, "10 минут")),
+        /* @__PURE__ */ h(Card, { icon: "users", overline: "Упражнение 3", title: "Проверка" }, /* @__PURE__ */ h(Text, { variant: "body", tone: "secondary" }, "Покажите слайд соседу на 3 секунды — что он запомнил?"), /* @__PURE__ */ h(Badge, { tone: "brand", icon: "clock", style: { alignSelf: "flex-start", marginTop: "auto" } }, "10 минут")),
+        /* @__PURE__ */ h(Callout, { tone: "accent", title: "Правило" }, "Если сосед не пересказал вывод слайда — перепишите заголовок")
+      ]
+    }
+  ),
+  /* @__PURE__ */ h(ContentSlide, { overline: "Итоги", title: "Пять проверок перед показом", section: "Воркшоп" }, /* @__PURE__ */ h(Checklist, { items: [{ text: "Каждый заголовок — вывод", status: "done" }, { text: "Текст не мельче 24px", status: "done" }, { text: "Цвет не единственный носитель смысла", status: "done" }, { text: "У графиков есть источник", status: "done" }, { text: "Проверена печать в PDF", status: "done" }] })),
+  /* @__PURE__ */ h(ContactSlide, { title: "Спасибо за работу!", subtitle: "Материалы и шаблоны — в дизайн-системе Вэбтех", contacts: [{ icon: "mail", value: "name@company.by" }, { icon: "phone", value: "+375 00 000-00-00" }, { icon: "globe", value: "www.company.by" }, { icon: "map-pin", value: "Минск, Беларусь" }] })
+];
+ReactDOM.createRoot(document.getElementById('root')).render(h(W.Deck, { layout: 'stack', gap: 32 }, slides));
+</script>
+</body>
+</html>

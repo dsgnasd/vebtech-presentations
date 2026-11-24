@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="ru">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Отчёт о результатах — Вэбтех</title>
+<link rel="stylesheet" href="lib/webtech.css">
+<style>body{margin:0;background:var(--brand-50);font-family:var(--font-sans)}#root{max-width:1600px;margin:0 auto;padding:32px 16px}
+.bar{max-width:1600px;margin:0 auto;padding:24px 16px 0;display:flex;justify-content:space-between;align-items:center;gap:16px;font:600 16px/24px var(--font-sans);color:var(--ink-secondary)}
+.bar button{font:700 16px/24px var(--font-sans);padding:10px 20px;border:0;border-radius:999px;background:var(--brand-strong);color:#fff;cursor:pointer}
+@media print{.bar{display:none}#root{padding:0;max-width:none}}</style>
+</head>
+<body>
+<div class="bar wt-no-print"><span>Отчёт о результатах · 10 слайдов · шаблон, ДС 1.18.4</span><button onclick="print()">Сохранить в PDF</button></div>
+<div id="root"></div>
+<script src="lib/react.production.min.js"></script>
+<script src="lib/react-dom.production.min.js"></script>
+<script src="lib/webtech.js"></script>
+<script>
+var W = window.Webtech, h = React.createElement;
+var { TitleSlide, KpiSlide, DashboardSlide, Card, Text, BreakdownBar, GridSlide, BarChart, KpiCard, MeterList, ChartSlide, ComboChart, StackedBar, Waterfall, TableSlide, DataTable, Status, TwoColumnSlide, Timeline, ProgressBar, Badge, ContactSlide } = W;
+const slides = [
+  /* @__PURE__ */ h(TitleSlide, { composition: "column", overline: "Отчёт о результатах", title: "Итоги II квартала 2026 года", subtitle: "Финансовые и операционные показатели", author: "Финансовая дирекция", date: "Июль 2026" }),
+  /* @__PURE__ */ h(KpiSlide, { overline: "Главное", title: "Квартал выше плана по всем ключевым метрикам", items: [{ value: "13", unit: "млн BYN", label: "Выручка", delta: "+28% г/г", icon: "wallet" }, { value: "31", unit: "%", label: "Рентабельность EBITDA", delta: "+3 п. п.", icon: "percent" }, { value: "9", label: "Новых клиентов", delta: "+4 к плану", icon: "handshake" }, { value: "3,1", unit: "%", label: "Отток клиентов", delta: "−0,8 п. п.", trend: "down", sentiment: "good", icon: "users" }], source: "Управленческая отчётность, данные на 30.06.2026", section: "Итоги II квартала" }),
+  /* @__PURE__ */ h(DashboardSlide, { overline: "План / факт", title: "Выручка выше плана, затраты — с перерасходом", meta: "II квартал 2026", cards: [{ title: "Выручка", unit: "млн BYN", plan: 12.5, fact: 13 }, { title: "EBITDA", unit: "млн BYN", plan: 4, fact: 4.3 }, { title: "Новые клиенты", unit: "компаний", plan: 5, fact: 9, format: (v) => String(v) }, { title: "Операционные затраты", tone: "tint", unit: "млн BYN", better: "lower", plan: 8.5, fact: 8.7 }], aside: /* @__PURE__ */ h(Card, { tone: "warning", icon: "triangle-alert", title: "Почему затраты выше плана" }, /* @__PURE__ */ h(Text, { variant: "body", tone: "secondary" }, "Опережающий найм и мощности под запуски III квартала, тыс. BYN:"), /* @__PURE__ */ h(BreakdownBar, { totalLabel: "Перерасход", format: (v) => W.fmt(v), items: [{ label: "Найм инженеров", value: 120 }, { label: "Облако", value: 60 }, { label: "Маркетинг", value: 20 }] })), section: "Итоги II квартала" }),
+  /* @__PURE__ */ h(
+    GridSlide,
+    {
+      overline: "Драйверы",
+      meta: "II квартал 2026",
+      title: "Рост дали облако и девять новых клиентов",
+      layout: "feature-left",
+      section: "Итоги II квартала",
+      cells: [
+        /* @__PURE__ */ h(Card, { title: "Прирост выручки по направлениям", meta: "млн BYN" }, /* @__PURE__ */ h(BarChart, { orientation: "horizontal", width: 900, height: 420, highlight: 0, data: [{ label: "Облачные сервисы", value: 1.6 }, { label: "Интеграция", value: 0.6 }, { label: "Поддержка", value: 0.3 }, { label: "Консалтинг", value: 0.1 }], format: (v) => W.fmt(v, { digits: 1, minDigits: 1 }) })),
+        /* @__PURE__ */ h(KpiCard, { variant: "brand", value: "9", label: "новых клиентов за квартал", delta: "+4 к плану" }),
+        /* @__PURE__ */ h(Card, { icon: "gauge", title: "Загрузка команд" }, /* @__PURE__ */ h(MeterList, { max: 100, base: false, items: [{ label: "Разработка", value: 92, display: "92%", color: "var(--chart-1)" }, { label: "Внедрение", value: 88, display: "88%", color: "var(--chart-1)" }, { label: "Поддержка", value: 76, display: "76%", color: "var(--chart-1)" }] }))
+      ],
+      source: "Управленческая отчётность, данные на 30.06.2026"
+    }
+  ),
+  /* @__PURE__ */ h(ChartSlide, { overline: "Выручка", title: "Выручка за полтора года выросла с 8 до 13 млн BYN", chartTitle: "Выручка", chartSubtitle: "млн BYN", chart: /* @__PURE__ */ h(ComboChart, { width: 1080, height: 420, categories: ["Q1 25", "Q2 25", "Q3 25", "Q4 25", "Q1 26", "Q2 26"], bars: { name: "Факт", values: [8, 10, 10, 11, 11.5, 13] }, line: { name: "План", values: [8.5, 9, 9.5, 10.5, 12, 12.5] } }), takeaway: "План II квартала перевыполнен на 4%", points: ["Драйвер — облачные сервисы", "Сезонный рост в ритейле"], section: "Итоги II квартала" }),
+  /* @__PURE__ */ h(ChartSlide, { overline: "Структура", title: "Облачные сервисы — уже половина выручки", chartTitle: "Выручка по направлениям", chartSubtitle: "млн BYN", chart: /* @__PURE__ */ h(StackedBar, { width: 1080, height: 420, categories: ["Q3 25", "Q4 25", "Q1 26", "Q2 26"], series: [{ name: "Облако", values: [4.2, 4.8, 5.5, 6.5] }, { name: "Интеграция", values: [3.6, 3.8, 3.8, 4.2] }, { name: "Поддержка", values: [2.2, 2.4, 2.2, 2.3] }] }), takeaway: "Доля облака выросла с 42% до 50% за год", section: "Итоги II квартала" }),
+  /* @__PURE__ */ h(ChartSlide, { overline: "Прибыль", title: "EBITDA выросла на 3 млн BYN за счёт новых клиентов", chartTitle: "EBITDA, I полугодие", chartSubtitle: "млн BYN", chart: /* @__PURE__ */ h(Waterfall, { width: 1720, height: 420, steps: [{ label: "I пол. 2025", value: 5, total: true }, { label: "Новые клиенты", value: 2.5 }, { label: "Тарифы", value: 1.2 }, { label: "ФОТ", value: -0.7 }, { label: "Инфраструктура", value: -0.5 }, { label: "I пол. 2026", total: true }] }), section: "Итоги II квартала" }),
+  /* @__PURE__ */ h(TableSlide, { overline: "Детализация", title: "Все направления выполнили план", table: /* @__PURE__ */ h(DataTable, { columns: [{ title: "Направление" }, { title: "План", align: "right" }, { title: "Факт", align: "right" }, { title: "Выполнение", align: "right" }, { title: "Статус" }], rows: [["Облачные сервисы", 6.1, 6.5, "107%", /* @__PURE__ */ h(Status, { status: "ok", variant: "text", label: "Выше плана" })], ["Интеграция", 4.1, 4.2, "102%", /* @__PURE__ */ h(Status, { status: "ok", variant: "text", label: "В плане" })], ["Поддержка", 2.3, 2.3, "100%", /* @__PURE__ */ h(Status, { status: "ok", variant: "text", label: "В плане" })], ["Итого, млн BYN", "12,5", "13,0", "104%", ""]], highlightRow: 3 }), source: "Управленческая отчётность, млн BYN без НДС", section: "Итоги II квартала" }),
+  /* @__PURE__ */ h(TwoColumnSlide, { overline: "Выводы", title: "Пакеты и партнёры сработали, сроки подключения и найм улучшаем", left: { icon: "circle-check", title: "Сработало", bullets: ["Пакетные предложения для ритейла", "Партнёрский канал: 3 сделки", "Автоматизация первой линии"], marker: "check" }, right: { icon: "target", title: "Улучшаем", tint: true, bullets: ["Срок подключения в областях", "Прогнозирование загрузки ЦОД", "Скорость найма разработчиков"], marker: "dot" }, section: "Итоги II квартала" }),
+  /* @__PURE__ */ h(
+    GridSlide,
+    {
+      overline: "III квартал",
+      title: "Три цели III квартала и контрольные точки",
+      layout: "top-3",
+      rows: "auto 1fr",
+      section: "Итоги II квартала",
+      cells: [
+        /* @__PURE__ */ h(Timeline, { items: [{ date: "Июль", title: "Маркетплейс в пилоте", status: "current" }, { date: "Август", title: "4 областных центра" }, { date: "Сентябрь", title: "14 млн BYN выручки" }] }),
+        /* @__PURE__ */ h(Card, { icon: "shopping-cart", overline: "Цель 1", title: "Маркетплейс" }, /* @__PURE__ */ h(ProgressBar, { value: 40, label: "Готовность к запуску" }), /* @__PURE__ */ h(Badge, { tone: "brand", icon: "target", style: { alignSelf: "flex-start", marginTop: "auto" } }, "6 новых клиентов")),
+        /* @__PURE__ */ h(Card, { icon: "map-pin", overline: "Цель 2", title: "Регионы" }, /* @__PURE__ */ h(ProgressBar, { value: 25, label: "Офисы в областях" }), /* @__PURE__ */ h(Badge, { tone: "brand", icon: "target", style: { alignSelf: "flex-start", marginTop: "auto" } }, "4 областных центра")),
+        /* @__PURE__ */ h(Card, { icon: "users", overline: "Цель 3", title: "Найм" }, /* @__PURE__ */ h(ProgressBar, { value: 55, label: "Нанято инженеров" }), /* @__PURE__ */ h(Badge, { tone: "brand", icon: "target", style: { alignSelf: "flex-start", marginTop: "auto" } }, "40 инженеров"))
+      ]
+    }
+  ),
+  /* @__PURE__ */ h(ContactSlide, { title: "Вопросы?", subtitle: "Финансовая дирекция", contacts: [{ icon: "mail", value: "name@company.by" }, { icon: "phone", value: "+375 00 000-00-00" }, { icon: "globe", value: "www.company.by" }, { icon: "map-pin", value: "Минск, Беларусь" }] })
+];
+ReactDOM.createRoot(document.getElementById('root')).render(h(W.Deck, { layout: 'stack', gap: 32 }, slides));
+</script>
+</body>
+</html>

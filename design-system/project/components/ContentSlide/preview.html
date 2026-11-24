@@ -1,0 +1,21 @@
+<!-- @dsCard group="Макеты слайдов" height=1080 width=1920 -->
+<!doctype html>
+<html lang="ru">
+<head><meta charset="utf-8"><title>ContentSlide</title>
+<style>html,body{margin:0;background:var(--surface);font-family:var(--font-sans);color:var(--ink)}#root{padding:0px}</style>
+</head>
+<body>
+<div id="root"></div>
+<script>
+var W = window.Webtech, h = React.createElement;
+var { ContentSlide, Callout } = W;
+const s = /* @__PURE__ */ h(ContentSlide, { overline: "Стратегия", title: "Три приоритета на 2027 год", lead: "Фокус на росте в корпоративном сегменте и эффективности", bullets: [
+  { title: "Отраслевые решения", text: "Готовые продукты для банков, ритейла и госсектора" },
+  { title: "Облачная платформа", text: "Managed-сервисы с аттестацией по требованиям ОАЦ" },
+  { title: "Эффективность", text: "Автоматизация поддержки и внутренних процессов" }
+], aside: /* @__PURE__ */ h(Callout, { tone: "accent", title: "Цель" }, "Выручка 70 млн BYN и 200 корпоративных клиентов к концу 2027 года"), section: "Стратегия", page: 8, total: 24 });
+const view = s;
+ReactDOM.createRoot(document.getElementById('root')).render(view);
+</script>
+</body>
+</html>

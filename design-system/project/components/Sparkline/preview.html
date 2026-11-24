@@ -1,0 +1,16 @@
+<!-- @dsCard group="Графики" height=260 width=1400 -->
+<!doctype html>
+<html lang="ru">
+<head><meta charset="utf-8"><title>Sparkline</title>
+<style>html,body{margin:0;background:var(--surface);font-family:var(--font-sans);color:var(--ink)}#root{padding:48px}</style>
+</head>
+<body>
+<div id="root"></div>
+<script>
+var W = window.Webtech, h = React.createElement;
+var { Sparkline } = W;
+const view = /* @__PURE__ */ h("div", { style: { display: "flex", gap: 64, alignItems: "center" } }, /* @__PURE__ */ h(Sparkline, { values: [12, 14, 13, 17, 19, 18, 22, 25], title: "Рост выручки" }), /* @__PURE__ */ h(Sparkline, { values: [40, 38, 35, 36, 30, 28, 24], width: 320, height: 80, title: "Снижение оттока" }));
+ReactDOM.createRoot(document.getElementById('root')).render(view);
+</script>
+</body>
+</html>

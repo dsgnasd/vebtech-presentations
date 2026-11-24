@@ -1,0 +1,57 @@
+<!-- @dsCard group="Готовые презентации" height=1544 width=1920 subtitle="Для руководства и совета директоров · 10 слайдов" page -->
+<!doctype html>
+<html lang="ru">
+<head><meta charset="utf-8"><title>DeckBoard</title>
+<style>html,body{margin:0;background:var(--surface);font-family:var(--font-sans);color:var(--ink)}#root{padding:48px}</style>
+</head>
+<body>
+<div id="root"></div>
+<script>
+var W = window.Webtech, h = React.createElement;
+var { TitleSlide, AgendaSlide, ContentSlide, Callout, DashboardSlide, Card, Text, MeterList, ChartSlide, ComboChart, GridSlide, KpiCard, BarChart, TableSlide, StatusTable, DataTable, Status, BreakdownBar, Checklist, Deck } = W;
+const slides = [
+  /* @__PURE__ */ h(TitleSlide, { composition: "quiet", overline: "Заседание совета директоров", title: "Итоги I полугодия 2026 года", subtitle: "Материалы к заседанию 30 сентября", date: "30 сентября 2026" }),
+  /* @__PURE__ */ h(AgendaSlide, { items: [{ title: "Резюме", time: "5 мин" }, { title: "Финансовые результаты", time: "15 мин" }, { title: "Ключевые проекты", time: "10 мин" }, { title: "Риски", time: "10 мин" }, { title: "Вопросы на утверждение", time: "20 мин" }] }),
+  /* @__PURE__ */ h(ContentSlide, { overline: "Резюме", title: "Полугодие выше бюджета, прогноз на год повышаем", bullets: [{ title: "Выручка 24,5 млн BYN", text: "+29% г/г, 104% бюджета" }, { title: "EBITDA 8,1 млн BYN", text: "Рентабельность 33%, +3 п. п." }, { title: "Прогноз на год", text: "Повышаем с 46 до 48 млн BYN" }], aside: /* @__PURE__ */ h(Callout, { tone: "warning", title: "Внимание" }, "Риск по срокам проекта «Единая платформа клиента» — см. слайд 7"), section: "Совет директоров", confidential: true }),
+  /* @__PURE__ */ h(DashboardSlide, { overline: "План / факт", title: "Полугодие выше бюджета по выручке и прибыли", meta: "I полугодие 2026", cards: [{ title: "Выручка", tone: "tint", unit: "млн BYN", plan: 23.6, fact: 24.5 }, { title: "EBITDA", unit: "млн BYN", plan: 7.8, fact: 8.1 }, { title: "Рентабельность EBITDA", unit: "%", plan: 32.5, fact: 33.1, format: (v) => W.fmt(v, { digits: 1, minDigits: 1 }) + "%" }, { title: "Капитальные вложения", unit: "млн BYN", better: "lower", plan: 3.2, fact: 2.9 }], aside: /* @__PURE__ */ h(Card, { tone: "success", icon: "trending-up", title: "Прогноз на год повышаем" }, /* @__PURE__ */ h(Text, { variant: "body", tone: "secondary" }, "Контракты II полугодия подписаны, выручка года — 48 млн BYN вместо 46."), /* @__PURE__ */ h(MeterList, { items: [{ label: "Бюджет года", value: 46 }, { label: "Новый прогноз", value: 48 }, { label: "Факт полугодия", value: 24.5 }], format: (v) => W.fmt(v, { digits: 1 }) + " млн" })), section: "Совет директоров", confidential: true }),
+  /* @__PURE__ */ h(ChartSlide, { overline: "Финансы", title: "Выручка растёт быстрее бюджета", chartTitle: "Выручка по кварталам", chartSubtitle: "млн BYN", chart: /* @__PURE__ */ h(ComboChart, { width: 1080, height: 420, categories: ["Q3 25", "Q4 25", "Q1 26", "Q2 26"], bars: { name: "Факт", values: [10, 11, 11.5, 13] }, line: { name: "Бюджет", values: [9.5, 10.5, 11.2, 12.3] } }), takeaway: "104% бюджета за полугодие", source: "Управленческая отчётность", section: "Совет директоров", confidential: true }),
+  /* @__PURE__ */ h(
+    GridSlide,
+    {
+      overline: "Финансы",
+      meta: "I полугодие 2026",
+      title: "Денежный поток и долговая нагрузка в норме",
+      layout: "feature-right",
+      section: "Совет директоров",
+      confidential: true,
+      cells: [
+        /* @__PURE__ */ h(KpiCard, { variant: "outline", value: "5,2", unit: "млн BYN", label: "свободный денежный поток", delta: "+1,4 к плану" }),
+        /* @__PURE__ */ h(KpiCard, { variant: "outline", value: "0,4", label: "долг / EBITDA", delta: "норма — до 1,5", trend: "flat" }),
+        /* @__PURE__ */ h(Card, { title: "Денежный поток по месяцам", meta: "млн BYN" }, /* @__PURE__ */ h(BarChart, { width: 900, height: 440, highlight: 5, data: [{ label: "Янв", value: 0.6 }, { label: "Фев", value: 0.7 }, { label: "Мар", value: 0.9 }, { label: "Апр", value: 0.8 }, { label: "Май", value: 1 }, { label: "Июн", value: 1.2 }], format: (v) => W.fmt(v, { digits: 1, minDigits: 1 }) }))
+      ],
+      source: "Управленческая отчётность"
+    }
+  ),
+  /* @__PURE__ */ h(TableSlide, { overline: "Проекты", title: "Один из четырёх проектов в риске: «Единая платформа клиента»", table: /* @__PURE__ */ h(StatusTable, { columns: ["Проект", "Статус", "Прогресс", "Комментарий"], rows: [{ name: "Отраслевые продукты", status: "ok", statusLabel: "По плану", progress: 55, note: "Первые 2 продукта в продаже" }, { name: "Новый ЦОД", status: "ok", statusLabel: "По плану", progress: 40, note: "Запуск в I квартале 2027" }, { name: "Единая платформа клиента", status: "risk", progress: 64, note: "Задержка интеграций на 4 недели" }, { name: "Выход в области", status: "done", progress: 100, note: "4 областных центра запущены" }] }), section: "Совет директоров", confidential: true }),
+  /* @__PURE__ */ h(TableSlide, { overline: "Риски", title: "Три риска под контролем: инженеры, оборудование, интеграции", table: /* @__PURE__ */ h(DataTable, { columns: [{ title: "Риск" }, { title: "Уровень" }, { title: "Меры" }], rows: [["Дефицит инженеров", /* @__PURE__ */ h(Status, { status: "risk", label: "Средний" }), "Центры разработки в Гомеле и Гродно"], ["Рост стоимости оборудования", /* @__PURE__ */ h(Status, { status: "risk", label: "Средний" }), "Долгосрочные контракты с поставщиками"], ["Задержка интеграций", /* @__PURE__ */ h(Status, { status: "blocked", label: "Высокий" }), "Эскалация, резервный план"]] }), section: "Совет директоров", confidential: true }),
+  /* @__PURE__ */ h(
+    GridSlide,
+    {
+      overline: "Инвестиции",
+      title: "Новый ЦОД: 15 млн BYN, окупаемость 4 года",
+      layout: "halves",
+      section: "Совет директоров",
+      confidential: true,
+      cells: [
+        /* @__PURE__ */ h(Card, { icon: "server", title: "Структура инвестиций", meta: "млн BYN" }, /* @__PURE__ */ h(Text, { variant: "body", tone: "secondary" }, "Запуск в I квартале 2027, мощность — 400 стоек"), /* @__PURE__ */ h(BreakdownBar, { totalLabel: "Итого", items: [{ label: "Здание и инженерия", value: 7.5 }, { label: "Оборудование", value: 5 }, { label: "Сети", value: 1.5 }, { label: "Резерв", value: 1 }] })),
+        /* @__PURE__ */ h(Card, { tone: "tint", icon: "list-checks", title: "Условия одобрения" }, /* @__PURE__ */ h(Checklist, { items: [{ text: "Предзаказы на 40% мощности", status: "done" }, { text: "Кредитная линия банка", status: "done" }, { text: "Проектная документация", status: "progress" }, { text: "Экспертиза ОАЦ", status: "todo" }] }))
+      ]
+    }
+  ),
+  /* @__PURE__ */ h(ContentSlide, { overline: "На утверждение", title: "Совету директоров предлагается утвердить", bullets: ["Скорректированный прогноз выручки на 2026 год — 48 млн BYN", "Инвестиции в новый ЦОД — 15 млн BYN", "Программу долгосрочной мотивации ключевых сотрудников"], marker: "number", section: "Совет директоров", confidential: true })
+];
+const view = /* @__PURE__ */ h(Deck, { layout: "grid", columns: 3 }, slides);
+ReactDOM.createRoot(document.getElementById('root')).render(view);
+</script>
+</body>
+</html>

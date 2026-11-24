@@ -1,0 +1,41 @@
+<!-- @dsCard group="Таймлайны" height=760 width=1920 -->
+<!doctype html>
+<html lang="ru">
+<head><meta charset="utf-8"><title>PhaseTimeline</title>
+<style>html,body{margin:0;background:var(--surface);font-family:var(--font-sans);color:var(--ink)}#root{padding:48px}</style>
+</head>
+<body>
+<div id="root"></div>
+<script>
+var W = window.Webtech, h = React.createElement;
+var { PhaseTimeline } = W;
+const view = /* @__PURE__ */ h(
+  PhaseTimeline,
+  {
+    start: "2024-08",
+    end: "2026-06",
+    title: "Presale ML-платформы, 23 месяца",
+    spans: [{ from: "2025-02", to: "2025-09", tone: "waiting" }, { from: "2025-12", to: "2026-01", tone: "waiting" }, { from: "2026-03", to: "2026-04", tone: "waiting" }, { from: "2026-06", to: "2026-06", tone: "waiting" }],
+    milestones: [
+      { date: "2025-01-28", label: "Архитектура решения" },
+      { date: "2025-03-04", label: "КП на предпроект" },
+      { date: "2025-04-01", label: "Запрос эксперта на предпроект" },
+      { date: "2025-12-10", label: "План проекта и спецификация на ЧТЗ" },
+      { date: "2026-02-02", label: "Спецификация на ЧТЗ · поставщик Б", tone: "accent" },
+      { date: "2026-02-27", label: "ЧТЗ на ML-платформу" },
+      { date: "2026-05-07", dateLabel: "07.05 и 22.05", label: "КП на ML-платформу" }
+    ],
+    phases: [
+      { start: "2024-08-12", end: "2024-09-03", label: "Технические встречи" },
+      { start: "2024-09-03", end: "2025-01-28", label: "Исследование" },
+      { start: "2025-10-01", end: "2025-12-10", label: "Предпроект" },
+      { start: "2026-02-02", end: "2026-02-27", label: "Разработка ЧТЗ" },
+      { start: "2026-04-30", end: "2026-05-22", label: "Маркет. исследование" }
+    ],
+    legend: [{ tone: "work", label: "Работа по проекту" }, { tone: "waiting", label: "Ожидание решения банка" }]
+  }
+);
+ReactDOM.createRoot(document.getElementById('root')).render(view);
+</script>
+</body>
+</html>

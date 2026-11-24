@@ -1,0 +1,22 @@
+<!-- @dsCard group="Макеты слайдов" height=1080 width=1920 -->
+<!doctype html>
+<html lang="ru">
+<head><meta charset="utf-8"><title>KpiSlide</title>
+<style>html,body{margin:0;background:var(--surface);font-family:var(--font-sans);color:var(--ink)}#root{padding:0px}</style>
+</head>
+<body>
+<div id="root"></div>
+<script>
+var W = window.Webtech, h = React.createElement;
+var { KpiSlide } = W;
+const s = /* @__PURE__ */ h(KpiSlide, { overline: "Итоги 2026", title: "Рекордный год по всем ключевым метрикам", items: [
+  { value: "48", unit: "млн BYN", label: "Выручка", delta: "+32% к 2025", icon: "wallet" },
+  { value: "126", label: "Корпоративных клиентов", delta: "+18 за год", icon: "building" },
+  { value: "72", label: "NPS клиентов", delta: "+9 пунктов", icon: "handshake" },
+  { value: "99,95", unit: "%", label: "Доступность сервисов", delta: "SLA выполнен", trend: "flat", icon: "gauge" }
+], source: "Источник: управленческая отчётность, данные на 31.08.2026", section: "Итоги", page: 4, total: 24 });
+const view = s;
+ReactDOM.createRoot(document.getElementById('root')).render(view);
+</script>
+</body>
+</html>

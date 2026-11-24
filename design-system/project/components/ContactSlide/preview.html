@@ -1,0 +1,17 @@
+<!-- @dsCard group="Макеты слайдов" height=1080 width=1920 -->
+<!doctype html>
+<html lang="ru">
+<head><meta charset="utf-8"><title>ContactSlide</title>
+<style>html,body{margin:0;background:var(--surface);font-family:var(--font-sans);color:var(--ink)}#root{padding:0px}</style>
+</head>
+<body>
+<div id="root"></div>
+<script>
+var W = window.Webtech, h = React.createElement;
+var { ContactSlide } = W;
+const s = /* @__PURE__ */ h(ContactSlide, { title: "Спасибо!", subtitle: "Готовы ответить на вопросы", person: { name: "Илья Петров", role: "Коммерческий директор", photo: W.samplePhoto("Илья Петров") }, contacts: [{ icon: "mail", value: "name@company.by" }, { icon: "phone", value: "+375 00 000-00-00" }, { icon: "globe", value: "www.company.by" }, { icon: "map-pin", value: "Минск, Беларусь" }] });
+const view = s;
+ReactDOM.createRoot(document.getElementById('root')).render(view);
+</script>
+</body>
+</html>

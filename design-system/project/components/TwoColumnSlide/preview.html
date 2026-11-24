@@ -1,0 +1,17 @@
+<!-- @dsCard group="Макеты слайдов" height=1080 width=1920 -->
+<!doctype html>
+<html lang="ru">
+<head><meta charset="utf-8"><title>TwoColumnSlide</title>
+<style>html,body{margin:0;background:var(--surface);font-family:var(--font-sans);color:var(--ink)}#root{padding:0px}</style>
+</head>
+<body>
+<div id="root"></div>
+<script>
+var W = window.Webtech, h = React.createElement;
+var { TwoColumnSlide } = W;
+const s = /* @__PURE__ */ h(TwoColumnSlide, { overline: "Продукт", title: "Что меняется для клиента", left: { icon: "triangle-alert", title: "Сейчас", bullets: ["Заявки обрабатываются вручную до 5 дней", "Данные разбросаны по 4 системам", "Нет прозрачного статуса для клиента"], marker: "dot" }, right: { icon: "rocket", title: "После внедрения", tint: true, bullets: ["Автоматическая обработка за 2 часа", "Единый профиль клиента", "Статус заявки в личном кабинете"], marker: "check" }, section: "Продукт", page: 9, total: 24 });
+const view = s;
+ReactDOM.createRoot(document.getElementById('root')).render(view);
+</script>
+</body>
+</html>

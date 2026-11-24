@@ -1,0 +1,16 @@
+<!-- @dsCard group="Молекулы" height=160 width=1400 -->
+<!doctype html>
+<html lang="ru">
+<head><meta charset="utf-8"><title>Legend</title>
+<style>html,body{margin:0;background:var(--surface);font-family:var(--font-sans);color:var(--ink)}#root{padding:48px}</style>
+</head>
+<body>
+<div id="root"></div>
+<script>
+var W = window.Webtech, h = React.createElement;
+var { Legend } = W;
+const view = /* @__PURE__ */ h(Legend, { items: [{ label: "2025" }, { label: "2026" }, { label: "План 2027", shape: "line" }] });
+ReactDOM.createRoot(document.getElementById('root')).render(view);
+</script>
+</body>
+</html>

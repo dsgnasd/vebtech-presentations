@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="ru">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Коммерческое предложение — Вэбтех</title>
+<link rel="stylesheet" href="lib/webtech.css">
+<style>body{margin:0;background:var(--brand-50);font-family:var(--font-sans)}#root{max-width:1600px;margin:0 auto;padding:32px 16px}
+.bar{max-width:1600px;margin:0 auto;padding:24px 16px 0;display:flex;justify-content:space-between;align-items:center;gap:16px;font:600 16px/24px var(--font-sans);color:var(--ink-secondary)}
+.bar button{font:700 16px/24px var(--font-sans);padding:10px 20px;border:0;border-radius:999px;background:var(--brand-strong);color:#fff;cursor:pointer}
+@media print{.bar{display:none}#root{padding:0;max-width:none}}</style>
+</head>
+<body>
+<div class="bar wt-no-print"><span>Коммерческое предложение · 12 слайдов · шаблон, ДС 1.18.4</span><button onclick="print()">Сохранить в PDF</button></div>
+<div id="root"></div>
+<script src="lib/react.production.min.js"></script>
+<script src="lib/react-dom.production.min.js"></script>
+<script src="lib/webtech.js"></script>
+<script>
+var W = window.Webtech, h = React.createElement;
+var { TitleSlide, TwoColumnSlide, ContentSlide, IconFeature, KpiSlide, GridSlide, Card, LineChart, KpiCard, FactList, ProcessSlide, ProcessFlow, Callout, CaseSlide, TableSlide, ComparisonTable, TeamSlide, BulletList, ContactSlide } = W;
+const slides = [
+  /* @__PURE__ */ h(TitleSlide, { composition: "hero", textures: ["circuit"], overline: "Коммерческое предложение", title: "Цифровой кредитный конвейер для Банка «Пример»", subtitle: "Решение ВЭБ Технологии", author: "Илья Петров, коммерческий директор", date: "Сентябрь 2026" }),
+  /* @__PURE__ */ h(TwoColumnSlide, { overline: "Задача", title: "Банк теряет клиентов: кредит выдаётся слишком долго", left: { icon: "triangle-alert", title: "Сейчас", bullets: ["Решение по заявке — до 3 дней", "40% заявок обрабатывается вручную", "Данные в трёх несвязанных системах"], marker: "dot" }, right: { icon: "target", title: "Цель банка", tint: true, bullets: ["Решение за 2 часа", "Автоматизация 80% заявок", "Единый профиль клиента"], marker: "check" }, section: "Коммерческое предложение" }),
+  /* @__PURE__ */ h(ContentSlide, { overline: "Решение", title: "Четыре модуля закрывают весь кредитный процесс под ключ", section: "Коммерческое предложение" }, /* @__PURE__ */ h("div", { style: { display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 48 } }, /* @__PURE__ */ h(IconFeature, { icon: "workflow", title: "Конвейер" }, "Настраиваемые маршруты заявок без программирования"), /* @__PURE__ */ h(IconFeature, { icon: "gauge", title: "Скоринг" }, "Автоматические проверки и решения"), /* @__PURE__ */ h(IconFeature, { icon: "network", title: "Интеграции" }, "Кредитный регистр, МСИ, АБС банка"), /* @__PURE__ */ h(IconFeature, { icon: "shield-check", title: "Безопасность" }, "Закон № 99-З, требования ОАЦ, размещение в контуре банка"))),
+  /* @__PURE__ */ h(KpiSlide, { overline: "Выгоды", title: "Что получит банк через 6 месяцев", items: [{ value: "2", unit: "часа", label: "Решение по заявке вместо 3 дней", icon: "clock" }, { value: "+38", unit: "%", label: "Одобренных онлайн-заявок", icon: "trending-up" }, { value: "−45", unit: "%", label: "Затрат на обработку заявки", trend: "up", icon: "wallet" }], note: "Оценка на основе 4 внедрений в белорусских банках", section: "Коммерческое предложение" }),
+  /* @__PURE__ */ h(
+    GridSlide,
+    {
+      overline: "Экономика",
+      title: "Проект окупится за 9 месяцев",
+      layout: "feature-left",
+      section: "Коммерческое предложение",
+      cells: [
+        /* @__PURE__ */ h(Card, { title: "Эффект и затраты нарастающим итогом", meta: "тыс. BYN" }, /* @__PURE__ */ h(LineChart, { width: 900, height: 440, categories: ["0", "2", "4", "6", "8", "10", "12"], series: [{ name: "Эффект", values: [0, 60, 180, 340, 520, 720, 940] }, { name: "Затраты", values: [380, 450, 500, 540, 570, 600, 630], dashed: true }], format: (v) => W.fmt(v) })),
+        /* @__PURE__ */ h(KpiCard, { variant: "brand", value: "9", unit: "мес.", label: "срок окупаемости", delta: "ROI 49% за год", trend: "up" }),
+        /* @__PURE__ */ h(Card, { icon: "banknote", title: "Параметры" }, /* @__PURE__ */ h(FactList, { layout: "column", items: [{ icon: "wallet", label: "Инвестиции", value: "380 тыс. BYN" }, { icon: "trending-up", label: "Эффект в год", value: "940 тыс. BYN" }] }))
+      ],
+      source: "Расчёт на данных банка, базовый сценарий"
+    }
+  ),
+  /* @__PURE__ */ h(ProcessSlide, { overline: "Как работаем", title: "Запуск за 12 недель с фиксированной датой", process: /* @__PURE__ */ h(ProcessFlow, { steps: [{ icon: "search", title: "Аудит", text: "Процессы и системы, 2 недели" }, { icon: "layers", title: "Настройка", text: "Маршруты и правила, 4 недели" }, { icon: "network", title: "Интеграции", text: "АБС, Кредитный регистр, МСИ, 4 недели" }, { icon: "rocket", title: "Запуск", text: "Пилот и обучение, 2 недели" }] }), note: /* @__PURE__ */ h(Callout, { tone: "success", title: "Фиксированный срок" }, "Дата запуска и этапы прописываются в договоре"), section: "Коммерческое предложение" }),
+  /* @__PURE__ */ h(CaseSlide, { title: "Банк: решение за 2 часа вместо 3 дней", client: "Банк из топ-10 Беларуси, 1,2 млн клиентов", problem: "Ручная обработка заявок и отток клиентов к конкурентам.", solution: ["Кредитный конвейер", "Автоматический скоринг", "Интеграция с Кредитным регистром"], results: [{ value: "2 часа", label: "на решение" }, { value: "+38%", label: "онлайн-одобрений" }], section: "Коммерческое предложение" }),
+  /* @__PURE__ */ h(TableSlide, { overline: "Варианты", title: "Рекомендуем тариф «Бизнес»", table: /* @__PURE__ */ h(ComparisonTable, { options: ["Базовый", "Бизнес", "Корпоративный"], highlight: 1, features: [{ name: "Стоимость, тыс. BYN/год", values: ["200", "370", "от 600"] }, { name: "Заявок в месяц", values: ["до 20 тыс.", "до 100 тыс.", "без ограничений"] }, { name: "SLA", values: ["99,5%", "99,9%", "99,95%"] }, { name: "Выделенная команда", values: [false, true, true] }, { name: "Размещение в контуре банка", values: [false, false, true] }] }), note: "Цены без НДС, лицензия и поддержка включены", section: "Коммерческое предложение" }),
+  /* @__PURE__ */ h(TeamSlide, { overline: "Команда", title: "Проект ведёт команда с опытом 30+ внедрений в банках", people: [{ name: "Мария Козлова", role: "Руководитель проекта", text: "30+ внедрений в банках", photo: W.samplePhoto("Мария Козлова") }, { name: "Илья Петров", role: "Аккаунт-менеджер", text: "Точка входа по всем вопросам", photo: W.samplePhoto("Илья Петров") }, { name: "Анна Смирнова", role: "Бизнес-аналитик", text: "Кредитные процессы", photo: W.samplePhoto("Анна Смирнова") }, { name: "Алексей Орлов", role: "Архитектор", text: "Интеграции с АБС", photo: W.samplePhoto("Алексей Орлов") }], section: "Коммерческое предложение" }),
+  /* @__PURE__ */ h(
+    GridSlide,
+    {
+      overline: "Почему мы",
+      title: "Банки выбирают Вэбтех за опыт, фиксированные сроки и поддержку 24/7",
+      layout: "bottom-3",
+      section: "Коммерческое предложение",
+      cells: [
+        /* @__PURE__ */ h(Card, { icon: "building", overline: "Опыт", title: "40 банковских проектов" }, /* @__PURE__ */ h(BulletList, { size: "sm", items: ["Кредитные конвейеры", "Дистанционное обслуживание", "Интеграция с Кредитным регистром"] })),
+        /* @__PURE__ */ h(Card, { icon: "calendar", overline: "Сроки", title: "12 недель — фиксированно" }, /* @__PURE__ */ h(BulletList, { size: "sm", items: ["Дата запуска в договоре", "Еженедельные демо", "Штраф за срыв срока"] })),
+        /* @__PURE__ */ h(Card, { icon: "headset", overline: "Поддержка", title: "24/7 после запуска" }, /* @__PURE__ */ h(BulletList, { size: "sm", items: ["Ответ за 15 минут", "Своя команда эксплуатации", "SLA 99,9%"] })),
+        /* @__PURE__ */ h(Callout, { tone: "accent", title: "Гарантия" }, "Если не запустим за 12 недель, следующий месяц поддержки — за наш счёт")
+      ]
+    }
+  ),
+  /* @__PURE__ */ h(ContentSlide, { overline: "Следующие шаги", title: "Предлагаем начать с бесплатного аудита", bullets: [{ title: "До 1 октября", text: "Встреча с командой кредитования банка" }, { title: "Октябрь", text: "Аудит процессов — 2 недели, бесплатно" }, { title: "Ноябрь", text: "Договор и старт проекта" }], marker: "number", section: "Коммерческое предложение" }),
+  /* @__PURE__ */ h(ContactSlide, { title: "Спасибо!", subtitle: "Готовы обсудить детали", person: { name: "Илья Петров", role: "Коммерческий директор", photo: W.samplePhoto("Илья Петров") }, contacts: [{ icon: "mail", value: "name@company.by" }, { icon: "phone", value: "+375 00 000-00-00" }, { icon: "globe", value: "www.company.by" }, { icon: "map-pin", value: "Минск, Беларусь" }] })
+];
+ReactDOM.createRoot(document.getElementById('root')).render(h(W.Deck, { layout: 'stack', gap: 32 }, slides));
+</script>
+</body>
+</html>

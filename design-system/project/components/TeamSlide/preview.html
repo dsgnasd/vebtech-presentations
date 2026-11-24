@@ -1,0 +1,22 @@
+<!-- @dsCard group="Макеты слайдов" height=1080 width=1920 -->
+<!doctype html>
+<html lang="ru">
+<head><meta charset="utf-8"><title>TeamSlide</title>
+<style>html,body{margin:0;background:var(--surface);font-family:var(--font-sans);color:var(--ink)}#root{padding:0px}</style>
+</head>
+<body>
+<div id="root"></div>
+<script>
+var W = window.Webtech, h = React.createElement;
+var { TeamSlide } = W;
+const s = /* @__PURE__ */ h(TeamSlide, { overline: "Команда проекта", title: "Выделенная команда из 12 специалистов", people: [
+  { name: "Мария Козлова", role: "Руководитель проекта", text: "15 лет в ИТ, 30+ внедрений", photo: W.samplePhoto("Мария Козлова") },
+  { name: "Алексей Орлов", role: "Архитектор", text: "Высоконагруженные системы", photo: W.samplePhoto("Алексей Орлов") },
+  { name: "Анна Смирнова", role: "Бизнес-аналитик", text: "Банковские процессы", photo: W.samplePhoto("Анна Смирнова") },
+  { name: "Илья Петров", role: "Тимлид разработки", text: "Java, Kotlin, Kubernetes", photo: W.samplePhoto("Илья Петров") }
+], section: "Команда", page: 15, total: 24 });
+const view = s;
+ReactDOM.createRoot(document.getElementById('root')).render(view);
+</script>
+</body>
+</html>

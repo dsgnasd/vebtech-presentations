@@ -1,0 +1,17 @@
+<!-- @dsCard group="Макеты слайдов" height=1080 width=1920 -->
+<!doctype html>
+<html lang="ru">
+<head><meta charset="utf-8"><title>ChartSlide</title>
+<style>html,body{margin:0;background:var(--surface);font-family:var(--font-sans);color:var(--ink)}#root{padding:0px}</style>
+</head>
+<body>
+<div id="root"></div>
+<script>
+var W = window.Webtech, h = React.createElement;
+var { ChartSlide, BarChart } = W;
+const s = /* @__PURE__ */ h(ChartSlide, { overline: "Финансы", title: "Выручка удвоилась за три года", chartTitle: "Выручка", chartSubtitle: "млн BYN", chart: /* @__PURE__ */ h(BarChart, { width: 1080, height: 480, highlight: "2026", data: [{ label: "2022", value: 14 }, { label: "2023", value: 21 }, { label: "2024", value: 29 }, { label: "2025", value: 36 }, { label: "2026", value: 48 }] }), takeaway: "+32% в 2026 году — выше рынка в 2 раза", points: ["Облачные сервисы — 45% выручки", "18 новых корпоративных клиентов"], source: "Источник: управленческая отчётность", section: "Финансы", page: 7, total: 24 });
+const view = s;
+ReactDOM.createRoot(document.getElementById('root')).render(view);
+</script>
+</body>
+</html>

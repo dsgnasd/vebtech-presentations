@@ -1,0 +1,16 @@
+<!-- @dsCard group="Молекулы" height=360 width=1920 -->
+<!doctype html>
+<html lang="ru">
+<head><meta charset="utf-8"><title>SlideHeader</title>
+<style>html,body{margin:0;background:var(--surface);font-family:var(--font-sans);color:var(--ink)}#root{padding:48px}</style>
+</head>
+<body>
+<div id="root"></div>
+<script>
+var W = window.Webtech, h = React.createElement;
+var { SlideHeader, Badge } = W;
+const view = /* @__PURE__ */ h(SlideHeader, { overline: "Финансы", title: "Выручка выросла на 32% за год", lead: "Рост обеспечен облачными продуктами и новыми B2B-клиентами", aside: /* @__PURE__ */ h(Badge, { tone: "success" }, "Выше плана") });
+ReactDOM.createRoot(document.getElementById('root')).render(view);
+</script>
+</body>
+</html>

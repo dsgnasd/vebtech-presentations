@@ -1,0 +1,57 @@
+<!-- @dsCard group="Готовые презентации" height=1544 width=1920 subtitle="Продуктовая презентация · 11 слайдов" page -->
+<!doctype html>
+<html lang="ru">
+<head><meta charset="utf-8"><title>DeckProduct</title>
+<style>html,body{margin:0;background:var(--surface);font-family:var(--font-sans);color:var(--ink)}#root{padding:48px}</style>
+</head>
+<body>
+<div id="root"></div>
+<script>
+var W = window.Webtech, h = React.createElement;
+var { TitleSlide, ContentSlide, KpiCard, ImageTextSlide, IconFeature, GridSlide, Card, BulletList, BarChart, ProcessSlide, ProcessFlow, ChartSlide, Quote, TableSlide, ComparisonTable, RoadmapSlide, Roadmap, ContactSlide, Deck } = W;
+const slides = [
+  /* @__PURE__ */ h(TitleSlide, { composition: "hero", overline: "Продукт", title: "Вэбтех Облако 3.0", subtitle: "Управляемая облачная платформа для корпоративных сервисов", date: "Сентябрь 2026" }),
+  /* @__PURE__ */ h(ContentSlide, { overline: "Проблема", title: "Компании тратят до 40% бюджета ИТ на поддержку инфраструктуры", bullets: ["Разрозненные среды разработки и эксплуатации", "Долгий запуск новых сервисов — 2–3 месяца", "Сложно выполнить требования ОАЦ и Закона № 99-З"], aside: /* @__PURE__ */ h(KpiCard, { variant: "brand", size: "lg", value: "40", unit: "%", label: "Бюджета ИТ уходит на инфраструктуру" }), section: "Вэбтех Облако 3.0" }),
+  /* @__PURE__ */ h(ImageTextSlide, { overline: "Продукт", title: "Всё для запуска сервисов в одной консоли", text: "Kubernetes, базы данных, мониторинг и безопасность как сервис", bullets: ["Запуск среды за 15 минут", "Оплата по потреблению", "Аттестация по требованиям ОАЦ"], caption: "Консоль управления, версия 3.0", section: "Вэбтех Облако 3.0" }),
+  /* @__PURE__ */ h(ContentSlide, { overline: "Возможности", title: "Шесть сервисов закрывают запуск и эксплуатацию", section: "Вэбтех Облако 3.0" }, /* @__PURE__ */ h("div", { style: { display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "48px 64px" } }, /* @__PURE__ */ h(IconFeature, { layout: "horizontal", icon: "server", title: "Kubernetes" }, "Managed-кластеры с автомасштабированием"), /* @__PURE__ */ h(IconFeature, { layout: "horizontal", icon: "database", title: "Базы данных" }, "PostgreSQL, Redis, ClickHouse"), /* @__PURE__ */ h(IconFeature, { layout: "horizontal", icon: "gauge", title: "Мониторинг" }, "Метрики, логи и алерты"), /* @__PURE__ */ h(IconFeature, { layout: "horizontal", icon: "shield-check", title: "Безопасность" }, "WAF, IAM, шифрование"), /* @__PURE__ */ h(IconFeature, { layout: "horizontal", icon: "git-branch", title: "CI/CD" }, "Конвейер от коммита до релиза"), /* @__PURE__ */ h(IconFeature, { layout: "horizontal", icon: "headset", title: "Поддержка" }, "Инженеры 24/7"))),
+  /* @__PURE__ */ h(
+    GridSlide,
+    {
+      overline: "Ценность",
+      title: "Одна консоль вместо пяти инструментов",
+      layout: "feature-right",
+      section: "Вэбтех Облако 3.0",
+      cells: [
+        /* @__PURE__ */ h(Card, { icon: "x", title: "Было" }, /* @__PURE__ */ h(BulletList, { size: "sm", marker: "cross", items: ["5 консолей и 3 подрядчика", "Релиз — раз в месяц", "Мониторинг вручную"] })),
+        /* @__PURE__ */ h(Card, { tone: "tint", icon: "check", title: "Стало" }, /* @__PURE__ */ h(BulletList, { size: "sm", marker: "check", items: ["Одна консоль и одна команда", "Релиз — каждый день", "Алерты и автомасштабирование"] })),
+        /* @__PURE__ */ h(Card, { title: "Время на типовые задачи", meta: "минут" }, /* @__PURE__ */ h(BarChart, { orientation: "horizontal", width: 900, height: 440, categories: ["Развернуть сервис", "Добавить сервер", "Выпустить релиз"], series: [{ name: "Было", values: [240, 120, 180], color: "var(--chart-other)" }, { name: "Облако 3.0", values: [15, 5, 20] }] }))
+      ]
+    }
+  ),
+  /* @__PURE__ */ h(ProcessSlide, { overline: "Сценарий", title: "От идеи до продакшена за один день", process: /* @__PURE__ */ h(ProcessFlow, { steps: [{ icon: "code", title: "Код", text: "Разработчик пушит изменения" }, { icon: "list-checks", title: "Проверки", text: "Тесты и сканирование" }, { icon: "server", title: "Стенд", text: "Автоматический деплой" }, { icon: "rocket", title: "Релиз", text: "Канареечный выпуск" }] }), section: "Вэбтех Облако 3.0" }),
+  /* @__PURE__ */ h(ChartSlide, { overline: "Метрики", title: "Клиенты платформы выпускают релизы в 5 раз чаще", chartTitle: "Релизов в месяц на команду", chart: /* @__PURE__ */ h(BarChart, { width: 1080, height: 420, orientation: "horizontal", highlight: "Вэбтех Облако", data: [{ label: "Вэбтех Облако", value: 42 }, { label: "Своя инфраструктура", value: 8 }, { label: "Публичное облако", value: 19 }] }), takeaway: "42 релиза в месяц вместо 8", source: "Опрос 38 команд клиентов, 2026", section: "Вэбтех Облако 3.0" }),
+  /* @__PURE__ */ h(
+    GridSlide,
+    {
+      overline: "Клиенты",
+      title: "120 компаний уже работают на платформе",
+      layout: "top-3",
+      rows: "auto 1fr",
+      section: "Вэбтех Облако 3.0",
+      cells: [
+        /* @__PURE__ */ h(Card, { tone: "tint" }, /* @__PURE__ */ h(Quote, { author: "Ольга Миронова", role: "CTO сервиса доставки «Пример»" }, "Мы перестали думать об инфраструктуре и занялись продуктом")),
+        /* @__PURE__ */ h(KpiCard, { variant: "outline", icon: "users", value: "120", label: "компаний на платформе", delta: "+45 за год" }),
+        /* @__PURE__ */ h(KpiCard, { variant: "outline", icon: "gauge", value: "99,95", unit: "%", label: "доступность за год", delta: "выше SLA", trend: "none" }),
+        /* @__PURE__ */ h(KpiCard, { variant: "outline", icon: "rocket", value: "5×", label: "чаще релизы у клиентов", delta: "в среднем", trend: "none" })
+      ]
+    }
+  ),
+  /* @__PURE__ */ h(TableSlide, { overline: "Сравнение", title: "Платформа закрывает требования, которые не закрывают альтернативы", table: /* @__PURE__ */ h(ComparisonTable, { options: ["Вэбтех Облако", "Своя инфраструктура", "Публичное облако"], highlight: 0, features: [{ name: "Запуск среды", values: ["15 минут", "2–3 месяца", "1 день"] }, { name: "Соответствие требованиям ОАЦ и Закону № 99-З", values: [true, true, false] }, { name: "Оплата по потреблению", values: [true, false, true] }, { name: "Поддержка 24/7 на русском", values: [true, false, false] }] }), section: "Вэбтех Облако 3.0" }),
+  /* @__PURE__ */ h(RoadmapSlide, { overline: "Развитие", title: "В плане продукта: ClickHouse, ML-платформа, аттестация ОАЦ, ЦОД в Гомеле", roadmap: /* @__PURE__ */ h(Roadmap, { periods: ["Q4 2026", "Q1 2027", "Q2 2027", "Q3 2027"], today: 0.3, lanes: [{ name: "Сервисы", items: [{ start: 0, end: 1, label: "ClickHouse", status: "progress" }, { start: 1, end: 3, label: "ML-платформа", status: "planned" }] }, { name: "Безопасность", items: [{ start: 0, end: 2, label: "Аттестация ОАЦ", status: "progress" }] }, { name: "Регионы", items: [{ start: 1, end: 4, label: "ЦОД в Гомеле", status: "planned" }] }] }), section: "Вэбтех Облако 3.0" }),
+  /* @__PURE__ */ h(ContactSlide, { title: "Попробуйте бесплатно", subtitle: "30 дней тестового периода и помощь архитектора", contacts: [{ icon: "mail", value: "name@company.by" }, { icon: "phone", value: "+375 00 000-00-00" }, { icon: "globe", value: "www.company.by" }, { icon: "map-pin", value: "Минск, Беларусь" }] })
+];
+const view = /* @__PURE__ */ h(Deck, { layout: "grid", columns: 3 }, slides);
+ReactDOM.createRoot(document.getElementById('root')).render(view);
+</script>
+</body>
+</html>

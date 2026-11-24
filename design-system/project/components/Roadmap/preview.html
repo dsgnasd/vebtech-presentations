@@ -1,0 +1,21 @@
+<!-- @dsCard group="Таймлайны" height=700 width=1920 -->
+<!doctype html>
+<html lang="ru">
+<head><meta charset="utf-8"><title>Roadmap</title>
+<style>html,body{margin:0;background:var(--surface);font-family:var(--font-sans);color:var(--ink)}#root{padding:48px}</style>
+</head>
+<body>
+<div id="root"></div>
+<script>
+var W = window.Webtech, h = React.createElement;
+var { Roadmap } = W;
+const view = /* @__PURE__ */ h(Roadmap, { periods: ["Q1 2026", "Q2 2026", "Q3 2026", "Q4 2026", "Q1 2027", "Q2 2027"], today: 2.6, lanes: [
+  { name: "Платформа", items: [{ start: 0, end: 2, label: "Ядро и API", status: "done" }, { start: 2, end: 4, label: "Масштабирование", status: "progress" }] },
+  { name: "Продукты", items: [{ start: 1, end: 3, label: "Мобильное приложение", status: "progress" }, { start: 3.2, end: 6, label: "Маркетплейс", status: "planned" }] },
+  { name: "Интеграции", items: [{ start: 1.5, end: 3.4, label: "Биллинг", status: "risk" }, { start: 3.6, end: 5, label: "1С и ERP", status: "planned" }] },
+  { name: "Выход в регионы", items: [{ start: 0, end: 1, label: "Пилот", status: "done" }, { start: 4, end: 6, label: "12 регионов", status: "planned" }] }
+] });
+ReactDOM.createRoot(document.getElementById('root')).render(view);
+</script>
+</body>
+</html>

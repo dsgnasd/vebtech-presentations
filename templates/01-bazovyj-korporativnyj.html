@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="ru">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Базовый корпоративный — Вэбтех</title>
+<link rel="stylesheet" href="lib/webtech.css">
+<style>body{margin:0;background:var(--brand-50);font-family:var(--font-sans)}#root{max-width:1600px;margin:0 auto;padding:32px 16px}
+.bar{max-width:1600px;margin:0 auto;padding:24px 16px 0;display:flex;justify-content:space-between;align-items:center;gap:16px;font:600 16px/24px var(--font-sans);color:var(--ink-secondary)}
+.bar button{font:700 16px/24px var(--font-sans);padding:10px 20px;border:0;border-radius:999px;background:var(--brand-strong);color:#fff;cursor:pointer}
+@media print{.bar{display:none}#root{padding:0;max-width:none}}</style>
+</head>
+<body>
+<div class="bar wt-no-print"><span>Базовый корпоративный · 14 слайдов · шаблон, ДС 1.18.4</span><button onclick="print()">Сохранить в PDF</button></div>
+<div id="root"></div>
+<script src="lib/react.production.min.js"></script>
+<script src="lib/react-dom.production.min.js"></script>
+<script src="lib/webtech.js"></script>
+<script>
+var W = window.Webtech, h = React.createElement;
+var { TitleSlide, AgendaSlide, GridSlide, Card, BarChart, KpiCard, MeterList, SectionSlide, BulletList, Callout, DonutChart, Quote, Text, ProgressBar, StatusTable, FactList, Badge, Timeline, ChartSlide, ComboChart, BreakdownBar, Checklist, ImageTextSlide, QuoteSlide, ContactSlide } = W;
+const slides = [
+  /* @__PURE__ */ h(TitleSlide, { composition: "hero", textures: ["circuit", "glass"], overline: "Программа «Цифровой сервис»", title: "Итоги 2026 и план на 2027", subtitle: "Стратегическая сессия: результаты года, приоритеты и бюджет на утверждение", author: "Иван Петров, директор программы", date: "15 декабря 2026" }),
+  /* @__PURE__ */ h(AgendaSlide, { items: [{ title: "Итоги 2026", text: "Выручка, направления, клиенты", time: "15 мин" }, { title: "Портфель проектов", text: "Что в срок и что в риске", time: "10 мин" }, { title: "Приоритеты 2027", text: "Три направления роста", time: "15 мин" }, { title: "Прогноз и бюджет", text: "Цифры на утверждение", time: "10 мин" }, { title: "Решения", text: "Что утверждаем сегодня", time: "10 мин" }] }),
+  /* @__PURE__ */ h(
+    GridSlide,
+    {
+      overline: "Главное",
+      meta: "Итоги 2026",
+      title: "Выручка программы выросла на 32% — лучший год",
+      layout: "feature-left",
+      section: "Итоги 2026 и план",
+      cells: [
+        /* @__PURE__ */ h(Card, { title: "Выручка по кварталам", meta: "млн BYN" }, /* @__PURE__ */ h(BarChart, { width: 900, height: 500, highlight: 7, data: [{ label: "I 25", value: 8.2 }, { label: "II 25", value: 8.9 }, { label: "III 25", value: 9.1 }, { label: "IV 25", value: 10.2 }, { label: "I 26", value: 10.8 }, { label: "II 26", value: 11.6 }, { label: "III 26", value: 12.1 }, { label: "IV 26", value: 13.5 }], format: (v) => W.fmt(v, { digits: 1, minDigits: 1 }) })),
+        /* @__PURE__ */ h(KpiCard, { variant: "brand", value: "48", unit: "млн BYN", label: "Выручка за 2026 год", delta: "+32% к 2025" }),
+        /* @__PURE__ */ h(Card, { icon: "target", title: "Цели года" }, /* @__PURE__ */ h(MeterList, { max: 120, base: false, items: [{ label: "Выручка", value: 104, display: "104%", color: "var(--chart-1)" }, { label: "Новые клиенты", value: 112, display: "112%", color: "var(--chart-1)" }, { label: "Автоматизация обращений", value: 86, display: "86%", color: "var(--chart-other)" }] }))
+      ],
+      source: "Управленческая отчётность, данные на 30.11.2026"
+    }
+  ),
+  /* @__PURE__ */ h(SectionSlide, { number: 1, title: "Итоги 2026", subtitle: "Направления, клиенты и портфель проектов" }),
+  /* @__PURE__ */ h(
+    GridSlide,
+    {
+      overline: "Итоги 2026",
+      title: "Три направления дали 91% прироста выручки",
+      layout: "bottom-3",
+      section: "Итоги 2026 и план",
+      cells: [
+        /* @__PURE__ */ h(Card, { icon: "cloud", overline: "Направление 1", title: "Облачный сервис" }, /* @__PURE__ */ h(KpiCard, { variant: "plain", value: "+6,2", unit: "млн BYN", label: "прирост выручки" }), /* @__PURE__ */ h(BulletList, { size: "sm", items: ["38 новых клиентов", "Переход на подписку", "Площадка в Минске загружена на 85%"] })),
+        /* @__PURE__ */ h(Card, { icon: "headset", overline: "Направление 2", title: "Центр поддержки" }, /* @__PURE__ */ h(KpiCard, { variant: "plain", value: "+3,1", unit: "млн BYN", label: "прирост выручки" }), /* @__PURE__ */ h(BulletList, { size: "sm", items: ["Работа 24/7 в 4 областях", "Ответ за 2 минуты", "94% обращений решены с первого раза"] })),
+        /* @__PURE__ */ h(Card, { icon: "workflow", overline: "Направление 3", title: "Автоматизация" }, /* @__PURE__ */ h(KpiCard, { variant: "plain", value: "+1,3", unit: "млн BYN", label: "прирост выручки" }), /* @__PURE__ */ h(BulletList, { size: "sm", items: ["Боты в 12 процессах", "−18% ручных операций", "Окупаемость — 7 месяцев"] })),
+        /* @__PURE__ */ h(Callout, { tone: "accent", title: "Вывод" }, "Рост дают сервисы по подписке: в 2027 году вкладываем в облако и поддержку, автоматизацию развиваем внутри них")
+      ]
+    }
+  ),
+  /* @__PURE__ */ h(
+    GridSlide,
+    {
+      overline: "Клиенты",
+      title: "Клиенты довольны, но сроки внедрения — зона риска",
+      layout: "2x2",
+      section: "Итоги 2026 и план",
+      cells: [
+        /* @__PURE__ */ h(Card, null, /* @__PURE__ */ h(DonutChart, { size: 250, thickness: 48, centerValue: "126", centerLabel: "клиентов", data: [{ label: "Ритейл", value: 38 }, { label: "Банки", value: 27 }, { label: "Госсектор", value: 21 }, { label: "Прочее", value: 14 }] })),
+        /* @__PURE__ */ h(Card, { tone: "tint" }, /* @__PURE__ */ h(Quote, { author: "Анна Ковалёва", role: "ИТ-директор ритейл-сети «Север»" }, "Поддержка отвечает быстрее нашего отдела — даже в выходные")),
+        /* @__PURE__ */ h(Card, { icon: "star", title: "NPS по регионам", meta: "пункты" }, /* @__PURE__ */ h(MeterList, { layout: "inline", max: 80, base: false, items: [{ label: "Минск", value: 62, color: "var(--chart-1)" }, { label: "Брест", value: 55, color: "var(--chart-1)" }, { label: "Гродно", value: 48, color: "var(--chart-1)" }, { label: "Гомель", value: 41, color: "var(--chart-1)" }] })),
+        /* @__PURE__ */ h(Card, { tone: "warning", icon: "triangle-alert", title: "Внедрение — 9 недель вместо 6" }, /* @__PURE__ */ h(Text, { variant: "body", tone: "secondary" }, "Узкое место — интеграция с учётными системами клиентов"), /* @__PURE__ */ h(ProgressBar, { value: 72, label: "Проекты, внедрённые в срок", status: "warning" }))
+      ]
+    }
+  ),
+  /* @__PURE__ */ h(
+    GridSlide,
+    {
+      overline: "Портфель",
+      title: "20 из 24 проектов идут по плану",
+      layout: "halves",
+      columns: "2fr 1fr",
+      section: "Итоги 2026 и план",
+      cells: [
+        /* @__PURE__ */ h(StatusTable, { rows: [{ name: "Облако для ритейла", status: "ok", statusLabel: "По плану", progress: 80, note: "Запуск в январе" }, { name: "Поддержка 24/7", status: "done", progress: 100, note: "Работает с июня" }, { name: "Бот первой линии", status: "ok", statusLabel: "По плану", progress: 65, note: "12 процессов из 18" }, { name: "Интеграция с 1С", status: "risk", progress: 40, note: "Задержка на 3 недели" }, { name: "Личный кабинет", status: "planned", progress: 0, note: "Старт в феврале" }] }),
+        /* @__PURE__ */ h(Card, { icon: "briefcase", title: "Портфель 2026" }, /* @__PURE__ */ h(FactList, { layout: "column", items: [{ icon: "layers", label: "Проектов", value: "24" }, { icon: "circle-check", label: "В срок", value: "20 из 24" }, { icon: "wallet", label: "Бюджет", value: "12,4 млн BYN" }, { icon: "users", label: "Команда", value: "86 человек" }] }))
+      ]
+    }
+  ),
+  /* @__PURE__ */ h(SectionSlide, { number: 2, title: "План на 2027", subtitle: "Приоритеты, прогноз и бюджет" }),
+  /* @__PURE__ */ h(
+    GridSlide,
+    {
+      overline: "Приоритеты 2027",
+      title: "Три приоритета: облако, поддержка, кабинет клиента",
+      layout: "bottom-3",
+      section: "Итоги 2026 и план",
+      cells: [
+        /* @__PURE__ */ h(Card, { icon: "cloud", overline: "Приоритет 1", title: "Облако в регионах" }, /* @__PURE__ */ h(Text, { variant: "body", tone: "secondary" }, "Площадки в Гомеле и Гродно, миграция 40 клиентов"), /* @__PURE__ */ h(ProgressBar, { value: 20, label: "Готовность площадки в Гомеле" }), /* @__PURE__ */ h(Badge, { tone: "brand", icon: "target", style: { alignSelf: "flex-start", marginTop: "auto" } }, "Цель: 30 млн BYN")),
+        /* @__PURE__ */ h(Card, { icon: "headset", overline: "Приоритет 2", title: "Поддержка на ИИ" }, /* @__PURE__ */ h(Text, { variant: "body", tone: "secondary" }, "Бот закрывает простые обращения, люди — сложные"), /* @__PURE__ */ h(ProgressBar, { value: 35, label: "Обращения, закрытые ботом" }), /* @__PURE__ */ h(Badge, { tone: "brand", icon: "target", style: { alignSelf: "flex-start", marginTop: "auto" } }, "Цель: 60% обращений")),
+        /* @__PURE__ */ h(Card, { icon: "smartphone", overline: "Приоритет 3", title: "Кабинет клиента" }, /* @__PURE__ */ h(Text, { variant: "body", tone: "secondary" }, "Заявки, счета и статусы проектов в одном окне"), /* @__PURE__ */ h(ProgressBar, { value: 10, label: "Клиенты в кабинете" }), /* @__PURE__ */ h(Badge, { tone: "brand", icon: "target", style: { alignSelf: "flex-start", marginTop: "auto" } }, "Цель: 80% клиентов")),
+        /* @__PURE__ */ h(Timeline, { items: [{ date: "I кв.", title: "Площадка в Гомеле", status: "current" }, { date: "II кв.", title: "Бот во всех каналах" }, { date: "III кв.", title: "Кабинет клиента" }, { date: "IV кв.", title: "Площадка в Гродно" }] })
+      ]
+    }
+  ),
+  /* @__PURE__ */ h(ChartSlide, { overline: "Прогноз", title: "При сохранении темпа выручка 2027 — 62 млн BYN", chartTitle: "Выручка программы", chartSubtitle: "млн BYN, 2027 — прогноз", chart: /* @__PURE__ */ h(ComboChart, { width: 1080, height: 400, categories: ["2023", "2024", "2025", "2026", "2027П"], bars: { name: "Факт и прогноз", values: [21, 29, 36.4, 48, 62] }, line: { name: "План", values: [20, 28, 35, 46, 58] }, format: (v) => W.fmt(v, { digits: 1 }) }), takeaway: "+29% в 2027 году", points: ["Облако в регионах — +8 млн BYN", "Кабинет клиента — +3 млн BYN", "Риск: сроки внедрения"], source: "Прогноз программы, базовый сценарий", section: "Итоги 2026 и план" }),
+  /* @__PURE__ */ h(
+    GridSlide,
+    {
+      overline: "Бюджет",
+      title: "Бюджет вырастет на 18%, главная статья — команда",
+      layout: "halves",
+      section: "Итоги 2026 и план",
+      cells: [
+        /* @__PURE__ */ h(Card, { icon: "wallet", title: "Бюджет 2027", meta: "млн BYN" }, /* @__PURE__ */ h(Text, { variant: "body", tone: "secondary" }, "14,6 млн BYN против 12,4 в 2026 году"), /* @__PURE__ */ h(BreakdownBar, { totalLabel: "Итого", items: [{ label: "Команда", value: 7.8 }, { label: "Облако и инфраструктура", value: 3.4 }, { label: "Лицензии", value: 1.6 }, { label: "Обучение", value: 0.9 }, { label: "Маркетинг", value: 0.9 }] })),
+        /* @__PURE__ */ h(Card, { tone: "tint", icon: "list-checks", title: "Просим утвердить" }, /* @__PURE__ */ h(Checklist, { items: [{ text: "Бюджет 2027 — 14,6 млн BYN", meta: "Сегодня" }, { text: "Найм 24 инженеров", meta: "Январь" }, { text: "Площадку в Гомеле", meta: "I кв." }, { text: "Цели по выручке — 62 млн BYN", meta: "Сегодня" }] }))
+      ]
+    }
+  ),
+  /* @__PURE__ */ h(ImageTextSlide, { overline: "Регионы", title: "Офис в Гродно откроется в I квартале", text: "40 рабочих мест, смены 24/7, обслуживание клиентов Гродненской и Брестской областей", bullets: ["Аренда подписана, ремонт до февраля", "Набор 32 специалистов — с января", "Выход на полную нагрузку — апрель"], caption: "Визуализация офиса, ул. Советская", section: "Итоги 2026 и план" }),
+  /* @__PURE__ */ h(QuoteSlide, { quote: "Мы выросли, потому что клиенты платят за результат, а не за часы. В 2027 году делаем то же самое в регионах.", author: "Иван Петров", role: "Директор программы «Цифровой сервис»", photo: null }),
+  /* @__PURE__ */ h(ContactSlide, { title: "Спасибо!", subtitle: "Вопросы и обсуждение", person: { name: "Иван Петров", role: "Директор программы" }, contacts: [{ icon: "mail", value: "name@company.by" }, { icon: "phone", value: "+375 00 000-00-00" }, { icon: "globe", value: "www.company.by" }, { icon: "map-pin", value: "Минск, Беларусь" }] })
+];
+ReactDOM.createRoot(document.getElementById('root')).render(h(W.Deck, { layout: 'stack', gap: 32 }, slides));
+</script>
+</body>
+</html>

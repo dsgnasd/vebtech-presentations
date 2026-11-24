@@ -1,0 +1,20 @@
+<!-- @dsCard group="Молекулы" height=560 width=1920 -->
+<!doctype html>
+<html lang="ru">
+<head><meta charset="utf-8"><title>MeterList</title>
+<style>html,body{margin:0;background:var(--surface);font-family:var(--font-sans);color:var(--ink)}#root{padding:48px}</style>
+</head>
+<body>
+<div id="root"></div>
+<script>
+var W = window.Webtech, h = React.createElement;
+var { MeterList } = W;
+const view = /* @__PURE__ */ h("div", { style: { display: "grid", gridTemplateColumns: "1fr 1fr", gap: 96 } }, /* @__PURE__ */ h(MeterList, { items: [{ label: "План", value: 11304.8 }, { label: "Факт", value: 10146.3 }, { label: "Отчётность", value: 10412.5 }], format: (v) => W.fmt(v, { digits: 1, minDigits: 1 }) }), /* @__PURE__ */ h(MeterList, { valueHeader: "Ставка", items: [
+  { label: "Ресурсный план", value: 18.25, display: "18,25", caption: "8 908,25 ч/ч · 769 095,24 BYN" },
+  { label: "Выделенный ресурс", value: 5.08, display: "5,08", caption: "2 526,47 ч/ч · 272 690,31 BYN" },
+  { label: "Использовано", value: 2.96, display: "2,96", caption: "1 441,50 ч/ч · 155 868,11 BYN" }
+] }));
+ReactDOM.createRoot(document.getElementById('root')).render(view);
+</script>
+</body>
+</html>

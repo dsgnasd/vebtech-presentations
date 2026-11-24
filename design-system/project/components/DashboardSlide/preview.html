@@ -1,0 +1,42 @@
+<!-- @dsCard group="Макеты слайдов" height=1080 width=1920 -->
+<!doctype html>
+<html lang="ru">
+<head><meta charset="utf-8"><title>DashboardSlide</title>
+<style>html,body{margin:0;background:var(--surface);font-family:var(--font-sans);color:var(--ink)}#root{padding:0px}</style>
+</head>
+<body>
+<div id="root"></div>
+<script>
+var W = window.Webtech, h = React.createElement;
+var { DashboardSlide, Card, Text, BreakdownBar, MeterList } = W;
+const f1 = (v) => W.fmt(v, { digits: 1, minDigits: 1 });
+const s = /* @__PURE__ */ h(
+  DashboardSlide,
+  {
+    overline: "Ключевые показатели эффективности",
+    title: "Прибыль вдвое выше плана, выручка отстаёт на 10%",
+    meta: "Отчёт · I квартал 2026",
+    section: "Итоги",
+    page: 3,
+    total: 12,
+    cards: [
+      { title: "Выручка", tone: "tint", unit: "тыс. BYN", plan: 11304.8, fact: 10146.3, rows: [{ label: "Отчётность", value: 10412.5 }] },
+      { title: "Чистая прибыль", unit: "тыс. BYN", plan: 623.3, fact: 1330.9, rows: [{ label: "Отчётность", value: 1647.3 }] },
+      { title: "Рентабельность услуг", unit: "%", plan: 16.9, fact: 17.3, rows: [{ label: "Отчётность", value: 21.1 }], format: (v) => f1(v) + "%" },
+      { title: "Операционные затраты", unit: "тыс. BYN", better: "lower", plan: 9674.6, fact: 8650, rows: [{ label: "Отчётность", value: 8599.8 }] }
+    ],
+    aside: [
+      /* @__PURE__ */ h(Card, { key: "why", tone: "warning", icon: "triangle-alert", title: "Причины недополучения выручки" }, /* @__PURE__ */ h(Text, { variant: "body", tone: "secondary" }, "Клиенты приняли 86,5% трудозатрат. Не оплачено, тыс. BYN:"), /* @__PURE__ */ h(BreakdownBar, { totalLabel: "Итого", height: 32, items: [{ label: "Не завершены работы", value: 855016.5 }, { label: "Не приняты работы", value: 260722 }, { label: "Простой ИИ-ресурса", value: 116822.2 }] })),
+      /* @__PURE__ */ h(Card, { key: "ai", icon: "sparkles", title: "Ставка ИИ-ресурса" }, /* @__PURE__ */ h(MeterList, { layout: "inline", items: [
+        { label: "Ресурсный план", value: 18.25, display: "18,25" },
+        { label: "Выделено", value: 5.08, display: "5,08" },
+        { label: "Использовано", value: 2.96, display: "2,96" }
+      ] }))
+    ]
+  }
+);
+const view = s;
+ReactDOM.createRoot(document.getElementById('root')).render(view);
+</script>
+</body>
+</html>

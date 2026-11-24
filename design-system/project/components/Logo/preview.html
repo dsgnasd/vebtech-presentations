@@ -1,0 +1,16 @@
+<!-- @dsCard group="Атомы" height=360 width=1400 -->
+<!doctype html>
+<html lang="ru">
+<head><meta charset="utf-8"><title>Logo</title>
+<style>html,body{margin:0;background:var(--surface);font-family:var(--font-sans);color:var(--ink)}#root{padding:48px}</style>
+</head>
+<body>
+<div id="root"></div>
+<script>
+var W = window.Webtech, h = React.createElement;
+var { Logo } = W;
+const view = /* @__PURE__ */ h("div", { style: { display: "flex", gap: 48, alignItems: "stretch" } }, /* @__PURE__ */ h("div", { style: { flex: 1, padding: 64, borderRadius: 24, boxShadow: "inset 0 0 0 2px var(--line)", display: "flex", flexDirection: "column", gap: 48 } }, /* @__PURE__ */ h(Logo, { height: 72 }), /* @__PURE__ */ h("div", { style: { display: "flex", gap: 48, alignItems: "center" } }, /* @__PURE__ */ h(Logo, { variant: "mark", height: 96 }), /* @__PURE__ */ h(Logo, { height: 32 }))), /* @__PURE__ */ h("div", { style: { flex: 1, padding: 64, borderRadius: 24, background: "var(--brand)", display: "flex", flexDirection: "column", gap: 48 } }, /* @__PURE__ */ h(Logo, { variant: "white", height: 72 }), /* @__PURE__ */ h("div", { style: { display: "flex", gap: 48, alignItems: "center" } }, /* @__PURE__ */ h(Logo, { variant: "mark-white", height: 96 }), /* @__PURE__ */ h(Logo, { variant: "white", height: 32 }))));
+ReactDOM.createRoot(document.getElementById('root')).render(view);
+</script>
+</body>
+</html>

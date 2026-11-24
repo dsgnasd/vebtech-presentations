@@ -1,0 +1,22 @@
+<!-- @dsCard group="Статусы" height=620 width=1920 -->
+<!doctype html>
+<html lang="ru">
+<head><meta charset="utf-8"><title>StatusTable</title>
+<style>html,body{margin:0;background:var(--surface);font-family:var(--font-sans);color:var(--ink)}#root{padding:48px}</style>
+</head>
+<body>
+<div id="root"></div>
+<script>
+var W = window.Webtech, h = React.createElement;
+var { StatusTable } = W;
+const view = /* @__PURE__ */ h(StatusTable, { rows: [
+  { name: "Архитектура", status: "done", progress: 100, note: "Согласована с ИБ" },
+  { name: "Разработка", status: "ok", statusLabel: "По графику", progress: 64, note: "Спринт 8 из 12" },
+  { name: "Интеграции", status: "risk", progress: 35, note: "Ждём API биллинга, нужен эскалационный звонок" },
+  { name: "Инфраструктура", status: "blocked", progress: 20, note: "Поставка серверов сдвинута на 4 недели" },
+  { name: "Обучение", status: "planned", note: "Старт в ноябре" }
+] });
+ReactDOM.createRoot(document.getElementById('root')).render(view);
+</script>
+</body>
+</html>

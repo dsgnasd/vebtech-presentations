@@ -1,0 +1,17 @@
+<!-- @dsCard group="Макеты слайдов" height=1720 width=1920 page -->
+<!doctype html>
+<html lang="ru">
+<head><meta charset="utf-8"><title>TitleCompositions</title>
+<style>html,body{margin:0;background:var(--surface);font-family:var(--font-sans);color:var(--ink)}#root{padding:48px}</style>
+</head>
+<body>
+<div id="root"></div>
+<script>
+var W = window.Webtech, h = React.createElement;
+var { Deck, TitleSlide } = W;
+const t = { overline: "Тип документа", title: "Название презентации в две строки", subtitle: "Подзаголовок: о чём и для кого", author: "Имя Фамилия", date: "Сентябрь 2026" };
+const view = /* @__PURE__ */ h(Deck, { layout: "grid", columns: 2, numbered: false }, ["cluster", "hero", "column", "band", "quiet"].map((c) => /* @__PURE__ */ h(TitleSlide, { key: c, ...t, overline: 'composition="' + c + '"', composition: c })));
+ReactDOM.createRoot(document.getElementById('root')).render(view);
+</script>
+</body>
+</html>

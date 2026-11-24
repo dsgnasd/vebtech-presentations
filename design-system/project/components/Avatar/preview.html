@@ -1,0 +1,16 @@
+<!-- @dsCard group="Атомы" height=280 width=1200 -->
+<!doctype html>
+<html lang="ru">
+<head><meta charset="utf-8"><title>Avatar</title>
+<style>html,body{margin:0;background:var(--surface);font-family:var(--font-sans);color:var(--ink)}#root{padding:48px}</style>
+</head>
+<body>
+<div id="root"></div>
+<script>
+var W = window.Webtech, h = React.createElement;
+var { Avatar } = W;
+const view = /* @__PURE__ */ h("div", { style: { display: "flex", gap: 48, alignItems: "center" } }, W.samplePeople.map((p, i) => /* @__PURE__ */ h(Avatar, { key: p.name, name: p.name, src: p.photo, size: [184, 144, 120, 96][i] })), /* @__PURE__ */ h(Avatar, { name: "Ольга Васильева", size: 120 }));
+ReactDOM.createRoot(document.getElementById('root')).render(view);
+</script>
+</body>
+</html>

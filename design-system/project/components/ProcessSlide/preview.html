@@ -1,0 +1,22 @@
+<!-- @dsCard group="Макеты слайдов" height=1080 width=1920 -->
+<!doctype html>
+<html lang="ru">
+<head><meta charset="utf-8"><title>ProcessSlide</title>
+<style>html,body{margin:0;background:var(--surface);font-family:var(--font-sans);color:var(--ink)}#root{padding:0px}</style>
+</head>
+<body>
+<div id="root"></div>
+<script>
+var W = window.Webtech, h = React.createElement;
+var { ProcessSlide, ProcessFlow, Callout } = W;
+const s = /* @__PURE__ */ h(ProcessSlide, { overline: "Как мы работаем", title: "Запуск проекта за 12 недель", process: /* @__PURE__ */ h(ProcessFlow, { steps: [
+  { icon: "search", title: "Аудит", text: "Процессы и ИТ-ландшафт, 2 недели" },
+  { icon: "layers", title: "Проектирование", text: "Архитектура и план, 2 недели" },
+  { icon: "code", title: "Разработка", text: "Спринты по 2 недели, 6 недель" },
+  { icon: "rocket", title: "Запуск", text: "Пилот и обучение, 2 недели" }
+] }), note: /* @__PURE__ */ h(Callout, { tone: "success", title: "Гарантия сроков" }, "Фиксируем дату запуска в договоре"), section: "Подход", page: 11, total: 24 });
+const view = s;
+ReactDOM.createRoot(document.getElementById('root')).render(view);
+</script>
+</body>
+</html>

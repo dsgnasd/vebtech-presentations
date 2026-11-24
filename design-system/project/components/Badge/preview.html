@@ -1,0 +1,16 @@
+<!-- @dsCard group="Атомы" height=380 width=1400 -->
+<!doctype html>
+<html lang="ru">
+<head><meta charset="utf-8"><title>Badge</title>
+<style>html,body{margin:0;background:var(--surface);font-family:var(--font-sans);color:var(--ink)}#root{padding:48px}</style>
+</head>
+<body>
+<div id="root"></div>
+<script>
+var W = window.Webtech, h = React.createElement;
+var { Badge } = W;
+const view = /* @__PURE__ */ h("div", { style: { display: "flex", flexDirection: "column", gap: 32 } }, /* @__PURE__ */ h("div", { style: { display: "flex", gap: 24, flexWrap: "wrap" } }, /* @__PURE__ */ h(Badge, null, "Облако"), /* @__PURE__ */ h(Badge, { icon: "rocket" }, "Новое"), /* @__PURE__ */ h(Badge, { solid: true }, "Пилот"), /* @__PURE__ */ h(Badge, { tone: "accent", icon: "star" }, "Рекомендуем"), /* @__PURE__ */ h(Badge, { tone: "accent", solid: true }, "Главное"), /* @__PURE__ */ h(Badge, { tone: "neutral" }, "B2B")), /* @__PURE__ */ h("div", { style: { display: "flex", gap: 24, flexWrap: "wrap" } }, /* @__PURE__ */ h(Badge, { tone: "success" }, "В срок"), /* @__PURE__ */ h(Badge, { tone: "warning" }, "Риск"), /* @__PURE__ */ h(Badge, { tone: "danger" }, "Просрочено"), /* @__PURE__ */ h(Badge, { tone: "info" }, "В работе")), /* @__PURE__ */ h("div", { style: { display: "flex", gap: 24, flexWrap: "wrap" } }, /* @__PURE__ */ h(Badge, { tone: "success", solid: true }, "Запущено"), /* @__PURE__ */ h(Badge, { tone: "warning", solid: true }, "Внимание"), /* @__PURE__ */ h(Badge, { tone: "danger", solid: true }, "Стоп")));
+ReactDOM.createRoot(document.getElementById('root')).render(view);
+</script>
+</body>
+</html>

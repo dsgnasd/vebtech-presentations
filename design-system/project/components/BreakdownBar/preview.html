@@ -1,0 +1,16 @@
+<!-- @dsCard group="Графики" height=460 width=1400 -->
+<!doctype html>
+<html lang="ru">
+<head><meta charset="utf-8"><title>BreakdownBar</title>
+<style>html,body{margin:0;background:var(--surface);font-family:var(--font-sans);color:var(--ink)}#root{padding:48px}</style>
+</head>
+<body>
+<div id="root"></div>
+<script>
+var W = window.Webtech, h = React.createElement;
+var { BreakdownBar } = W;
+const view = /* @__PURE__ */ h("div", { style: { width: 720 } }, /* @__PURE__ */ h(BreakdownBar, { title: "Объём неоплаченных работ", totalLabel: "Объём неоплаченных работ", items: [{ label: "Не завершено работ", value: 855016.5 }, { label: "Не принято завершённых работ", value: 260722 }, { label: "Простой ИИ-ресурса", value: 116822.2 }] }));
+ReactDOM.createRoot(document.getElementById('root')).render(view);
+</script>
+</body>
+</html>

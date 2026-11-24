@@ -1,0 +1,16 @@
+<!-- @dsCard group="Атомы" height=320 width=1400 -->
+<!doctype html>
+<html lang="ru">
+<head><meta charset="utf-8"><title>Hexagon</title>
+<style>html,body{margin:0;background:var(--surface);font-family:var(--font-sans);color:var(--ink)}#root{padding:48px}</style>
+</head>
+<body>
+<div id="root"></div>
+<script>
+var W = window.Webtech, h = React.createElement;
+var { Hexagon, Icon } = W;
+const view = /* @__PURE__ */ h("div", { style: { display: "flex", gap: 40, alignItems: "center" } }, /* @__PURE__ */ h(Hexagon, { size: 160, tone: "brand" }, /* @__PURE__ */ h(Icon, { name: "rocket", size: 64, color: "var(--on-brand)" })), /* @__PURE__ */ h(Hexagon, { size: 160, tone: "accent" }, /* @__PURE__ */ h(Icon, { name: "shield-check", size: 64, color: "var(--on-brand)" })), /* @__PURE__ */ h(Hexagon, { size: 160, tone: "tint" }, /* @__PURE__ */ h(Icon, { name: "users", size: 64, color: "var(--brand-strong)" })), /* @__PURE__ */ h(Hexagon, { size: 160, texture: "circuit" }), /* @__PURE__ */ h(Hexagon, { size: 160, texture: "facade" }), /* @__PURE__ */ h(Hexagon, { size: 160, tone: "outline" }), /* @__PURE__ */ h(Hexagon, { size: 48, tone: "brand" }), /* @__PURE__ */ h(Hexagon, { size: 32, tone: "brand" }), /* @__PURE__ */ h(Hexagon, { size: 20, tone: "brand" }));
+ReactDOM.createRoot(document.getElementById('root')).render(view);
+</script>
+</body>
+</html>

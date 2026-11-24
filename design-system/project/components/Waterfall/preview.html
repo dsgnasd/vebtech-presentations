@@ -1,0 +1,23 @@
+<!-- @dsCard group="Графики" height=700 width=1920 -->
+<!doctype html>
+<html lang="ru">
+<head><meta charset="utf-8"><title>Waterfall</title>
+<style>html,body{margin:0;background:var(--surface);font-family:var(--font-sans);color:var(--ink)}#root{padding:48px}</style>
+</head>
+<body>
+<div id="root"></div>
+<script>
+var W = window.Webtech, h = React.createElement;
+var { Waterfall } = W;
+const view = /* @__PURE__ */ h(Waterfall, { width: 1720, height: 560, steps: [
+  { label: "EBITDA 2025", value: 12, total: true },
+  { label: "Новые клиенты", value: 6 },
+  { label: "Рост тарифов", value: 3 },
+  { label: "ФОТ", value: -4 },
+  { label: "Инфраструктура", value: -2 },
+  { label: "EBITDA 2026", total: true }
+], format: (v) => W.fmt(v), title: "EBITDA, млн BYN" });
+ReactDOM.createRoot(document.getElementById('root')).render(view);
+</script>
+</body>
+</html>

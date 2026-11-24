@@ -1,0 +1,16 @@
+<!-- @dsCard group="Диаграммы" height=640 width=1920 -->
+<!doctype html>
+<html lang="ru">
+<head><meta charset="utf-8"><title>Funnel</title>
+<style>html,body{margin:0;background:var(--surface);font-family:var(--font-sans);color:var(--ink)}#root{padding:48px}</style>
+</head>
+<body>
+<div id="root"></div>
+<script>
+var W = window.Webtech, h = React.createElement;
+var { Funnel } = W;
+const view = /* @__PURE__ */ h(Funnel, { width: 1400, stages: [{ label: "Лиды", value: 2400 }, { label: "Квалификация", value: 960 }, { label: "Пилот", value: 310 }, { label: "Договор", value: 124 }, { label: "Продление", value: 98 }] });
+ReactDOM.createRoot(document.getElementById('root')).render(view);
+</script>
+</body>
+</html>

@@ -1,0 +1,23 @@
+<!-- @dsCard group="Макеты слайдов" height=1080 width=1920 -->
+<!doctype html>
+<html lang="ru">
+<head><meta charset="utf-8"><title>TimelineSlide</title>
+<style>html,body{margin:0;background:var(--surface);font-family:var(--font-sans);color:var(--ink)}#root{padding:0px}</style>
+</head>
+<body>
+<div id="root"></div>
+<script>
+var W = window.Webtech, h = React.createElement;
+var { TimelineSlide, Timeline } = W;
+const s = /* @__PURE__ */ h(TimelineSlide, { overline: "О компании", title: "Семь лет роста", timeline: /* @__PURE__ */ h(Timeline, { items: [
+  { date: "2019", title: "Основание", text: "Команда из 12 инженеров", status: "done" },
+  { date: "2021", title: "Первый банк", text: "Платформа ДБО", status: "done" },
+  { date: "2023", title: "Своё облако", text: "Два ЦОД Tier III", status: "done" },
+  { date: "2026", title: "100+ клиентов", text: "Выход в регионы", status: "current" },
+  { date: "2028", title: "Топ-3 рынка", text: "Стратегическая цель", status: "planned" }
+] }), section: "О компании", page: 3, total: 24 });
+const view = s;
+ReactDOM.createRoot(document.getElementById('root')).render(view);
+</script>
+</body>
+</html>

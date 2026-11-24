@@ -1,0 +1,24 @@
+<!-- @dsCard group="Макеты слайдов" height=1080 width=1920 -->
+<!doctype html>
+<html lang="ru">
+<head><meta charset="utf-8"><title>AgendaSlide</title>
+<style>html,body{margin:0;background:var(--surface);font-family:var(--font-sans);color:var(--ink)}#root{padding:0px}</style>
+</head>
+<body>
+<div id="root"></div>
+<script>
+var W = window.Webtech, h = React.createElement;
+var { AgendaSlide } = W;
+const s = /* @__PURE__ */ h(AgendaSlide, { active: 2, items: [
+  { title: "Итоги года", text: "Ключевые показатели", time: "10 мин" },
+  { title: "Финансы", text: "Выручка и маржинальность", time: "15 мин" },
+  { title: "Продукты", text: "Запуски и метрики", time: "20 мин" },
+  { title: "Клиенты", text: "Кейсы и NPS", time: "10 мин" },
+  { title: "Стратегия 2027", text: "Цели и инициативы", time: "20 мин" },
+  { title: "Решения", text: "Что утверждаем сегодня", time: "15 мин" }
+], page: 2, total: 24 });
+const view = s;
+ReactDOM.createRoot(document.getElementById('root')).render(view);
+</script>
+</body>
+</html>

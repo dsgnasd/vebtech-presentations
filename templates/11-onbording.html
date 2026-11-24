@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="ru">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Онбординг сотрудника — Вэбтех</title>
+<link rel="stylesheet" href="lib/webtech.css">
+<style>body{margin:0;background:var(--brand-50);font-family:var(--font-sans)}#root{max-width:1600px;margin:0 auto;padding:32px 16px}
+.bar{max-width:1600px;margin:0 auto;padding:24px 16px 0;display:flex;justify-content:space-between;align-items:center;gap:16px;font:600 16px/24px var(--font-sans);color:var(--ink-secondary)}
+.bar button{font:700 16px/24px var(--font-sans);padding:10px 20px;border:0;border-radius:999px;background:var(--brand-strong);color:#fff;cursor:pointer}
+@media print{.bar{display:none}#root{padding:0;max-width:none}}</style>
+</head>
+<body>
+<div class="bar wt-no-print"><span>Онбординг сотрудника · 9 слайдов · шаблон, ДС 1.18.4</span><button onclick="print()">Сохранить в PDF</button></div>
+<div id="root"></div>
+<script src="lib/react.production.min.js"></script>
+<script src="lib/react-dom.production.min.js"></script>
+<script src="lib/webtech.js"></script>
+<script>
+var W = window.Webtech, h = React.createElement;
+var { TitleSlide, ContentSlide, IconFeature, ProcessSlide, OrgChart, GridSlide, Card, FactList, Text, TimelineSlide, Timeline, Checklist, Callout, TableSlide, DataTable, ContactSlide } = W;
+const slides = [
+  /* @__PURE__ */ h(TitleSlide, { composition: "band", overline: "Добро пожаловать", title: "Добро пожаловать в Вэбтех!", subtitle: "Всё, что нужно знать в первые дни", date: "2026" }),
+  /* @__PURE__ */ h(ContentSlide, { overline: "Ценности", title: "Четыре ценности: клиент в центре, открытость, результат, рост", section: "Онбординг" }, /* @__PURE__ */ h("div", { style: { display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 48 } }, /* @__PURE__ */ h(IconFeature, { icon: "users", title: "Клиент в центре" }, "Решаем задачу клиента, а не пишем код ради кода"), /* @__PURE__ */ h(IconFeature, { icon: "handshake", title: "Открытость" }, "Говорим прямо, делимся знаниями"), /* @__PURE__ */ h(IconFeature, { icon: "target", title: "Результат" }, "Отвечаем за итог, а не за процесс"), /* @__PURE__ */ h(IconFeature, { icon: "graduation-cap", title: "Рост" }, "Учимся каждый день"))),
+  /* @__PURE__ */ h(ProcessSlide, { overline: "Структура", title: "Компания делится на три направления: технологии, продажи, продукт", process: /* @__PURE__ */ h(OrgChart, { root: { name: "Алексей Орлов", role: "Генеральный директор", photo: W.samplePhoto("Алексей Орлов") }, children: [{ name: "Мария Козлова", role: "Технологии", photo: W.samplePhoto("Мария Козлова"), team: ["Платформа", "Разработка", "SRE"] }, { name: "Илья Петров", role: "Продажи и партнёры", photo: W.samplePhoto("Илья Петров"), team: ["Продажи", "Партнёры"] }, { name: "Анна Смирнова", role: "Продукт", photo: W.samplePhoto("Анна Смирнова"), team: ["Продукт", "Дизайн", "HR"] }] }), section: "Онбординг" }),
+  /* @__PURE__ */ h(
+    GridSlide,
+    {
+      overline: "Люди",
+      title: "В первые недели помогут наставник, HR и ИТ-поддержка",
+      layout: "top-3",
+      rows: "auto 1fr",
+      section: "Онбординг",
+      cells: [
+        /* @__PURE__ */ h(Card, { icon: "users", title: "Ваши контакты" }, /* @__PURE__ */ h(FactList, { items: [{ icon: "user", label: "Наставник", value: "Мария Климова" }, { icon: "message-square", label: "HR", value: "Олег Сидорович" }, { icon: "wrench", label: "ИТ-поддержка", value: "help@company.by" }] })),
+        /* @__PURE__ */ h(Card, { icon: "message-square", title: "Чат команды" }, /* @__PURE__ */ h(Text, { variant: "body", tone: "secondary" }, "Вопросы по работе — сюда, отвечают в течение часа")),
+        /* @__PURE__ */ h(Card, { icon: "calendar", title: "Встречи" }, /* @__PURE__ */ h(Text, { variant: "body", tone: "secondary" }, "Планёрка в понедельник 10:00, демо — по пятницам")),
+        /* @__PURE__ */ h(Card, { icon: "book-open", title: "База знаний" }, /* @__PURE__ */ h(Text, { variant: "body", tone: "secondary" }, "Регламенты, шаблоны и ответы на частые вопросы"))
+      ]
+    }
+  ),
+  /* @__PURE__ */ h(TimelineSlide, { overline: "Первые 90 дней", title: "За три месяца вы пройдёте путь от знакомства до самостоятельности", timeline: /* @__PURE__ */ h(Timeline, { items: [{ date: "День 1", title: "Знакомство", text: "Доступы, наставник, команда", status: "current" }, { date: "Неделя 1", title: "Погружение", text: "Продукты и процессы", status: "planned" }, { date: "Месяц 1", title: "Первая задача", text: "С поддержкой наставника", status: "planned" }, { date: "Месяц 3", title: "Итоги", text: "Встреча с руководителем", status: "planned" }] }), section: "Онбординг" }),
+  /* @__PURE__ */ h(
+    GridSlide,
+    {
+      overline: "Адаптация",
+      title: "Что вы сделаете за первые 90 дней",
+      layout: "bottom-3",
+      section: "Онбординг",
+      cells: [
+        /* @__PURE__ */ h(Card, { icon: "flag", overline: "30 дней", title: "Знакомство" }, /* @__PURE__ */ h(Checklist, { items: [{ text: "Доступы и рабочее место" }, { text: "Встречи с командой" }, { text: "Первая задача" }] })),
+        /* @__PURE__ */ h(Card, { icon: "rocket", overline: "60 дней", title: "Первые результаты" }, /* @__PURE__ */ h(Checklist, { items: [{ text: "Задачи без наставника" }, { text: "Участие в демо" }, { text: "Курс по безопасности" }] })),
+        /* @__PURE__ */ h(Card, { icon: "trophy", overline: "90 дней", title: "Самостоятельность" }, /* @__PURE__ */ h(Checklist, { items: [{ text: "Свой участок работы" }, { text: "Обратная связь от команды" }, { text: "План развития" }] })),
+        /* @__PURE__ */ h(Callout, { tone: "accent", title: "Итоговая встреча" }, "На 90-й день — разговор с руководителем: что получилось и куда расти дальше")
+      ]
+    }
+  ),
+  /* @__PURE__ */ h(ContentSlide, { overline: "Чек-лист", title: "Первый день: что сделать", section: "Онбординг" }, /* @__PURE__ */ h(Checklist, { items: [{ text: "Получить ноутбук и пропуск", meta: "Ресепшен", status: "todo" }, { text: "Войти в корпоративную почту и мессенджер", meta: "ИТ-поддержка", status: "todo" }, { text: "Познакомиться с наставником", meta: "11:00", status: "todo" }, { text: "Пройти вводный курс по безопасности", meta: "30 минут", status: "todo" }] })),
+  /* @__PURE__ */ h(TableSlide, { overline: "Сервисы", title: "Всё нужное — в четырёх сервисах: трекер, база знаний, HR-портал, ИТ-поддержка", table: /* @__PURE__ */ h(DataTable, { columns: [{ title: "Что нужно" }, { title: "Где" }], rows: [["Задачи и проекты", "Трекер задач"], ["База знаний", "Корпоративная вики"], ["Отпуск, справки, документы", "HR-портал"], ["Помощь с доступами и техникой", "ИТ-поддержка, чат 24/7"]] }), section: "Онбординг" }),
+  /* @__PURE__ */ h(ContactSlide, { title: "Мы рады, что вы с нами!", subtitle: "Если что-то непонятно — спрашивайте наставника или HR", contacts: [{ icon: "mail", value: "name@company.by" }, { icon: "phone", value: "+375 00 000-00-00" }, { icon: "globe", value: "www.company.by" }, { icon: "map-pin", value: "Минск, Беларусь" }] })
+];
+ReactDOM.createRoot(document.getElementById('root')).render(h(W.Deck, { layout: 'stack', gap: 32 }, slides));
+</script>
+</body>
+</html>

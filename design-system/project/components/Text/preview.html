@@ -1,0 +1,16 @@
+<!-- @dsCard group="Атомы" height=440 width=1600 -->
+<!doctype html>
+<html lang="ru">
+<head><meta charset="utf-8"><title>Text</title>
+<style>html,body{margin:0;background:var(--surface);font-family:var(--font-sans);color:var(--ink)}#root{padding:48px}</style>
+</head>
+<body>
+<div id="root"></div>
+<script>
+var W = window.Webtech, h = React.createElement;
+var { Text } = W;
+const view = /* @__PURE__ */ h("div", { style: { display: "flex", flexDirection: "column", gap: 28, maxWidth: 1300 } }, /* @__PURE__ */ h(Text, { variant: "lead" }, "Рост обеспечен новыми B2B-клиентами и запуском облачной платформы"), /* @__PURE__ */ h(Text, null, "Внедрили CI/CD и сократили релизный цикл с двух недель до двух дней. Команда разработки выросла до 120 человек."), /* @__PURE__ */ h(Text, { variant: "body-strong" }, "Срок реализации — 3 месяца"), /* @__PURE__ */ h(Text, { variant: "caption" }, "Источник: управленческая отчётность ВЭБ Технологии, 2026"));
+ReactDOM.createRoot(document.getElementById('root')).render(view);
+</script>
+</body>
+</html>

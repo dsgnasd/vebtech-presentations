@@ -1,0 +1,16 @@
+<!-- @dsCard group="Графики" height=700 width=1920 -->
+<!doctype html>
+<html lang="ru">
+<head><meta charset="utf-8"><title>ComboChart</title>
+<style>html,body{margin:0;background:var(--surface);font-family:var(--font-sans);color:var(--ink)}#root{padding:48px}</style>
+</head>
+<body>
+<div id="root"></div>
+<script>
+var W = window.Webtech, h = React.createElement;
+var { ComboChart } = W;
+const view = /* @__PURE__ */ h(ComboChart, { width: 1720, height: 560, categories: ["Q1 2025", "Q2 2025", "Q3 2025", "Q4 2025", "Q1 2026", "Q2 2026"], bars: { name: "Факт", values: [8, 9, 10, 11, 11.5, 13] }, line: { name: "План", values: [8.5, 9, 9.5, 10.5, 12, 12.5] }, title: "Выручка, млн BYN" });
+ReactDOM.createRoot(document.getElementById('root')).render(view);
+</script>
+</body>
+</html>

@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="ru">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Статус проекта — Вэбтех</title>
+<link rel="stylesheet" href="lib/webtech.css">
+<style>body{margin:0;background:var(--brand-50);font-family:var(--font-sans)}#root{max-width:1600px;margin:0 auto;padding:32px 16px}
+.bar{max-width:1600px;margin:0 auto;padding:24px 16px 0;display:flex;justify-content:space-between;align-items:center;gap:16px;font:600 16px/24px var(--font-sans);color:var(--ink-secondary)}
+.bar button{font:700 16px/24px var(--font-sans);padding:10px 20px;border:0;border-radius:999px;background:var(--brand-strong);color:#fff;cursor:pointer}
+@media print{.bar{display:none}#root{padding:0;max-width:none}}</style>
+</head>
+<body>
+<div class="bar wt-no-print"><span>Статус проекта · 10 слайдов · шаблон, ДС 1.18.4</span><button onclick="print()">Сохранить в PDF</button></div>
+<div id="root"></div>
+<script src="lib/react.production.min.js"></script>
+<script src="lib/react-dom.production.min.js"></script>
+<script src="lib/webtech.js"></script>
+<script>
+var W = window.Webtech, h = React.createElement;
+var { TitleSlide, ContentSlide, KpiCard, Status, GridSlide, Card, FactList, MeterList, Text, Checklist, TableSlide, StatusTable, TimelineSlide, Timeline, RoadmapSlide, Roadmap, PlanFactCard, BreakdownBar, DataTable } = W;
+const slides = [
+  /* @__PURE__ */ h(TitleSlide, { composition: "quiet", overline: "Статус-отчёт", title: "Проект «Единая платформа клиента»", subtitle: "Отчёт № 8 за период 1–15 сентября", author: "Мария Козлова, руководитель проекта", date: "16 сентября 2026" }),
+  /* @__PURE__ */ h(ContentSlide, { overline: "Сводка", title: "Проект идёт по графику, есть риск по интеграциям", section: "Статус проекта" }, /* @__PURE__ */ h("div", { style: { display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 32 } }, /* @__PURE__ */ h(KpiCard, { variant: "outline", value: "64", unit: "%", label: "Готовность проекта", delta: "+8 п. п. за период" }), /* @__PURE__ */ h(KpiCard, { variant: "outline", value: "92", unit: "%", label: "Освоение бюджета к плану", delta: "В рамках бюджета", trend: "flat" }), /* @__PURE__ */ h(KpiCard, { variant: "outline", value: "1", label: "Критичный риск", delta: "Интеграция с биллингом", trend: "down" })), /* @__PURE__ */ h("div", { style: { marginTop: 48, display: "flex", gap: 24, alignItems: "center" } }, /* @__PURE__ */ h(Status, { status: "risk", variant: "large", label: "Общий статус: риск по срокам интеграций" }))),
+  /* @__PURE__ */ h(
+    GridSlide,
+    {
+      overline: "Сводка",
+      meta: "Неделя 38",
+      title: "Сроки держим, бюджет в норме, один риск",
+      layout: "2x2",
+      section: "Статус проекта",
+      cells: [
+        /* @__PURE__ */ h(Card, { icon: "clipboard-list", title: "Паспорт проекта" }, /* @__PURE__ */ h(FactList, { items: [{ icon: "calendar", label: "Запуск", value: "1 декабря" }, { icon: "wallet", label: "Бюджет", value: "2,4 млн BYN" }, { icon: "users", label: "Команда", value: "34 человека" }] })),
+        /* @__PURE__ */ h(Card, { icon: "gauge", title: "Готовность по этапам" }, /* @__PURE__ */ h(MeterList, { max: 100, base: false, layout: "inline", items: [{ label: "Аналитика", value: 100, display: "100%", color: "var(--chart-1)" }, { label: "Разработка", value: 64, display: "64%", color: "var(--chart-1)" }, { label: "Интеграции", value: 35, display: "35%", color: "var(--chart-1)" }, { label: "Тестирование", value: 10, display: "10%", color: "var(--chart-1)" }] })),
+        /* @__PURE__ */ h(Card, { tone: "warning", icon: "triangle-alert", title: "Риск: интеграция с биллингом" }, /* @__PURE__ */ h(Text, { variant: "body", tone: "secondary" }, "Поставщик сдвинул API на 3 недели. Резерв по срокам — 2 недели")),
+        /* @__PURE__ */ h(Card, { tone: "tint", icon: "list-checks", title: "На этой неделе" }, /* @__PURE__ */ h(Checklist, { items: [{ text: "Согласовать тестовый стенд", status: "done" }, { text: "Эскалация по API биллинга", status: "progress" }, { text: "План нагрузочного теста", status: "todo" }] }))
+      ]
+    }
+  ),
+  /* @__PURE__ */ h(TableSlide, { overline: "Светофор", title: "В срок идут два направления из пяти, риск и блокер — у интеграций и серверов", table: /* @__PURE__ */ h(StatusTable, { rows: [{ name: "Архитектура", status: "done", progress: 100, note: "Согласована с ИБ" }, { name: "Разработка", status: "ok", statusLabel: "По графику", progress: 64, note: "Спринт 8 из 12" }, { name: "Интеграции", status: "risk", progress: 35, note: "Ждём API биллинга" }, { name: "Инфраструктура", status: "blocked", progress: 20, note: "Поставка серверов +4 недели" }, { name: "Обучение", status: "planned", note: "Старт в ноябре" }] }), section: "Статус проекта" }),
+  /* @__PURE__ */ h(TimelineSlide, { overline: "Вехи", title: "Три из шести вех пройдены", timeline: /* @__PURE__ */ h(Timeline, { items: [{ date: "Июнь", title: "Старт", status: "done" }, { date: "Июль", title: "Архитектура", status: "done" }, { date: "Август", title: "MVP", status: "done" }, { date: "Сентябрь", title: "Интеграции", status: "current" }, { date: "Октябрь", title: "Пилот", status: "planned" }, { date: "Декабрь", title: "Запуск", status: "planned" }] }), section: "Статус проекта" }),
+  /* @__PURE__ */ h(ContentSlide, { overline: "Этап", title: "Готовность к пилоту: 2 из 5 пунктов выполнено", section: "Статус проекта" }, /* @__PURE__ */ h(Checklist, { items: [{ text: "Согласована целевая архитектура", meta: "12 авг", status: "done" }, { text: "Настроены стенды", meta: "30 авг", status: "done" }, { text: "Миграция данных из CRM", note: "Перенесено 70% записей", meta: "Иванов А.", status: "progress" }, { text: "Нагрузочное тестирование", meta: "15 окт", status: "todo" }, { text: "Интеграция с биллингом", note: "Нет доступа к API партнёра", meta: "Блокер", status: "blocked" }] })),
+  /* @__PURE__ */ h(RoadmapSlide, { overline: "План", title: "Пилот зависит от двух рисковых работ: биллинга и продакшена", roadmap: /* @__PURE__ */ h(Roadmap, { periods: ["Июнь", "Июль", "Август", "Сентябрь", "Октябрь", "Ноябрь", "Декабрь"], today: 3.5, lanes: [{ name: "Разработка", items: [{ start: 0, end: 3, label: "MVP", status: "done" }, { start: 3, end: 5, label: "Доработки", status: "progress" }] }, { name: "Интеграции", items: [{ start: 2, end: 4.6, label: "Биллинг", status: "risk" }, { start: 4.6, end: 6, label: "ERP", status: "planned" }] }, { name: "Инфраструктура", items: [{ start: 1, end: 3, label: "Стенды", status: "done" }, { start: 3, end: 5, label: "Прод", status: "risk" }] }, { name: "Запуск", items: [{ start: 4, end: 5, label: "Пилот", status: "planned" }, { start: 5.2, end: 7, label: "Тираж", status: "planned" }] }] }), section: "Статус проекта" }),
+  /* @__PURE__ */ h(
+    GridSlide,
+    {
+      overline: "Бюджет",
+      title: "Бюджет освоен на 58%, прогноз — в рамках",
+      layout: "halves",
+      section: "Статус проекта",
+      cells: [
+        /* @__PURE__ */ h(PlanFactCard, { tone: "tint", title: "Исполнение плана на дату", unit: "тыс. BYN", plan: 1450, fact: 1392, better: "lower", labels: { plan: "План на дату", fact: "Факт" }, rows: [{ label: "Прогноз на конец", value: 2380 }] }),
+        /* @__PURE__ */ h(Card, { icon: "chart-pie", title: "Структура затрат", meta: "тыс. BYN" }, /* @__PURE__ */ h(BreakdownBar, { totalLabel: "Итого", format: (v) => W.fmt(v), items: [{ label: "Команда", value: 980 }, { label: "Лицензии", value: 240 }, { label: "Инфраструктура", value: 120 }, { label: "Прочее", value: 52 }] }))
+      ]
+    }
+  ),
+  /* @__PURE__ */ h(TableSlide, { overline: "Риски", title: "Один высокий риск и два средних требуют внимания руководства", table: /* @__PURE__ */ h(DataTable, { columns: [{ title: "Риск" }, { title: "Влияние" }, { title: "Меры" }, { title: "Владелец" }], rows: [["Задержка API биллинга", /* @__PURE__ */ h(Status, { status: "blocked", label: "Высокое" }), "Эскалация на уровень CTO партнёра", "Козлова М."], ["Поставка серверов", /* @__PURE__ */ h(Status, { status: "risk", label: "Среднее" }), "Временно — облачные мощности", "Орлов А."], ["Нагрузка на команду", /* @__PURE__ */ h(Status, { status: "risk", label: "Среднее" }), "Привлечь 2 разработчиков", "Петров И."]] }), section: "Статус проекта" }),
+  /* @__PURE__ */ h(ContentSlide, { overline: "Решения", title: "Три решения нужны от управляющего комитета", bullets: ["Эскалация по API биллинга до 20 сентября", "Согласовать временную аренду облачных мощностей — 40 тыс. BYN", "Утвердить расширение команды на 2 человека"], marker: "number", section: "Статус проекта" })
+];
+ReactDOM.createRoot(document.getElementById('root')).render(h(W.Deck, { layout: 'stack', gap: 32 }, slides));
+</script>
+</body>
+</html>

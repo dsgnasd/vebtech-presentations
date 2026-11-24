@@ -1,0 +1,22 @@
+<!-- @dsCard group="Диаграммы" height=860 width=1920 -->
+<!doctype html>
+<html lang="ru">
+<head><meta charset="utf-8"><title>Matrix2x2</title>
+<style>html,body{margin:0;background:var(--surface);font-family:var(--font-sans);color:var(--ink)}#root{padding:48px}</style>
+</head>
+<body>
+<div id="root"></div>
+<script>
+var W = window.Webtech, h = React.createElement;
+var { Matrix2x2 } = W;
+const view = /* @__PURE__ */ h(Matrix2x2, { size: 640, xLabel: "Ценность для бизнеса", yLabel: "Готовность", quadrants: ["Быстрые победы", "Делаем сейчас", "Отложить", "Подготовить"], items: [
+  { label: "Чат-бот поддержки", x: 0.72, y: 0.8, accent: true },
+  { label: "Единый профиль", x: 0.86, y: 0.6, accent: true },
+  { label: "BI-отчёты", x: 0.6, y: 0.3 },
+  { label: "Редизайн сайта", x: 0.2, y: 0.7 },
+  { label: "Миграция CRM", x: 0.3, y: 0.25 }
+] });
+ReactDOM.createRoot(document.getElementById('root')).render(view);
+</script>
+</body>
+</html>

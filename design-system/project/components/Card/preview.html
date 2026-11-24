@@ -1,0 +1,16 @@
+<!-- @dsCard group="Молекулы" height=420 width=1920 -->
+<!doctype html>
+<html lang="ru">
+<head><meta charset="utf-8"><title>Card</title>
+<style>html,body{margin:0;background:var(--surface);font-family:var(--font-sans);color:var(--ink)}#root{padding:48px}</style>
+</head>
+<body>
+<div id="root"></div>
+<script>
+var W = window.Webtech, h = React.createElement;
+var { Card, Text } = W;
+const view = /* @__PURE__ */ h("div", { style: { display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 24 } }, /* @__PURE__ */ h(Card, { title: "Выручка", meta: "тыс. BYN" }, /* @__PURE__ */ h(Text, { variant: "body", tone: "secondary" }, "Белая карточка с рамкой line — основа дашборда.")), /* @__PURE__ */ h(Card, { tone: "tint", icon: "target", title: "Цель квартала" }, /* @__PURE__ */ h(Text, { variant: "body", tone: "secondary" }, "Тинт brand-50 — одна область на слайд.")), /* @__PURE__ */ h(Card, { tone: "warning", icon: "triangle-alert", title: "Причины отклонения" }, /* @__PURE__ */ h(Text, { variant: "body", tone: "secondary" }, "Пояснение к недовыполнению плана.")));
+ReactDOM.createRoot(document.getElementById('root')).render(view);
+</script>
+</body>
+</html>

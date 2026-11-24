@@ -1,0 +1,16 @@
+<!-- @dsCard group="Молекулы" height=420 width=1920 -->
+<!doctype html>
+<html lang="ru">
+<head><meta charset="utf-8"><title>FactList</title>
+<style>html,body{margin:0;background:var(--surface);font-family:var(--font-sans);color:var(--ink)}#root{padding:48px}</style>
+</head>
+<body>
+<div id="root"></div>
+<script>
+var W = window.Webtech, h = React.createElement;
+var { FactList, Card } = W;
+const view = /* @__PURE__ */ h("div", { style: { display: "grid", gridTemplateColumns: "2fr 1fr", gap: 48, alignItems: "start" } }, /* @__PURE__ */ h(FactList, { items: [{ icon: "gauge", label: "Масштаб", value: "Средний" }, { icon: "wallet", label: "Бюджет", value: "≈ 1,6 млн" }, { icon: "calendar", label: "Срок", value: "6 месяцев" }] }), /* @__PURE__ */ h(Card, { tone: "tint", title: "Объём типового проекта" }, /* @__PURE__ */ h(FactList, { layout: "column", items: [{ icon: "gauge", label: "Масштаб", value: "Средний" }, { icon: "wallet", label: "Бюджет", value: "≈ 1,6 млн" }, { icon: "calendar", label: "Срок", value: "6 месяцев" }] })));
+ReactDOM.createRoot(document.getElementById('root')).render(view);
+</script>
+</body>
+</html>

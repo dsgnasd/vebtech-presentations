@@ -1,0 +1,16 @@
+<!-- @dsCard group="Молекулы" height=460 width=1920 -->
+<!doctype html>
+<html lang="ru">
+<head><meta charset="utf-8"><title>KpiCard</title>
+<style>html,body{margin:0;background:var(--surface);font-family:var(--font-sans);color:var(--ink)}#root{padding:48px}</style>
+</head>
+<body>
+<div id="root"></div>
+<script>
+var W = window.Webtech, h = React.createElement;
+var { KpiCard } = W;
+const view = /* @__PURE__ */ h("div", { style: { display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 32 } }, /* @__PURE__ */ h(KpiCard, { variant: "brand", value: "48", unit: "млн BYN", label: "Выручка 2026", delta: "+32% к 2025", icon: "wallet" }), /* @__PURE__ */ h(KpiCard, { value: "126", label: "Корпоративных клиентов", delta: "+18", icon: "building" }), /* @__PURE__ */ h(KpiCard, { variant: "outline", value: "99,95", unit: "%", label: "Доступность сервисов (SLA)", delta: "0,02 п. п.", trend: "flat", icon: "gauge" }), /* @__PURE__ */ h(KpiCard, { value: "9", unit: "дней", label: "Средний срок внедрения", delta: "−40%", trend: "down", sentiment: "good", note: "Меньше — лучше", icon: "clock" }));
+ReactDOM.createRoot(document.getElementById('root')).render(view);
+</script>
+</body>
+</html>

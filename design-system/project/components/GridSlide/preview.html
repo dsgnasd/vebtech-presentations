@@ -1,0 +1,34 @@
+<!-- @dsCard group="Макеты слайдов" height=1080 width=1920 -->
+<!doctype html>
+<html lang="ru">
+<head><meta charset="utf-8"><title>GridSlide</title>
+<style>html,body{margin:0;background:var(--surface);font-family:var(--font-sans);color:var(--ink)}#root{padding:0px}</style>
+</head>
+<body>
+<div id="root"></div>
+<script>
+var W = window.Webtech, h = React.createElement;
+var { GridSlide, Card, BarChart, KpiCard, MeterList } = W;
+const s = /* @__PURE__ */ h(
+  GridSlide,
+  {
+    overline: "Главное",
+    meta: "Итоги 2026",
+    title: "Выручка программы выросла на 32% — лучший год",
+    layout: "feature-left",
+    section: "Главное",
+    page: 3,
+    total: 14,
+    cells: [
+      /* @__PURE__ */ h(Card, { title: "Выручка по кварталам", meta: "млн BYN" }, /* @__PURE__ */ h(BarChart, { width: 900, height: 500, highlight: 7, data: [{ label: "I 25", value: 8.2 }, { label: "II 25", value: 8.9 }, { label: "III 25", value: 9.1 }, { label: "IV 25", value: 10.2 }, { label: "I 26", value: 10.8 }, { label: "II 26", value: 11.6 }, { label: "III 26", value: 12.1 }, { label: "IV 26", value: 13.5 }], format: (v) => W.fmt(v, { digits: 1, minDigits: 1 }) })),
+      /* @__PURE__ */ h(KpiCard, { variant: "brand", value: "48", unit: "млн BYN", label: "Выручка за 2026 год", delta: "+32% к 2025" }),
+      /* @__PURE__ */ h(Card, { icon: "target", title: "Цели года" }, /* @__PURE__ */ h(MeterList, { max: 120, base: false, items: [{ label: "Выручка", value: 104, display: "104%", color: "var(--chart-1)" }, { label: "Новые клиенты", value: 112, display: "112%", color: "var(--chart-1)" }, { label: "Автоматизация обращений", value: 86, display: "86%", color: "var(--chart-other)" }] }))
+    ],
+    source: "Управленческая отчётность, данные на 30.11.2026"
+  }
+);
+const view = s;
+ReactDOM.createRoot(document.getElementById('root')).render(view);
+</script>
+</body>
+</html>

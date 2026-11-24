@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="ru">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Техническое решение — Вэбтех</title>
+<link rel="stylesheet" href="lib/webtech.css">
+<style>body{margin:0;background:var(--brand-50);font-family:var(--font-sans)}#root{max-width:1600px;margin:0 auto;padding:32px 16px}
+.bar{max-width:1600px;margin:0 auto;padding:24px 16px 0;display:flex;justify-content:space-between;align-items:center;gap:16px;font:600 16px/24px var(--font-sans);color:var(--ink-secondary)}
+.bar button{font:700 16px/24px var(--font-sans);padding:10px 20px;border:0;border-radius:999px;background:var(--brand-strong);color:#fff;cursor:pointer}
+@media print{.bar{display:none}#root{padding:0;max-width:none}}</style>
+</head>
+<body>
+<div class="bar wt-no-print"><span>Техническое решение · 11 слайдов · шаблон, ДС 1.18.4</span><button onclick="print()">Сохранить в PDF</button></div>
+<div id="root"></div>
+<script src="lib/react.production.min.js"></script>
+<script src="lib/react-dom.production.min.js"></script>
+<script src="lib/webtech.js"></script>
+<script>
+var W = window.Webtech, h = React.createElement;
+var { TitleSlide, TwoColumnSlide, ProcessSlide, Pyramid, ProcessFlow, TableSlide, DataTable, GridSlide, Card, MeterList, FactList, Text, KpiSlide, ContentSlide, Checklist, Status, RoadmapSlide, Roadmap, ContactSlide } = W;
+const slides = [
+  /* @__PURE__ */ h(TitleSlide, { composition: "column", textures: ["server"], overline: "Техническое решение", title: "Архитектура платформы обработки платежей", subtitle: "Целевое решение и план миграции", author: "Алексей Орлов, архитектор", date: "Сентябрь 2026" }),
+  /* @__PURE__ */ h(TwoColumnSlide, { overline: "Требования", title: "Платежи всех типов, сверка с банками и 3 000 транзакций в секунду", left: { icon: "list-checks", title: "Функциональные", bullets: ["Приём платежей всех типов", "Сверка с банками-партнёрами", "Личный кабинет мерчанта"] }, right: { icon: "gauge", title: "Нефункциональные", tint: true, bullets: ["3 000 транзакций в секунду", "Доступность 99,95%", "Соответствие PCI DSS"] }, section: "Платёжная платформа" }),
+  /* @__PURE__ */ h(ProcessSlide, { overline: "Архитектура", title: "Архитектура из четырёх уровней: от каналов до инфраструктуры", process: /* @__PURE__ */ h(Pyramid, { variant: "layers", width: 1728, levels: [{ title: "Каналы", text: "Веб, мобильное приложение, API для партнёров" }, { title: "Сервисы", text: "Микросервисы на Kotlin, событийная шина Kafka" }, { title: "Данные", text: "PostgreSQL, ClickHouse для аналитики, Redis" }, { title: "Инфраструктура", text: "Kubernetes в двух ЦОД, active-active" }] }), section: "Платёжная платформа" }),
+  /* @__PURE__ */ h(ProcessSlide, { overline: "Поток", title: "Платёж проходит четыре шага: приём, антифрод, процессинг, учёт", process: /* @__PURE__ */ h(ProcessFlow, { steps: [{ icon: "smartphone", title: "Приём", text: "API-шлюз, авторизация" }, { icon: "shield-check", title: "Антифрод", text: "Проверка за 50 мс" }, { icon: "refresh-cw", title: "Процессинг", text: "Маршрутизация в банк" }, { icon: "database", title: "Учёт", text: "Проводки и сверка" }] }), section: "Платёжная платформа" }),
+  /* @__PURE__ */ h(TableSlide, { overline: "Стек", title: "Стек выбран под экспертизу команды и надёжную доставку событий", table: /* @__PURE__ */ h(DataTable, { columns: [{ title: "Слой" }, { title: "Технологии" }, { title: "Почему" }], rows: [["Сервисы", "Kotlin, Spring Boot", "Экспертиза команды, производительность"], ["Интеграция", "Kafka, REST, gRPC", "Событийная модель, надёжная доставка"], ["Данные", "PostgreSQL, ClickHouse, Redis", "Транзакции + аналитика + кэш"], ["Платформа", "Kubernetes, Istio, ArgoCD", "Масштабирование и GitOps"], ["Наблюдаемость", "Prometheus, Grafana, OpenTelemetry", "Метрики, трассировка, алерты"]], zebra: true }), section: "Платёжная платформа" }),
+  /* @__PURE__ */ h(
+    GridSlide,
+    {
+      overline: "Нагрузка",
+      title: "Запас по производительности — в три раза",
+      layout: "2x2",
+      section: "Платёжная платформа",
+      cells: [
+        /* @__PURE__ */ h(Card, { icon: "gauge", title: "Пиковая нагрузка", meta: "тыс. операций/с" }, /* @__PURE__ */ h(MeterList, { layout: "inline", max: 6, base: false, items: [{ label: "Сейчас", value: 2.1, display: "2,1", color: "var(--chart-1)" }, { label: "Через год", value: 3.2, display: "3,2", color: "var(--chart-2)" }, { label: "Предел", value: 6, display: "6,0", color: "var(--chart-other)" }] })),
+        /* @__PURE__ */ h(Card, { icon: "cpu", title: "Загрузка ресурсов в пик" }, /* @__PURE__ */ h(MeterList, { layout: "inline", max: 100, base: false, items: [{ label: "CPU", value: 34, display: "34%", color: "var(--chart-1)" }, { label: "Память", value: 48, display: "48%", color: "var(--chart-1)" }, { label: "Диски", value: 29, display: "29%", color: "var(--chart-1)" }] })),
+        /* @__PURE__ */ h(Card, { icon: "shield-check", title: "Надёжность" }, /* @__PURE__ */ h(FactList, { items: [{ icon: "gauge", label: "SLA", value: "99,95%" }, { icon: "database", label: "RPO", value: "0 минут" }, { icon: "refresh-cw", label: "RTO", value: "15 минут" }] })),
+        /* @__PURE__ */ h(Card, { tone: "warning", icon: "triangle-alert", title: "Узкое место — база отчётности" }, /* @__PURE__ */ h(Text, { variant: "body", tone: "secondary" }, "При росте в 2 раза нужна отдельная реплика. Закладываем в III квартал"))
+      ]
+    }
+  ),
+  /* @__PURE__ */ h(KpiSlide, { overline: "SLA", title: "Доступность 99,95%, ответ до 200 мс, восстановление за 15 минут", items: [{ value: "99,95", unit: "%", label: "Доступность", icon: "gauge" }, { value: "3 000", label: "Транзакций в секунду", icon: "zap" }, { value: "< 200", unit: "мс", label: "Время ответа (p95)", icon: "clock" }, { value: "15", unit: "мин", label: "RTO при отказе ЦОД", icon: "refresh-cw" }], section: "Платёжная платформа" }),
+  /* @__PURE__ */ h(ContentSlide, { overline: "Безопасность", title: "Шифрование и сегментация готовы, аудит PCI DSS и пентест впереди", section: "Платёжная платформа" }, /* @__PURE__ */ h(Checklist, { items: [{ text: "Шифрование данных при передаче и хранении", meta: "TLS 1.3, AES-256", status: "done" }, { text: "Сегментация сети и Zero Trust", meta: "Istio mTLS", status: "done" }, { text: "Аудит PCI DSS", meta: "Ноябрь", status: "progress" }, { text: "Пентест внешним подрядчиком", meta: "Декабрь", status: "todo" }] })),
+  /* @__PURE__ */ h(
+    GridSlide,
+    {
+      overline: "Риски",
+      title: "Риски миграции известны и закрыты мерами",
+      layout: "halves",
+      columns: "3fr 2fr",
+      section: "Платёжная платформа",
+      cells: [
+        /* @__PURE__ */ h(DataTable, { columns: [{ title: "Риск" }, { title: "Уровень" }, { title: "Мера" }], rows: [["Потеря транзакций при переключении", /* @__PURE__ */ h(Status, { status: "blocked", variant: "text", label: "Высокий" }), "Двойная запись 2 недели"], ["Рост задержек", /* @__PURE__ */ h(Status, { status: "risk", variant: "text", label: "Средний" }), "Нагрузочный тест до старта"], ["Нехватка экспертизы", /* @__PURE__ */ h(Status, { status: "risk", variant: "text", label: "Средний" }), "Обучение команды банка"]] }),
+        /* @__PURE__ */ h(Card, { tone: "tint", icon: "list-checks", title: "Готовность к миграции" }, /* @__PURE__ */ h(Checklist, { items: [{ text: "Стенд нагрузочного теста", status: "done" }, { text: "План отката", status: "done" }, { text: "Двойная запись", status: "progress" }, { text: "Обучение дежурных", status: "todo" }] }))
+      ]
+    }
+  ),
+  /* @__PURE__ */ h(RoadmapSlide, { overline: "Миграция", title: "Миграция без остановки сервиса за 6 месяцев", roadmap: /* @__PURE__ */ h(Roadmap, { periods: ["Окт", "Ноя", "Дек", "Янв", "Фев", "Мар"], lanes: [{ name: "Инфраструктура", items: [{ start: 0, end: 2, label: "Кластеры", status: "planned" }] }, { name: "Сервисы", items: [{ start: 1, end: 4, label: "Перенос сервисов", status: "planned" }] }, { name: "Данные", items: [{ start: 2, end: 5, label: "Миграция данных", status: "planned" }] }, { name: "Переключение", items: [{ start: 4.5, end: 6, label: "Трафик 10→100%", status: "planned" }] }] }), section: "Платёжная платформа" }),
+  /* @__PURE__ */ h(ContactSlide, { title: "Вопросы?", subtitle: "Архитектурный комитет", contacts: [{ icon: "mail", value: "name@company.by" }, { icon: "phone", value: "+375 00 000-00-00" }, { icon: "globe", value: "www.company.by" }, { icon: "map-pin", value: "Минск, Беларусь" }] })
+];
+ReactDOM.createRoot(document.getElementById('root')).render(h(W.Deck, { layout: 'stack', gap: 32 }, slides));
+</script>
+</body>
+</html>

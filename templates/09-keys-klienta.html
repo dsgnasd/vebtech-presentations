@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="ru">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Кейс клиента — Вэбтех</title>
+<link rel="stylesheet" href="lib/webtech.css">
+<style>body{margin:0;background:var(--brand-50);font-family:var(--font-sans)}#root{max-width:1600px;margin:0 auto;padding:32px 16px}
+.bar{max-width:1600px;margin:0 auto;padding:24px 16px 0;display:flex;justify-content:space-between;align-items:center;gap:16px;font:600 16px/24px var(--font-sans);color:var(--ink-secondary)}
+.bar button{font:700 16px/24px var(--font-sans);padding:10px 20px;border:0;border-radius:999px;background:var(--brand-strong);color:#fff;cursor:pointer}
+@media print{.bar{display:none}#root{padding:0;max-width:none}}</style>
+</head>
+<body>
+<div class="bar wt-no-print"><span>Кейс клиента · 9 слайдов · шаблон, ДС 1.18.4</span><button onclick="print()">Сохранить в PDF</button></div>
+<div id="root"></div>
+<script src="lib/react.production.min.js"></script>
+<script src="lib/react-dom.production.min.js"></script>
+<script src="lib/webtech.js"></script>
+<script>
+var W = window.Webtech, h = React.createElement;
+var { TitleSlide, ContentSlide, Callout, CaseSlide, GridSlide, Card, BarChart, KpiCard, FactList, TimelineSlide, Timeline, ChartSlide, LineChart, Text, QuoteSlide, ContactSlide } = W;
+const slides = [
+  /* @__PURE__ */ h(TitleSlide, { composition: "hero", textures: ["fiber"], overline: "Кейс", title: "Как ритейлер ускорил доставку в 2 раза", subtitle: "Сеть «Пример», 400 магазинов", date: "2026" }),
+  /* @__PURE__ */ h(ContentSlide, { overline: "Клиент", title: "Национальная сеть с 400 магазинами и онлайн-заказами", bullets: ["400 магазинов в 60 городах Беларуси", "300 тыс. онлайн-заказов в месяц", "Собственная служба доставки"], aside: /* @__PURE__ */ h(Callout, { tone: "warning", title: "Проблема" }, "Срок доставки — 48 часов, 12% заказов опаздывают"), section: "Кейс: доставка" }),
+  /* @__PURE__ */ h(CaseSlide, { title: "Доставка за 24 часа вместо 48", client: "Сеть «Пример», e-commerce и логистика", problem: "Ручное планирование маршрутов, нет данных об остатках в реальном времени, частые опоздания.", solution: ["Сервис планирования маршрутов", "Остатки в реальном времени", "Мобильное приложение курьера"], results: [{ value: "24 ч", label: "срок доставки вместо 48" }, { value: "−70%", label: "опозданий" }], section: "Кейс: доставка" }),
+  /* @__PURE__ */ h(
+    GridSlide,
+    {
+      overline: "Эффект",
+      title: "Через полгода доставка вдвое быстрее во всех областях",
+      layout: "feature-left",
+      section: "Кейс: доставка",
+      cells: [
+        /* @__PURE__ */ h(Card, { title: "Срок доставки по областям", meta: "часов" }, /* @__PURE__ */ h(BarChart, { width: 900, height: 440, categories: ["Минск", "Брест", "Гомель", "Гродно", "Витебск", "Могилёв"], series: [{ name: "До проекта", values: [36, 50, 52, 48, 54, 50], color: "var(--chart-other)" }, { name: "После", values: [18, 24, 26, 24, 26, 24] }] })),
+        /* @__PURE__ */ h(KpiCard, { variant: "brand", value: "2×", label: "быстрее доставка", delta: "48 → 24 часа", trend: "down", sentiment: "good" }),
+        /* @__PURE__ */ h(Card, { icon: "clipboard-list", title: "Масштаб проекта" }, /* @__PURE__ */ h(FactList, { layout: "column", items: [{ icon: "building", label: "Магазинов", value: "400" }, { icon: "calendar", label: "Срок", value: "5 месяцев" }] }))
+      ]
+    }
+  ),
+  /* @__PURE__ */ h(TimelineSlide, { overline: "Ход проекта", title: "Запуск за 5 месяцев", timeline: /* @__PURE__ */ h(Timeline, { items: [{ date: "Март", title: "Аудит", text: "Процессы и данные", status: "done" }, { date: "Апрель", title: "Пилот", text: "Минск, 20 магазинов", status: "done" }, { date: "Июнь", title: "Тираж", text: "10 городов", status: "done" }, { date: "Август", title: "Вся сеть", text: "60 городов", status: "done" }] }), section: "Кейс: доставка" }),
+  /* @__PURE__ */ h(ChartSlide, { overline: "Результаты", title: "Опоздания сократились с 12% до 3,5%", chartTitle: "Доля опоздавших заказов", chartSubtitle: "%", chart: /* @__PURE__ */ h(LineChart, { width: 1080, height: 420, categories: ["Мар", "Апр", "Май", "Июн", "Июл", "Авг", "Сен"], series: [{ name: "Опоздания", values: [12, 11.2, 8.5, 6.8, 5.1, 4.2, 3.5] }], format: (v) => W.fmt(v) + "%" }), takeaway: "−70% опозданий за полгода", points: ["NPS доставки +21 пункт", "Повторные заказы +14%"], section: "Кейс: доставка" }),
+  /* @__PURE__ */ h(
+    GridSlide,
+    {
+      overline: "Что сработало",
+      title: "Три решения, которые дали результат",
+      layout: "bottom-3",
+      section: "Кейс: доставка",
+      cells: [
+        /* @__PURE__ */ h(Card, { icon: "workflow", overline: "Решение 1", title: "Единый план маршрутов" }, /* @__PURE__ */ h(Text, { variant: "body", tone: "secondary" }, "Маршруты строятся ночью по всем складам сразу")),
+        /* @__PURE__ */ h(Card, { icon: "smartphone", overline: "Решение 2", title: "Приложение курьера" }, /* @__PURE__ */ h(Text, { variant: "body", tone: "secondary" }, "Статус заказа — в реальном времени для клиента")),
+        /* @__PURE__ */ h(Card, { icon: "chart-line", overline: "Решение 3", title: "Прогноз спроса" }, /* @__PURE__ */ h(Text, { variant: "body", tone: "secondary" }, "Товар заранее едет на ближайший к клиенту склад")),
+        /* @__PURE__ */ h(Callout, { tone: "accent", title: "Главное" }, "Технология сработала, потому что склады, курьеры и магазины перешли на неё одновременно")
+      ]
+    }
+  ),
+  /* @__PURE__ */ h(QuoteSlide, { quote: "Мы получили не просто систему, а новую модель доставки. Клиенты заметили разницу уже через месяц.", author: "Ольга Васильева", role: "Директор по логистике, сеть «Пример»", photo: null }),
+  /* @__PURE__ */ h(ContactSlide, { title: "Хотите так же?", subtitle: "Расскажем, как применить решение в вашей компании", contacts: [{ icon: "mail", value: "name@company.by" }, { icon: "phone", value: "+375 00 000-00-00" }, { icon: "globe", value: "www.company.by" }, { icon: "map-pin", value: "Минск, Беларусь" }] })
+];
+ReactDOM.createRoot(document.getElementById('root')).render(h(W.Deck, { layout: 'stack', gap: 32 }, slides));
+</script>
+</body>
+</html>

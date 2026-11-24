@@ -1,0 +1,16 @@
+<!-- @dsCard group="Молекулы" height=320 width=1400 -->
+<!doctype html>
+<html lang="ru">
+<head><meta charset="utf-8"><title>TimelineStep</title>
+<style>html,body{margin:0;background:var(--surface);font-family:var(--font-sans);color:var(--ink)}#root{padding:48px}</style>
+</head>
+<body>
+<div id="root"></div>
+<script>
+var W = window.Webtech, h = React.createElement;
+var { TimelineStep } = W;
+const view = /* @__PURE__ */ h("div", { style: { display: "flex", gap: 64 } }, /* @__PURE__ */ h(TimelineStep, { date: "Март 2026", title: "Пилот", status: "done" }, "Два филиала"), /* @__PURE__ */ h(TimelineStep, { date: "Сентябрь 2026", title: "Тиражирование", status: "current" }, "12 регионов"), /* @__PURE__ */ h(TimelineStep, { date: "2027", title: "Вся сеть", status: "planned" }, "Полный переход"));
+ReactDOM.createRoot(document.getElementById('root')).render(view);
+</script>
+</body>
+</html>

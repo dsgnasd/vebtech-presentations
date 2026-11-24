@@ -1,0 +1,16 @@
+<!-- @dsCard group="Молекулы" height=200 width=1920 -->
+<!doctype html>
+<html lang="ru">
+<head><meta charset="utf-8"><title>SlideFooter</title>
+<style>html,body{margin:0;background:var(--surface);font-family:var(--font-sans);color:var(--ink)}#root{padding:0px}#root{position:relative;height:200px}</style>
+</head>
+<body>
+<div id="root"></div>
+<script>
+var W = window.Webtech, h = React.createElement;
+var { SlideFooter } = W;
+const view = /* @__PURE__ */ h(SlideFooter, { section: "Итоги года", confidential: true, page: 4, total: 18 });
+ReactDOM.createRoot(document.getElementById('root')).render(view);
+</script>
+</body>
+</html>

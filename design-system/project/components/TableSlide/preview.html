@@ -1,0 +1,17 @@
+<!-- @dsCard group="Макеты слайдов" height=1080 width=1920 -->
+<!doctype html>
+<html lang="ru">
+<head><meta charset="utf-8"><title>TableSlide</title>
+<style>html,body{margin:0;background:var(--surface);font-family:var(--font-sans);color:var(--ink)}#root{padding:0px}</style>
+</head>
+<body>
+<div id="root"></div>
+<script>
+var W = window.Webtech, h = React.createElement;
+var { TableSlide, DataTable } = W;
+const s = /* @__PURE__ */ h(TableSlide, { overline: "Финансы", title: "Все направления растут быстрее рынка", table: /* @__PURE__ */ h(DataTable, { columns: [{ title: "Направление" }, { title: "2024", align: "right" }, { title: "2025", align: "right" }, { title: "2026", align: "right" }, { title: "Рост 2026", align: "right" }], rows: [["Облачные сервисы", 11, 15, 22, "+47%"], ["Интеграция", 11, 13, 16, "+23%"], ["Поддержка", 7, 8, 10, "+25%"], ["Итого, млн BYN", 29, 36, 48, "+33%"]], highlightRow: 3 }), source: "Источник: управленческая отчётность, млн BYN без НДС", section: "Финансы", page: 8, total: 24 });
+const view = s;
+ReactDOM.createRoot(document.getElementById('root')).render(view);
+</script>
+</body>
+</html>

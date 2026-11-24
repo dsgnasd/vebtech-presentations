@@ -1,0 +1,16 @@
+<!-- @dsCard group="Графики" height=700 width=1920 -->
+<!doctype html>
+<html lang="ru">
+<head><meta charset="utf-8"><title>BarChart</title>
+<style>html,body{margin:0;background:var(--surface);font-family:var(--font-sans);color:var(--ink)}#root{padding:48px}</style>
+</head>
+<body>
+<div id="root"></div>
+<script>
+var W = window.Webtech, h = React.createElement;
+var { BarChart } = W;
+const view = /* @__PURE__ */ h("div", { style: { display: "grid", gridTemplateColumns: "1fr 1fr", gap: 96 } }, /* @__PURE__ */ h(BarChart, { width: 820, height: 560, highlight: "2026", data: [{ label: "2022", value: 14 }, { label: "2023", value: 21 }, { label: "2024", value: 29 }, { label: "2025", value: 36 }, { label: "2026", value: 48 }], title: "Выручка, млн BYN" }), /* @__PURE__ */ h(BarChart, { width: 820, height: 560, orientation: "horizontal", data: [{ label: "Банки", value: 42 }, { label: "Ритейл", value: 27 }, { label: "Госсектор", value: 16 }, { label: "Телеком", value: 9 }, { label: "Прочее", value: 6 }], format: (v) => v + "%", title: "Доля выручки по отраслям" }));
+ReactDOM.createRoot(document.getElementById('root')).render(view);
+</script>
+</body>
+</html>

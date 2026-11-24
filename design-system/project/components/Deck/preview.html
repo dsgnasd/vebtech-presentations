@@ -1,0 +1,16 @@
+<!-- @dsCard group="Шаблоны" height=760 width=1920 -->
+<!doctype html>
+<html lang="ru">
+<head><meta charset="utf-8"><title>Deck</title>
+<style>html,body{margin:0;background:var(--surface);font-family:var(--font-sans);color:var(--ink)}#root{padding:48px}</style>
+</head>
+<body>
+<div id="root"></div>
+<script>
+var W = window.Webtech, h = React.createElement;
+var { Deck, TitleSlide, SectionSlide, KpiSlide } = W;
+const view = /* @__PURE__ */ h(Deck, { layout: "grid", columns: 3 }, /* @__PURE__ */ h(TitleSlide, { title: "Итоги 2026 года", subtitle: "Совет директоров", date: "Сентябрь 2026" }), /* @__PURE__ */ h(SectionSlide, { number: 1, title: "Финансовые результаты" }), /* @__PURE__ */ h(KpiSlide, { overline: "Итоги", title: "Выручка выросла на 32%", items: [{ value: "48", unit: "млн BYN", label: "Выручка", delta: "+32%" }, { value: "126", label: "Клиентов", delta: "+18" }, { value: "99,95", unit: "%", label: "SLA" }] }));
+ReactDOM.createRoot(document.getElementById('root')).render(view);
+</script>
+</body>
+</html>

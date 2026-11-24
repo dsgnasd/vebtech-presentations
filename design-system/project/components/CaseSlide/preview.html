@@ -1,0 +1,17 @@
+<!-- @dsCard group="Макеты слайдов" height=1080 width=1920 -->
+<!doctype html>
+<html lang="ru">
+<head><meta charset="utf-8"><title>CaseSlide</title>
+<style>html,body{margin:0;background:var(--surface);font-family:var(--font-sans);color:var(--ink)}#root{padding:0px}</style>
+</head>
+<body>
+<div id="root"></div>
+<script>
+var W = window.Webtech, h = React.createElement;
+var { CaseSlide } = W;
+const s = /* @__PURE__ */ h(CaseSlide, { title: "Банк сократил срок выдачи кредита с 3 дней до 2 часов", client: "Банк из топ-10 Беларуси, 1,2 млн клиентов", problem: "Заявки на кредит обрабатывались вручную в трёх системах, клиенты уходили к конкурентам.", solution: ["Единая платформа кредитного конвейера", "Автоматический скоринг и проверки", "Интеграция с Кредитным регистром и МСИ"], results: [{ value: "2 часа", label: "вместо 3 дней на решение" }, { value: "+38%", label: "одобренных заявок онлайн" }], section: "Кейсы", page: 17, total: 24 });
+const view = s;
+ReactDOM.createRoot(document.getElementById('root')).render(view);
+</script>
+</body>
+</html>

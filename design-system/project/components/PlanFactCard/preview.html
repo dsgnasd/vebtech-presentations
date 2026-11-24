@@ -1,0 +1,16 @@
+<!-- @dsCard group="Молекулы" height=520 width=1920 -->
+<!doctype html>
+<html lang="ru">
+<head><meta charset="utf-8"><title>PlanFactCard</title>
+<style>html,body{margin:0;background:var(--surface);font-family:var(--font-sans);color:var(--ink)}#root{padding:48px}</style>
+</head>
+<body>
+<div id="root"></div>
+<script>
+var W = window.Webtech, h = React.createElement;
+var { PlanFactCard } = W;
+const view = /* @__PURE__ */ h("div", { style: { display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 24 } }, /* @__PURE__ */ h(PlanFactCard, { title: "Выручка", tone: "tint", unit: "тыс. BYN", plan: 11304.8, fact: 10146.3, rows: [{ label: "Отчётность", value: 10412.5 }] }), /* @__PURE__ */ h(PlanFactCard, { title: "Чистая прибыль", unit: "тыс. BYN", plan: 623.3, fact: 1330.9, rows: [{ label: "Отчётность", value: 1647.3 }] }), /* @__PURE__ */ h(PlanFactCard, { title: "Операционные затраты", unit: "тыс. BYN", better: "lower", plan: 9674.6, fact: 8650, rows: [{ label: "Отчётность", value: 8599.8 }] }));
+ReactDOM.createRoot(document.getElementById('root')).render(view);
+</script>
+</body>
+</html>

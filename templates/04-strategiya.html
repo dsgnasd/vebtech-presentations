@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="ru">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Стратегия и цели — Вэбтех</title>
+<link rel="stylesheet" href="lib/webtech.css">
+<style>body{margin:0;background:var(--brand-50);font-family:var(--font-sans)}#root{max-width:1600px;margin:0 auto;padding:32px 16px}
+.bar{max-width:1600px;margin:0 auto;padding:24px 16px 0;display:flex;justify-content:space-between;align-items:center;gap:16px;font:600 16px/24px var(--font-sans);color:var(--ink-secondary)}
+.bar button{font:700 16px/24px var(--font-sans);padding:10px 20px;border:0;border-radius:999px;background:var(--brand-strong);color:#fff;cursor:pointer}
+@media print{.bar{display:none}#root{padding:0;max-width:none}}</style>
+</head>
+<body>
+<div class="bar wt-no-print"><span>Стратегия и цели · 13 слайдов · шаблон, ДС 1.18.4</span><button onclick="print()">Сохранить в PDF</button></div>
+<div id="root"></div>
+<script src="lib/react.production.min.js"></script>
+<script src="lib/react-dom.production.min.js"></script>
+<script src="lib/webtech.js"></script>
+<script>
+var W = window.Webtech, h = React.createElement;
+var { TitleSlide, AgendaSlide, ChartSlide, LineChart, GridSlide, Card, KpiCard, Text, SectionSlide, ContentSlide, ProcessSlide, Pyramid, TableSlide, DataTable, BreakdownBar, MeterList, Matrix2x2, RoadmapSlide, Roadmap, Callout, ContactSlide } = W;
+const slides = [
+  /* @__PURE__ */ h(TitleSlide, { overline: "Стратегическая сессия", title: "Стратегия развития 2027–2029", subtitle: "Цели, приоритеты и дорожная карта", author: "Алексей Орлов, генеральный директор", date: "Сентябрь 2026" }),
+  /* @__PURE__ */ h(AgendaSlide, { items: ["Контекст рынка", "Видение 2029", "Стратегические приоритеты", "Цели и метрики", "Дорожная карта", "Ресурсы и решения"] }),
+  /* @__PURE__ */ h(ChartSlide, { overline: "Рынок", title: "Рынок корпоративного облака растёт на 25% в год", chartTitle: "Объём рынка в Беларуси", chartSubtitle: "млн BYN", chart: /* @__PURE__ */ h(LineChart, { width: 1080, height: 420, categories: ["2022", "2023", "2024", "2025", "2026", "2027", "2028", "2029"], series: [{ name: "Рынок", values: [120, 150, 190, 240, 300, 375, 470, 590] }] }), takeaway: "Окно возможностей — 2–3 года, пока рынок не консолидирован", source: "Оценка компании на основе отраслевых обзоров", section: "Стратегия 2027–2029" }),
+  /* @__PURE__ */ h(
+    GridSlide,
+    {
+      overline: "Рынок",
+      title: "Три тренда работают на нас, одна угроза — против",
+      layout: "2x2",
+      section: "Стратегия 2027–2029",
+      cells: [
+        /* @__PURE__ */ h(Card, { icon: "cloud", overline: "Тренд 1", title: "Переход в облако" }, /* @__PURE__ */ h(KpiCard, { variant: "plain", value: "+25%", label: "рост рынка в год" })),
+        /* @__PURE__ */ h(Card, { icon: "shield-check", overline: "Тренд 2", title: "Требования к защите данных" }, /* @__PURE__ */ h(KpiCard, { variant: "plain", value: "3 из 4", label: "компаний выбирают локальные ЦОД" })),
+        /* @__PURE__ */ h(Card, { icon: "sparkles", overline: "Тренд 3", title: "ИИ в процессах" }, /* @__PURE__ */ h(KpiCard, { variant: "plain", value: "40%", label: "крупных компаний пилотируют ИИ" })),
+        /* @__PURE__ */ h(Card, { tone: "warning", icon: "triangle-alert", title: "Угроза: демпинг глобальных провайдеров" }, /* @__PURE__ */ h(Text, { variant: "body", tone: "secondary" }, "Цены на базовые вычисления снизятся на 15–20%. Отвечаем сервисами поверх инфраструктуры, а не ценой"))
+      ],
+      source: "Оценка рынка Вэбтех, 2026"
+    }
+  ),
+  /* @__PURE__ */ h(SectionSlide, { number: 1, title: "Видение 2029", subtitle: "Кем мы хотим стать" }),
+  /* @__PURE__ */ h(ContentSlide, { overline: "Видение", title: "Топ-3 провайдер цифровых платформ для крупного бизнеса", bullets: [{ title: "Для клиентов", text: "Надёжный партнёр полного цикла: от идеи до эксплуатации" }, { title: "Для рынка", text: "Лидер в отраслевых решениях для банков и ритейла" }, { title: "Для команды", text: "Лучшее место для инженеров в Беларуси" }], aside: /* @__PURE__ */ h(KpiCard, { variant: "brand", size: "lg", value: "150", unit: "млн BYN", label: "Выручка 2029", delta: "×3 к 2026", trend: "up" }), section: "Стратегия 2027–2029" }),
+  /* @__PURE__ */ h(ProcessSlide, { overline: "Приоритеты", title: "Три приоритета: отраслевые продукты, облако и эффективность", process: /* @__PURE__ */ h(Pyramid, { variant: "layers", width: 1728, levels: [{ title: "Отраслевые продукты", text: "Готовые решения для банков, ритейла, госсектора" }, { title: "Облачная платформа", text: "Managed-сервисы, аттестация ОАЦ, 2 новых ЦОД" }, { title: "Операционная эффективность", text: "Автоматизация, платформенная разработка" }] }), section: "Стратегия 2027–2029" }),
+  /* @__PURE__ */ h(TableSlide, { overline: "Цели", title: "К 2027 году: выручка 70 млн BYN, 200 клиентов, NPS 75, EBITDA 33%", table: /* @__PURE__ */ h(DataTable, { columns: [{ title: "Цель" }, { title: "Ключевой результат" }, { title: "2026", align: "right" }, { title: "2027", align: "right" }], rows: [["Рост выручки", "Выручка, млн BYN", 48, 70], ["Новые клиенты", "Корпоративных клиентов", 126, 200], ["Качество", "NPS", 72, 75], ["Эффективность", "EBITDA, %", 31, 33]] }), section: "Стратегия 2027–2029" }),
+  /* @__PURE__ */ h(
+    GridSlide,
+    {
+      overline: "Ресурсы",
+      title: "На стратегию нужны 15 млн BYN и 120 новых сотрудников",
+      layout: "halves",
+      section: "Стратегия 2027–2029",
+      cells: [
+        /* @__PURE__ */ h(Card, { icon: "wallet", title: "Инвестиции 2027–2029", meta: "млн BYN" }, /* @__PURE__ */ h(Text, { variant: "body", tone: "secondary" }, "Две трети — в инфраструктуру и продукты"), /* @__PURE__ */ h(BreakdownBar, { totalLabel: "Итого", items: [{ label: "Новый ЦОД", value: 6 }, { label: "Отраслевые продукты", value: 4.5 }, { label: "Выход в регионы", value: 2.5 }, { label: "Обучение и найм", value: 2 }] })),
+        /* @__PURE__ */ h(Card, { icon: "users", title: "Найм по направлениям", meta: "человек" }, /* @__PURE__ */ h(MeterList, { max: 50, base: false, items: [{ label: "Разработка", value: 48, color: "var(--chart-1)" }, { label: "Облако и эксплуатация", value: 32, color: "var(--chart-1)" }, { label: "Внедрение", value: 24, color: "var(--chart-1)" }, { label: "Продажи", value: 16, color: "var(--chart-1)" }] }))
+      ]
+    }
+  ),
+  /* @__PURE__ */ h(ProcessSlide, { overline: "Инициативы", title: "Начинаем с инициатив высокой ценности и готовности", process: /* @__PURE__ */ h(Matrix2x2, { size: 560, xLabel: "Ценность для бизнеса", yLabel: "Готовность", quadrants: ["Быстрые победы", "Делаем сейчас", "Отложить", "Подготовить"], items: [{ label: "Отраслевые продукты", x: 0.8, y: 0.78, accent: true }, { label: "Маркетплейс", x: 0.66, y: 0.62, accent: true }, { label: "Новые ЦОД", x: 0.82, y: 0.3 }, { label: "Экспорт ИТ-услуг", x: 0.35, y: 0.2 }, { label: "Партнёрская сеть", x: 0.3, y: 0.7 }] }), section: "Стратегия 2027–2029" }),
+  /* @__PURE__ */ h(RoadmapSlide, { overline: "План", title: "За три года: новые продукты, второй ЦОД, регионы и рост команды", roadmap: /* @__PURE__ */ h(Roadmap, { periods: ["2027 H1", "2027 H2", "2028 H1", "2028 H2", "2029 H1", "2029 H2"], lanes: [{ name: "Продукты", items: [{ start: 0, end: 2, label: "Банки и ритейл", status: "planned" }, { start: 2, end: 4, label: "Госсектор", status: "planned" }] }, { name: "Облако", items: [{ start: 0, end: 3, label: "Второй ЦОД в Минске", status: "planned" }, { start: 3, end: 6, label: "ЦОД в Гомеле", status: "planned" }] }, { name: "Регионы", items: [{ start: 0, end: 2, label: "Областные центры", status: "planned" }, { start: 2, end: 5, label: "Районные центры", status: "planned" }] }, { name: "Команда", items: [{ start: 0, end: 6, label: "Рост до 1 200 человек", status: "planned" }] }] }), section: "Стратегия 2027–2029" }),
+  /* @__PURE__ */ h(ContentSlide, { overline: "Решения", title: "Что просим утвердить сегодня", bullets: ["Стратегию 2027–2029 и целевые показатели", "Инвестиционный бюджет 2027 года — 12 млн BYN", "Запуск программы отраслевых продуктов с 1 января"], marker: "number", aside: /* @__PURE__ */ h(Callout, { tone: "accent", title: "Срок" }, "Решения нужны до 15 октября для бюджетного цикла"), section: "Стратегия 2027–2029" }),
+  /* @__PURE__ */ h(ContactSlide, { title: "Спасибо!", subtitle: "Обсуждение и вопросы", contacts: [{ icon: "mail", value: "name@company.by" }, { icon: "phone", value: "+375 00 000-00-00" }, { icon: "globe", value: "www.company.by" }, { icon: "map-pin", value: "Минск, Беларусь" }] })
+];
+ReactDOM.createRoot(document.getElementById('root')).render(h(W.Deck, { layout: 'stack', gap: 32 }, slides));
+</script>
+</body>
+</html>
