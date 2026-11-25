@@ -167,6 +167,41 @@ export function collectDesign() {
       for (const t of labels) if (t.x < vb.x - 3 || t.r > vb.r + 3 || t.y < vb.y - 6 || t.b > vb.b + 6) add('error', 'рамка схемы', `${short(t.text)} выходит за рамку схемы и может обрезаться`);
     }
 
+    // 6в. Подписи SVG с учётом масштаба: ужатая схема становится нечитаемой
+    const small = texts.filter((t) => t.svg && !t.p.closest('[data-allow-small]')).map((t) => { const m = t.p.getScreenCTM && t.p.getScreenCTM(); return { t, size: m ? (t.size * Math.hypot(m.a, m.b)) / k : t.size }; }).filter((x) => x.size < 22);
+    if (small.length) add('error', 'мелкая схема', `${short(small[0].t.text)}${small.length > 1 ? ` и ещё ${small.length - 1}` : ''}: на слайде ${Math.round(Math.min(...small.map((x) => x.size)))}px, минимум 24 — увеличить схему, сократить подписи`);
+
+    // 6г. Слипшиеся блоки: между соседними плашками нужен зазор
+    const plates = (body ? [...body.querySelectorAll('*')] : []).filter((el) => !el.closest('svg, table, .wt-roadmap, .wt-matrix, .wt-pyramid, .wt-funnel, .wt-breakdown, .wt-footer, .wt-donut') && !(header && header.contains(el)) && visible(el) && surface(el)).map((el) => ({ el, ...box(el) })).filter((b) => b.w > 160 && b.h > 70);
+    const glued = new Set();
+    for (let i = 0; i < plates.length; i++) for (let j = i + 1; j < plates.length; j++) {
+      const p = plates[i], q = plates[j];
+      if (p.el.contains(q.el) || q.el.contains(p.el)) continue;
+      const within = (o, i) => o.x <= i.x + 2 && o.y <= i.y + 2 && o.r >= i.r - 2 && o.b >= i.b - 2; // контейнер схемы и узел внутри него
+      if (within(p, q) || within(q, p) || glued.has(q.el)) continue;
+      const gx = Math.max(p.x, q.x) - Math.min(p.r, q.r), gy = Math.max(p.y, q.y) - Math.min(p.b, q.b);
+      if (Math.min(gx, gy) < -20 && Math.max(gx, gy) < 10) glued.add(q.el), add('error', 'слипшиеся блоки', `${short(p.el.textContent)} и ${short(q.el.textContent)}: ${Math.max(gx, gy) < 0 ? 'налезают' : `зазор ${Math.round(Math.max(gx, gy))}px, нужно от 16`}`);
+    }
+
+    // 6д. Сплющенный график: слишком низкий, разница значений не читается
+    for (const svg of body ? body.querySelectorAll('.wt-chart-svg') : []) {
+      const b = box(svg);
+      if (b.w < 240 || svg.closest('.wt-kpi')) continue;
+      const bars = [...svg.querySelectorAll('path, rect')].map(box).filter((r) => r.w > 10 && r.h > 0);
+      if (b.h < 150) add('error', 'сплющенный график', `высота ${Math.round(b.h)}px, нужно от 200 — убрать соседний блок или вынести график на весь слайд`);
+      else if (b.h < 200 && bars.length) add('warn', 'низкий график', `высота ${Math.round(b.h)}px — проверить, читается ли разница`);
+    }
+
+    // 6е. Полупустые карточки
+    for (const card of body ? body.querySelectorAll('.wt-card') : []) {
+      const b = box(card);
+      if (b.h < 300) continue;
+      const ins = [...ink.filter((i) => i.el !== card && card.contains(i.el) && !i.el.matches('.wt-chart-svg')), ...texts.filter((t) => t.svg && card.contains(t.p))];
+      if (!ins.length) continue;
+      const void_ = (b.b - Math.max(...ins.map((i) => i.b)) - 24) / b.h;
+      if (void_ > 0.25) add('warn', 'пустая карточка', `${short((card.querySelector('.wt-card-title') || card).textContent)}: внизу пусто ${Math.round(void_ * 100)}% — укрупнить содержимое или сменить сетку`);
+    }
+
     // 7. Линейки вместо структуры: самодельные блоки с одной границей
     const rules = ink.filter(({ el, w }) => {
       const c = getComputedStyle(el);
