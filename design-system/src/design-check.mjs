@@ -129,6 +129,44 @@ export function collectDesign() {
       if (Math.max(...icons) > 0 && Math.min(...icons) === 0) add('warn', 'иконки', 'в одном ряду иконка есть не у всех колонок');
     }
 
+    // 6а. Поля карточек: содержание не упирается в край и не выходит за него
+    for (const card of body ? body.querySelectorAll('.wt-card, .wt-kpi, .wt-compare-col, .wt-callout') : []) {
+      const b = box(card), pad = Math.min(8, parseFloat(getComputedStyle(card).paddingBottom) || 0);
+      // у графиков внизу пустое поле SVG: берём их подписи, а не рамку
+      const inside = [...ink.filter((i) => i.el !== card && card.contains(i.el) && !i.el.matches('.wt-chart-svg')), ...texts.filter((t) => t.svg && card.contains(t.p))];
+      if (!inside.length) continue;
+      const low = b.b - Math.max(...inside.map((i) => i.b)), right = b.r - Math.max(...inside.map((i) => i.r));
+      const name = short((card.querySelector('.wt-card-title') || card).textContent);
+      if (low < -1 || right < -1) add('error', 'край карточки', `${name}: содержание выходит за карточку на ${Math.round(-Math.min(low, right))}px`);
+      else if (low < pad) add('error', 'край карточки', `${name}: до нижнего края ${Math.round(low)}px, нужно от 12 — сократить или уменьшить`);
+    }
+
+    // 6б. Своя схема: узлы не налезают друг на друга, подпись помещается в узел и в рамку схемы
+    for (const svg of body ? body.querySelectorAll('svg') : []) {
+      if (svg.closest('.wt-chart, .wt-donut, .wt-icon, .wt-hexagon') || svg.matches('.wt-icon, .wt-chart-svg') || skip(svg) || svg.parentElement.closest('svg')) continue;
+      const vb = box(svg);
+      if (vb.w < 300 || vb.h < 150) continue;
+      const labels = texts.filter((t) => svg.contains(t.p));
+      if (!labels.length) continue;
+      const nodes = [...svg.querySelectorAll('rect')].filter((r) => !r.closest('defs, marker, clipPath') && visible(r) && getComputedStyle(r).fill !== 'none').map((el) => ({ el, ...box(el) })).filter((r) => r.w > 60 && r.h > 40);
+      // узел — прямоугольник, внутри которого стоит центр подписи
+      const own = (r) => labels.filter((t) => { const cx = (t.x + t.r) / 2, cy = (t.y + t.b) / 2; return cx > r.x && cx < r.r && cy > r.y && cy < r.b; });
+      const holds = (o, i) => o.x <= i.x + 2 && o.y <= i.y + 2 && o.r >= i.r - 2 && o.b >= i.b - 2;
+      const named = nodes.map((r) => ({ ...r, t: own(r) })).filter((r) => r.t.length);
+      for (let i = 0; i < named.length; i++) for (let j = i + 1; j < named.length; j++) {
+        const p = named[i], q = named[j];
+        if (holds(p, q) || holds(q, p)) continue;
+        const gx = Math.max(p.x, q.x) - Math.min(p.r, q.r), gy = Math.max(p.y, q.y) - Math.min(p.b, q.b);
+        if (Math.max(gx, gy) < 8 && Math.max(gx, gy) < 0) add('error', 'узлы схемы', `${short(p.t[0].text)} и ${short(q.t[0].text)} налезают друг на друга`);
+        else if (Math.max(gx, gy) < 8 && Math.min(gx, gy) < 0) add('error', 'узлы схемы', `${short(p.t[0].text)} и ${short(q.t[0].text)} стоят вплотную, нужно от 8px`);
+      }
+      for (const r of named) {
+        if (named.some((q) => q !== r && holds(r, q))) continue;
+        for (const t of r.t) if (Math.min(t.x - r.x, r.r - t.r) < 6) add('error', 'подпись узла', `${short(t.text)} упирается в край узла — сократить или расширить узел`);
+      }
+      for (const t of labels) if (t.x < vb.x - 3 || t.r > vb.r + 3 || t.y < vb.y - 6 || t.b > vb.b + 6) add('error', 'рамка схемы', `${short(t.text)} выходит за рамку схемы и может обрезаться`);
+    }
+
     // 7. Линейки вместо структуры: самодельные блоки с одной границей
     const rules = ink.filter(({ el, w }) => {
       const c = getComputedStyle(el);

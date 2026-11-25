@@ -9,7 +9,7 @@
 @media print{.bar{display:none}#root{padding:0;max-width:none}}</style>
 </head>
 <body>
-<div class="bar wt-no-print"><span>О компании Вэбтех · 11 слайдов · шаблон, ДС 1.20.0</span><button onclick="print()">Сохранить в PDF</button></div>
+<div class="bar wt-no-print"><span>О компании Вэбтех · 11 слайдов · шаблон, ДС 1.20.1</span><button onclick="print()">Сохранить в PDF</button></div>
 <div id="root"></div>
 <script src="lib/react.production.min.js"></script>
 <script src="lib/react-dom.production.min.js"></script>
@@ -48,7 +48,7 @@ const slides = [
       section: "О компании",
       cells: [
         /* @__PURE__ */ h(Card, { icon: "award", title: "Сертификаты и аттестаты" }, /* @__PURE__ */ h(BulletList, { size: "sm", marker: "check", items: ["СТБ ISO/IEC 27001 — защита информации", "СТБ ISO 9001 — управление качеством", "Аттестат системы защиты информации", "Статус резидента Парка высоких технологий"] })),
-        /* @__PURE__ */ h(Card, { tone: "tint" }, /* @__PURE__ */ h(Quote, { author: "Сергей Жук", role: "Директор по ИТ, Банк «Пример»" }, "Запускают в срок и не исчезают после запуска")),
+        /* @__PURE__ */ h(Card, { tone: "tint" }, /* @__PURE__ */ h(Quote, { author: "Сергей Жук", role: "Директор по ИТ, Банк «Пример»" }, "Запускают в срок")),
         /* @__PURE__ */ h(Card, { icon: "chart-bar", title: "Проекты по отраслям", meta: "% от выручки" }, /* @__PURE__ */ h(MeterList, { layout: "inline", max: 50, base: false, items: [{ label: "Банки", value: 42, display: "42%", color: "var(--chart-1)" }, { label: "Ритейл", value: 28, display: "28%", color: "var(--chart-1)" }, { label: "Госсектор", value: 16, display: "16%", color: "var(--chart-1)" }, { label: "Телеком", value: 9, display: "9%", color: "var(--chart-1)" }] })),
         /* @__PURE__ */ h(Card, { icon: "trophy", title: "Результаты для клиентов" }, /* @__PURE__ */ h(FactList, { items: [{ icon: "rocket", label: "Проектов", value: "350+" }, { icon: "refresh-cw", label: "Клиентов с нами 3+ года", value: "78%" }] }))
       ]

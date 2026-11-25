@@ -1,10 +1,11 @@
 // HTML-презентация ДС → редактируемый PPTX (PowerPoint).
-//   node tools/html2pptx.mjs <папка презентации | index.html> [выходной.pptx] [--safe-font]
-//   --safe-font — Arial вместо Manrope (кегль −8%): для получателя без Manrope, иначе PowerPoint подставит свой шрифт и вёрстка поедет
+//   node tools/html2pptx.mjs <папка презентации | index.html> [выходной.pptx] [--brand-font]
+//   Шрифт по умолчанию — Arial (кегль −8%): есть на любом компьютере, вёрстка не поедет.
+//   --brand-font — фирменный Manrope: только если он установлен у всех, кто откроет файл
 // Как работает: слайды .wt-slide рендерятся в Chromium, из DOM берутся координаты и стили. Тексты становятся текстовыми
-// блоками (Manrope, размеры и межстрочный интервал как в вёрстке), карточки и плашки — фигурами, линии таблиц — линиями.
+// блоками (размеры и межстрочный интервал как в вёрстке), карточки и плашки — фигурами, линии таблиц — линиями.
 // Схемы и графики (крупные SVG) — редактируемые фигуры, линии со стрелками и тексты (lib/svg-vector.mjs); подпись узла лежит внутри фигуры.
-// Иконки, логотип, гексагоны с фото и SVG с градиентами или масками вставляются картинками (PNG с прозрачностью). Шрифт Manrope должен стоять на компьютере.
+// Иконки, логотип, гексагоны с фото и SVG с градиентами или масками вставляются картинками (PNG с прозрачностью).
 // Зависимости (pptxgenjs, sharp, playwright) — в design-system/node_modules: cd design-system && npm install.
 import fs from 'node:fs';
 import path from 'node:path';
@@ -20,8 +21,8 @@ const pptxgen = requireDs('pptxgenjs');
 const sharp = requireDs('sharp');
 
 const args = process.argv.slice(2);
-// --safe-font: Arial вместо Manrope — для получателей без установленного Manrope (PowerPoint подставит свой шрифт, и вёрстка поедет)
-const SAFE = args.includes('--safe-font');
+// Arial — по умолчанию; Manrope — только с --brand-font (прежний --safe-font принимается и ничего не меняет)
+const SAFE = !args.includes('--brand-font');
 const [target, outArg] = args.filter((a) => !a.startsWith('--'));
 const FONT = SAFE ? 'Arial' : 'Manrope';
 const K = SAFE ? 0.92 : 1; // жирный Arial на крупных кеглях шире Manrope — с запасом, чтобы заголовки не уходили на лишнюю строку
@@ -168,6 +169,7 @@ const pres = new pptxgen();
 pres.defineLayout({ name: 'WT', width: 20, height: 11.25 });
 pres.layout = 'WT';
 pres.title = await page.title();
+pres.theme = { headFontFace: FONT, bodyFontFace: FONT };
 pres.company = 'ВЭБ Технологии';
 
 const safeText = (t) => (SAFE ? t.replace(/\u2011/g, '-').replace(/\u2060/g, '') : t);

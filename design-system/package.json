@@ -1,6 +1,6 @@
 {
   "name": "vebtech-presentations-ds",
-  "version": "1.20.0",
+  "version": "1.20.1",
   "description": "Дизайн-система презентаций ВЭБ Технологии",
   "scripts": {
     "build": "node build.mjs",

@@ -45,7 +45,7 @@ const slides = [
   <GridSlide overline="Клиенты" title="Клиенты довольны, но сроки внедрения — зона риска" layout="2x2" section="Итоги 2026 и план"
     cells={[
       <Card><DonutChart size={250} thickness={48} centerValue="126" centerLabel="клиентов" data={[{ label: 'Ритейл', value: 38 }, { label: 'Банки', value: 27 }, { label: 'Госсектор', value: 21 }, { label: 'Прочее', value: 14 }]} /></Card>,
-      <Card tone="tint"><Quote author="Анна Ковалёва" role="ИТ-директор ритейл-сети «Север»">Поддержка отвечает быстрее нашего отдела — даже в выходные</Quote></Card>,
+      <Card tone="tint"><Quote author="Анна Ковалёва" role="ИТ-директор ритейл-сети «Север»">Отвечают даже в выходные</Quote></Card>,
       <Card icon="star" title="NPS по регионам" meta="пункты"><MeterList layout="inline" max={80} base={false} items={[{ label: 'Минск', value: 62, color: 'var(--chart-1)' }, { label: 'Брест', value: 55, color: 'var(--chart-1)' }, { label: 'Гродно', value: 48, color: 'var(--chart-1)' }, { label: 'Гомель', value: 41, color: 'var(--chart-1)' }]} /></Card>,
       <Card tone="warning" icon="triangle-alert" title="Внедрение — 9 недель вместо 6"><Text variant="body" tone="secondary">Узкое место — интеграция с учётными системами клиентов</Text><ProgressBar value={72} label="Проекты, внедрённые в срок" status="warning" /></Card>,
     ]} />,
@@ -93,7 +93,7 @@ const slides = [
   <GridSlide overline="Экспертиза" title="Нам доверяют: 350+ проектов и стандарты ISO" layout="2x2" section="О компании"
     cells={[
       <Card icon="award" title="Сертификаты и аттестаты"><BulletList size="sm" marker="check" items={['СТБ ISO/IEC 27001 — защита информации', 'СТБ ISO 9001 — управление качеством', 'Аттестат системы защиты информации', 'Статус резидента Парка высоких технологий']} /></Card>,
-      <Card tone="tint"><Quote author="Сергей Жук" role="Директор по ИТ, Банк «Пример»">Запускают в срок и не исчезают после запуска</Quote></Card>,
+      <Card tone="tint"><Quote author="Сергей Жук" role="Директор по ИТ, Банк «Пример»">Запускают в срок</Quote></Card>,
       <Card icon="chart-bar" title="Проекты по отраслям" meta="% от выручки"><MeterList layout="inline" max={50} base={false} items={[{ label: 'Банки', value: 42, display: '42%', color: 'var(--chart-1)' }, { label: 'Ритейл', value: 28, display: '28%', color: 'var(--chart-1)' }, { label: 'Госсектор', value: 16, display: '16%', color: 'var(--chart-1)' }, { label: 'Телеком', value: 9, display: '9%', color: 'var(--chart-1)' }]} /></Card>,
       <Card icon="trophy" title="Результаты для клиентов"><FactList items={[{ icon: 'rocket', label: 'Проектов', value: '350+' }, { icon: 'refresh-cw', label: 'Клиентов с нами 3+ года', value: '78%' }]} /></Card>,
     ]} />,
@@ -179,7 +179,7 @@ const slides = [
       <Card icon="clipboard-list" title="Паспорт проекта"><FactList items={[{ icon: 'calendar', label: 'Запуск', value: '1 декабря' }, { icon: 'wallet', label: 'Бюджет', value: '2,4 млн BYN' }, { icon: 'users', label: 'Команда', value: '34 человека' }]} /></Card>,
       <Card icon="gauge" title="Готовность по этапам"><MeterList max={100} base={false} layout="inline" items={[{ label: 'Аналитика', value: 100, display: '100%', color: 'var(--chart-1)' }, { label: 'Разработка', value: 64, display: '64%', color: 'var(--chart-1)' }, { label: 'Интеграции', value: 35, display: '35%', color: 'var(--chart-1)' }, { label: 'Тестирование', value: 10, display: '10%', color: 'var(--chart-1)' }]} /></Card>,
       <Card tone="warning" icon="triangle-alert" title="Риск: интеграция с биллингом"><Text variant="body" tone="secondary">Поставщик сдвинул API на 3 недели. Резерв по срокам — 2 недели</Text></Card>,
-      <Card tone="tint" icon="list-checks" title="На этой неделе"><Checklist items={[{ text: 'Согласовать тестовый стенд', status: 'done' }, { text: 'Эскалация по API биллинга', status: 'progress' }, { text: 'План нагрузочного теста', status: 'todo' }]} /></Card>,
+      <Card tone="tint" icon="list-checks" title="На этой неделе"><Checklist items={[{ text: 'Согласовать тестовый стенд', status: 'done' }, { text: 'Эскалация по API биллинга', status: 'progress' }]} /></Card>,
     ]} />,
   <TableSlide overline="Светофор" title="В срок идут два направления из пяти, риск и блокер — у интеграций и серверов" table={<StatusTable rows={[{ name: 'Архитектура', status: 'done', progress: 100, note: 'Согласована с ИБ' }, { name: 'Разработка', status: 'ok', statusLabel: 'По графику', progress: 64, note: 'Спринт 8 из 12' }, { name: 'Интеграции', status: 'risk', progress: 35, note: 'Ждём API биллинга' }, { name: 'Инфраструктура', status: 'blocked', progress: 20, note: 'Поставка серверов +4 недели' }, { name: 'Обучение', status: 'planned', note: 'Старт в ноябре' }]} />} section="Статус проекта" />,
   <TimelineSlide overline="Вехи" title="Три из шести вех пройдены" timeline={<Timeline items={[{ date: 'Июнь', title: 'Старт', status: 'done' }, { date: 'Июль', title: 'Архитектура', status: 'done' }, { date: 'Август', title: 'MVP', status: 'done' }, { date: 'Сентябрь', title: 'Интеграции', status: 'current' }, { date: 'Октябрь', title: 'Пилот', status: 'planned' }, { date: 'Декабрь', title: 'Запуск', status: 'planned' }]} />} section="Статус проекта" />,
