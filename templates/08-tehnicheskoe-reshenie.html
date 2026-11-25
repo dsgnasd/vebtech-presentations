@@ -9,17 +9,33 @@
 @media print{.bar{display:none}#root{padding:0;max-width:none}}</style>
 </head>
 <body>
-<div class="bar wt-no-print"><span>Техническое решение · 11 слайдов · шаблон, ДС 1.19.0</span><button onclick="print()">Сохранить в PDF</button></div>
+<div class="bar wt-no-print"><span>Техническое решение · 11 слайдов · шаблон, ДС 1.19.1</span><button onclick="print()">Сохранить в PDF</button></div>
 <div id="root"></div>
 <script src="lib/react.production.min.js"></script>
 <script src="lib/react-dom.production.min.js"></script>
 <script src="lib/webtech.js"></script>
 <script>
 var W = window.Webtech, h = React.createElement;
-var { TitleSlide, TwoColumnSlide, ProcessSlide, Pyramid, ProcessFlow, TableSlide, DataTable, GridSlide, Card, MeterList, FactList, Text, KpiSlide, ContentSlide, Checklist, Status, RoadmapSlide, Roadmap, ContactSlide } = W;
+var { TitleSlide, GridSlide, Card, FactList, BulletList, ProcessSlide, Pyramid, ProcessFlow, TableSlide, DataTable, MeterList, Text, KpiSlide, ContentSlide, Checklist, Matrix2x2, RoadmapSlide, Roadmap, ContactSlide } = W;
+const Box = ({ x, y, w = 300, ht = 120, title, note, main }) => /* @__PURE__ */ h("g", { transform: "translate(" + x + " " + y + ")" }, /* @__PURE__ */ h("rect", { width: w, height: ht, rx: "20", fill: main ? "var(--brand-strong)" : "var(--brand-50)", stroke: main ? "none" : "var(--brand-200)", strokeWidth: "2" }), /* @__PURE__ */ h("text", { x: w / 2, y: ht / 2 + (note ? -6 : 10), textAnchor: "middle", fontSize: "28", fontWeight: "700", fill: main ? "var(--on-brand)" : "var(--ink)" }, title), note ? /* @__PURE__ */ h("text", { x: w / 2, y: ht / 2 + 32, textAnchor: "middle", fontSize: "24", fontWeight: "500", fill: main ? "var(--on-brand)" : "var(--ink-secondary)" }, note) : null);
+const Arrow = ({ d }) => /* @__PURE__ */ h("path", { d, fill: "none", stroke: "var(--line-strong)", strokeWidth: "3", markerEnd: "url(#arr)" });
+const Scheme = ({ name, width, height, children }) => /* @__PURE__ */ h("svg", { "data-visual": name, role: "img", "aria-label": name, width, height, viewBox: "0 0 " + width + " " + height, style: { fontFamily: "var(--font-sans)", maxWidth: "100%", display: "block" } }, /* @__PURE__ */ h("defs", null, /* @__PURE__ */ h("marker", { id: "arr", viewBox: "0 0 10 10", refX: "9", refY: "5", markerWidth: "7", markerHeight: "7", orient: "auto" }, /* @__PURE__ */ h("path", { d: "M0 0L10 5L0 10z", fill: "var(--line-strong)" }))), children);
 const slides = [
   /* @__PURE__ */ h(TitleSlide, { composition: "column", textures: ["server"], overline: "Техническое решение", title: "Архитектура платформы обработки платежей", subtitle: "Целевое решение и план миграции", author: "Алексей Орлов, архитектор", date: "Сентябрь 2026" }),
-  /* @__PURE__ */ h(TwoColumnSlide, { overline: "Требования", title: "Платежи всех типов, сверка с банками и 3 000 транзакций в секунду", left: { icon: "list-checks", title: "Функциональные", bullets: ["Приём платежей всех типов", "Сверка с банками-партнёрами", "Личный кабинет мерчанта"] }, right: { icon: "gauge", title: "Нефункциональные", tint: true, bullets: ["3 000 транзакций в секунду", "Доступность 99,95%", "Соответствие PCI DSS"] }, section: "Платёжная платформа" }),
+  /* @__PURE__ */ h(
+    GridSlide,
+    {
+      overline: "Требования",
+      title: "Платформа связывает мерчантов, банки и учёт при 3 000 транзакций в секунду",
+      layout: "feature-left",
+      section: "Платёжная платформа",
+      cells: [
+        /* @__PURE__ */ h(Card, { icon: "network", title: "Контекст системы" }, /* @__PURE__ */ h(Scheme, { name: "Контекст системы", width: 960, height: 520 }, /* @__PURE__ */ h(Arrow, { d: "M280 130H340V220H390" }), /* @__PURE__ */ h(Arrow, { d: "M280 390H340V300H390" }), /* @__PURE__ */ h(Arrow, { d: "M680 220H720V130H760" }), /* @__PURE__ */ h(Arrow, { d: "M680 300H720V390H760" }), /* @__PURE__ */ h(Box, { x: 0, y: 70, w: 280, title: "Мерчанты", note: "кабинет, API" }), /* @__PURE__ */ h(Box, { x: 0, y: 330, w: 280, title: "Плательщики", note: "веб и мобайл" }), /* @__PURE__ */ h(Box, { x: 400, y: 160, w: 280, ht: 200, title: "Платформа", note: "приём, сверка", main: true }), /* @__PURE__ */ h(Box, { x: 770, y: 70, w: 190, title: "Банки" }), /* @__PURE__ */ h(Box, { x: 770, y: 330, w: 190, title: "Учёт" }))),
+        /* @__PURE__ */ h(Card, { icon: "gauge", title: "Нефункциональные" }, /* @__PURE__ */ h(FactList, { layout: "column", items: [{ icon: "gauge", label: "Доступность", value: "99,95%" }, { icon: "shield-check", label: "Стандарт", value: "PCI DSS" }] })),
+        /* @__PURE__ */ h(Card, { tone: "tint", icon: "list-checks", title: "Функциональные" }, /* @__PURE__ */ h(BulletList, { size: "sm", items: ["Платежи всех типов", "Сверка с банками", "Кабинет мерчанта"] }))
+      ]
+    }
+  ),
   /* @__PURE__ */ h(ProcessSlide, { overline: "Архитектура", title: "Архитектура из четырёх уровней: от каналов до инфраструктуры", process: /* @__PURE__ */ h(Pyramid, { variant: "layers", width: 1728, levels: [{ title: "Каналы", text: "Веб, мобильное приложение, API для партнёров" }, { title: "Сервисы", text: "Микросервисы на Kotlin, событийная шина Kafka" }, { title: "Данные", text: "PostgreSQL, ClickHouse для аналитики, Redis" }, { title: "Инфраструктура", text: "Kubernetes в двух ЦОД, active-active" }] }), section: "Платёжная платформа" }),
   /* @__PURE__ */ h(ProcessSlide, { overline: "Поток", title: "Платёж проходит четыре шага: приём, антифрод, процессинг, учёт", process: /* @__PURE__ */ h(ProcessFlow, { steps: [{ icon: "smartphone", title: "Приём", text: "API-шлюз, авторизация" }, { icon: "shield-check", title: "Антифрод", text: "Проверка за 50 мс" }, { icon: "refresh-cw", title: "Процессинг", text: "Маршрутизация в банк" }, { icon: "database", title: "Учёт", text: "Проводки и сверка" }] }), section: "Платёжная платформа" }),
   /* @__PURE__ */ h(TableSlide, { overline: "Стек", title: "Стек выбран под экспертизу команды и надёжную доставку событий", table: /* @__PURE__ */ h(DataTable, { columns: [{ title: "Слой" }, { title: "Технологии" }, { title: "Почему" }], rows: [["Сервисы", "Kotlin, Spring Boot", "Экспертиза команды, производительность"], ["Интеграция", "Kafka, REST, gRPC", "Событийная модель, надёжная доставка"], ["Данные", "PostgreSQL, ClickHouse, Redis", "Транзакции + аналитика + кэш"], ["Платформа", "Kubernetes, Istio, ArgoCD", "Масштабирование и GitOps"], ["Наблюдаемость", "Prometheus, Grafana, OpenTelemetry", "Метрики, трассировка, алерты"]], zebra: true }), section: "Платёжная платформа" }),
@@ -46,11 +62,10 @@ const slides = [
       overline: "Риски",
       title: "Риски миграции известны и закрыты мерами",
       layout: "halves",
-      columns: "3fr 2fr",
       section: "Платёжная платформа",
       cells: [
-        /* @__PURE__ */ h(DataTable, { columns: [{ title: "Риск" }, { title: "Уровень" }, { title: "Мера" }], rows: [["Потеря транзакций при переключении", /* @__PURE__ */ h(Status, { status: "blocked", variant: "text", label: "Высокий" }), "Двойная запись 2 недели"], ["Рост задержек", /* @__PURE__ */ h(Status, { status: "risk", variant: "text", label: "Средний" }), "Нагрузочный тест до старта"], ["Нехватка экспертизы", /* @__PURE__ */ h(Status, { status: "risk", variant: "text", label: "Средний" }), "Обучение команды банка"]] }),
-        /* @__PURE__ */ h(Card, { tone: "tint", icon: "list-checks", title: "Готовность к миграции" }, /* @__PURE__ */ h(Checklist, { items: [{ text: "Стенд нагрузочного теста", status: "done" }, { text: "План отката", status: "done" }, { text: "Двойная запись", status: "progress" }, { text: "Обучение дежурных", status: "todo" }] }))
+        /* @__PURE__ */ h(Card, { icon: "triangle-alert", title: "Карта рисков" }, /* @__PURE__ */ h(Matrix2x2, { size: 420, xLabel: "Вероятность", yLabel: "Влияние", quadrants: ["Следить", "Действовать", "Принять", "Снижать"], items: [{ label: "Потеря операций", x: 0.06, y: 0.68, accent: true }, { label: "Рост задержек", x: 0.93, y: 0.62 }, { label: "Экспертиза", x: 0.9, y: 0.28 }] })),
+        /* @__PURE__ */ h(Card, { tone: "tint", icon: "list-checks", title: "Меры" }, /* @__PURE__ */ h(Checklist, { items: [{ text: "Двойная запись 2 недели", meta: "Операции", status: "progress" }, { text: "Нагрузочный тест до старта", meta: "Задержки", status: "done" }, { text: "План отката", status: "done" }, { text: "Обучение команды банка", meta: "Экспертиза", status: "todo" }] }))
       ]
     }
   ),

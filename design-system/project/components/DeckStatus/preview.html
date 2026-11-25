@@ -8,10 +8,25 @@
 <div id="root"></div>
 <script>
 var W = window.Webtech, h = React.createElement;
-var { TitleSlide, ContentSlide, KpiCard, Status, GridSlide, Card, FactList, MeterList, Text, Checklist, TableSlide, StatusTable, TimelineSlide, Timeline, RoadmapSlide, Roadmap, PlanFactCard, BreakdownBar, DataTable, Deck } = W;
+var { TitleSlide, GridSlide, Card, LineChart, KpiCard, Status, FactList, MeterList, Text, Checklist, TableSlide, StatusTable, TimelineSlide, Timeline, ContentSlide, RoadmapSlide, Roadmap, PlanFactCard, BreakdownBar, Matrix2x2, Deck } = W;
 const slides = [
   /* @__PURE__ */ h(TitleSlide, { composition: "quiet", overline: "Статус-отчёт", title: "Проект «Единая платформа клиента»", subtitle: "Отчёт № 8 за период 1–15 сентября", author: "Мария Козлова, руководитель проекта", date: "16 сентября 2026" }),
-  /* @__PURE__ */ h(ContentSlide, { overline: "Сводка", title: "Проект идёт по графику, есть риск по интеграциям", section: "Статус проекта" }, /* @__PURE__ */ h("div", { style: { display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 32 } }, /* @__PURE__ */ h(KpiCard, { variant: "outline", value: "64", unit: "%", label: "Готовность проекта", delta: "+8 п. п. за период" }), /* @__PURE__ */ h(KpiCard, { variant: "outline", value: "92", unit: "%", label: "Освоение бюджета к плану", delta: "В рамках бюджета", trend: "flat" }), /* @__PURE__ */ h(KpiCard, { variant: "outline", value: "1", label: "Критичный риск", delta: "Интеграция с биллингом", trend: "down" })), /* @__PURE__ */ h("div", { style: { marginTop: 48, display: "flex", gap: 24, alignItems: "center" } }, /* @__PURE__ */ h(Status, { status: "risk", variant: "large", label: "Общий статус: риск по срокам интеграций" }))),
+  /* @__PURE__ */ h(
+    GridSlide,
+    {
+      overline: "Сводка",
+      meta: "Отчёт № 8",
+      title: "Готовность 64%: график держим, риск один",
+      layout: "feature-left",
+      section: "Статус проекта",
+      cells: [
+        /* @__PURE__ */ h(Card, { icon: "trending-up", title: "Готовность проекта", meta: "%" }, /* @__PURE__ */ h(LineChart, { width: 900, height: 440, categories: ["1 июля", "15 июля", "1 авг", "15 авг", "1 сен", "15 сен"], series: [{ name: "Факт", values: [18, 28, 39, 48, 56, 64] }, { name: "План", values: [18, 27, 36, 46, 56, 65], dashed: true }], format: (v) => v + "%", labelLast: false })),
+        /* @__PURE__ */ h(KpiCard, { variant: "brand", value: "92", unit: "%", label: "Освоение бюджета к плану" }),
+        /* @__PURE__ */ h(Card, { tone: "warning", icon: "triangle-alert", title: "Критичный риск" }, /* @__PURE__ */ h(Status, { status: "risk", variant: "large", label: "Интеграция с биллингом" }))
+      ],
+      source: "Управление проектом, данные на 15.09.2026"
+    }
+  ),
   /* @__PURE__ */ h(
     GridSlide,
     {
@@ -45,7 +60,19 @@ const slides = [
       ]
     }
   ),
-  /* @__PURE__ */ h(TableSlide, { overline: "Риски", title: "Один высокий риск и два средних требуют внимания руководства", table: /* @__PURE__ */ h(DataTable, { columns: [{ title: "Риск" }, { title: "Влияние" }, { title: "Меры" }, { title: "Владелец" }], rows: [["Задержка API биллинга", /* @__PURE__ */ h(Status, { status: "blocked", label: "Высокое" }), "Эскалация на уровень CTO партнёра", "Козлова М."], ["Поставка серверов", /* @__PURE__ */ h(Status, { status: "risk", label: "Среднее" }), "Временно — облачные мощности", "Орлов А."], ["Нагрузка на команду", /* @__PURE__ */ h(Status, { status: "risk", label: "Среднее" }), "Привлечь 2 разработчиков", "Петров И."]] }), section: "Статус проекта" }),
+  /* @__PURE__ */ h(
+    GridSlide,
+    {
+      overline: "Риски",
+      title: "Один высокий риск и два средних требуют внимания",
+      layout: "halves",
+      section: "Статус проекта",
+      cells: [
+        /* @__PURE__ */ h(Card, { icon: "triangle-alert", title: "Карта рисков" }, /* @__PURE__ */ h(Matrix2x2, { size: 420, xLabel: "Вероятность", yLabel: "Влияние", quadrants: ["Следить", "Действовать", "Принять", "Снижать"], items: [{ label: "API биллинга", x: 0.9, y: 0.68, accent: true }, { label: "Серверы", x: 0.1, y: 0.62 }, { label: "Нагрузка", x: 0.9, y: 0.3 }] })),
+        /* @__PURE__ */ h(Card, { tone: "tint", icon: "shield-check", title: "Меры и владельцы" }, /* @__PURE__ */ h(Checklist, { items: [{ text: "Эскалация к CTO партнёра", meta: "Козлова М.", status: "progress" }, { text: "Временно — облачные мощности", meta: "Орлов А.", status: "todo" }, { text: "Привлечь 2 разработчиков", meta: "Петров И.", status: "todo" }] }))
+      ]
+    }
+  ),
   /* @__PURE__ */ h(ContentSlide, { overline: "Решения", title: "Три решения нужны от управляющего комитета", bullets: ["Эскалация по API биллинга до 20 сентября", "Согласовать временную аренду облачных мощностей — 40 тыс. BYN", "Утвердить расширение команды на 2 человека"], marker: "number", section: "Статус проекта" })
 ];
 const view = /* @__PURE__ */ h(Deck, { layout: "grid", columns: 3 }, slides);

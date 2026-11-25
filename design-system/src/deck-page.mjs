@@ -23,6 +23,19 @@ export function footerOverlap() {
   });
 }
 
+// Выполняется в браузере: слайды, где содержимое вышло за нижний или правый край карточки (срезано или наезжает на соседей)
+export function cardOverflow() {
+  return [...document.querySelectorAll('.wt-slide')].flatMap((s, i) => {
+    const k = s.getBoundingClientRect().width / 1920 || 1;
+    const ink = (el) => /^(svg|img)$/i.test(el.tagName) || [...el.childNodes].some((n) => n.nodeType === 3 && n.textContent.trim());
+    const hit = [...s.querySelectorAll('.wt-card, .wt-kpi, .wt-gridslide-cell')].find((c) => {
+      const b = c.getBoundingClientRect();
+      return [...c.querySelectorAll('*')].some((el) => !el.parentElement.closest('svg') && ink(el) && (el.getBoundingClientRect().bottom > b.bottom + 4 * k || el.getBoundingClientRect().right > b.right + 4 * k));
+    });
+    return hit ? [i + 1] : [];
+  });
+}
+
 export const countSlides =(code) => (code.match(/^\s{2}<[A-Z]\w*Slide/gm) || []).length;
 
 // code определяет массив `slides`; lib — относительный путь к папке с webtech.css/js и React

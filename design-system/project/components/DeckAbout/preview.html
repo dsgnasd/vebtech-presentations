@@ -8,10 +8,10 @@
 <div id="root"></div>
 <script>
 var W = window.Webtech, h = React.createElement;
-var { TitleSlide, ContentSlide, TimelineSlide, Timeline, KpiSlide, GridSlide, Card, FactList, KpiCard, IconFeature, BulletList, Quote, MeterList, ChartSlide, DonutChart, CaseSlide, TeamSlide, ContactSlide, Deck } = W;
+var { TitleSlide, ProcessSlide, Pyramid, TimelineSlide, Timeline, KpiSlide, GridSlide, Card, FactList, KpiCard, ProcessFlow, BulletList, Quote, MeterList, ChartSlide, DonutChart, CaseSlide, TeamSlide, ContactSlide, Deck } = W;
 const slides = [
   /* @__PURE__ */ h(TitleSlide, { composition: "hero", textures: ["facade"], overline: "Презентация компании", title: "ВЭБ Технологии", subtitle: "Разрабатываем и развиваем цифровые платформы для бизнеса и государства Беларуси", date: "2026" }),
-  /* @__PURE__ */ h(ContentSlide, { overline: "Кто мы", title: "Создаём надёжные цифровые сервисы для крупного бизнеса", lead: "Минская ИТ-компания полного цикла: от аудита и проектирования до эксплуатации 24/7", bullets: [{ title: "Миссия", text: "Делать сложные технологии простыми и доступными для клиентов" }, { title: "Подход", text: "Продуктовые команды, прозрачные сроки, измеримый результат" }, { title: "Ответственность", text: "Собственная инфраструктура и соответствие законодательству РБ о защите персональных данных" }], section: "О компании" }),
+  /* @__PURE__ */ h(ProcessSlide, { overline: "Кто мы", title: "Создаём надёжные цифровые сервисы для крупного бизнеса", process: /* @__PURE__ */ h(Pyramid, { variant: "layers", width: 1728, levels: [{ title: "Миссия", text: "Делать сложные технологии простыми для клиентов" }, { title: "Подход", text: "Продуктовые команды, прозрачные сроки, измеримый результат" }, { title: "Основа", text: "Своя инфраструктура и защита данных по законам РБ" }] }), section: "О компании" }),
   /* @__PURE__ */ h(TimelineSlide, { overline: "История", title: "Семь лет роста", timeline: /* @__PURE__ */ h(Timeline, { items: [{ date: "2019", title: "Основание", text: "12 инженеров", status: "done" }, { date: "2021", title: "Первый банк", text: "Платформа ДБО", status: "done" }, { date: "2023", title: "Своё облако", text: "Два ЦОД Tier III", status: "done" }, { date: "2026", title: "100+ клиентов", text: "Все областные центры", status: "current" }, { date: "2028", title: "Топ-3 рынка", text: "Цель стратегии", status: "planned" }] }), section: "О компании" }),
   /* @__PURE__ */ h(KpiSlide, { overline: "В цифрах", title: "Вэбтех сегодня: 680 сотрудников, 126 клиентов, 48 млн BYN", items: [{ value: "680", label: "Сотрудников", icon: "users" }, { value: "126", label: "Корпоративных клиентов", icon: "building" }, { value: "48", unit: "млн BYN", label: "Выручка 2026", icon: "wallet" }, { value: "99,95", unit: "%", label: "Доступность сервисов", icon: "gauge" }], section: "О компании" }),
   /* @__PURE__ */ h(
@@ -30,12 +30,12 @@ const slides = [
       ]
     }
   ),
-  /* @__PURE__ */ h(ContentSlide, { overline: "Направления", title: "Четыре направления закрывают весь цикл: от облака до поддержки", section: "О компании" }, /* @__PURE__ */ h("div", { style: { display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 48 } }, /* @__PURE__ */ h(IconFeature, { icon: "cloud", title: "Облако" }, "IaaS, PaaS и managed-сервисы в своих ЦОД"), /* @__PURE__ */ h(IconFeature, { icon: "code", title: "Разработка" }, "Заказные платформы и мобильные приложения"), /* @__PURE__ */ h(IconFeature, { icon: "network", title: "Интеграция" }, "Связываем системы и данные клиента"), /* @__PURE__ */ h(IconFeature, { icon: "headset", title: "Поддержка" }, "Эксплуатация 24/7 с SLA до 99,95%"))),
+  /* @__PURE__ */ h(ProcessSlide, { overline: "Направления", title: "Четыре направления закрывают весь цикл: от кода до поддержки", process: /* @__PURE__ */ h(ProcessFlow, { steps: [{ icon: "code", title: "Разработка", text: "Платформы и мобильные приложения" }, { icon: "network", title: "Интеграция", text: "Системы и данные клиента" }, { icon: "cloud", title: "Облако", text: "IaaS и PaaS в своих ЦОД" }, { icon: "headset", title: "Поддержка", text: "24/7 с SLA до 99,95%" }] }), section: "О компании" }),
   /* @__PURE__ */ h(
     GridSlide,
     {
       overline: "Экспертиза",
-      title: "Нам доверяют банки и ритейл: сертификаты ISO и отзывы клиентов",
+      title: "Нам доверяют: 350+ проектов и стандарты ISO",
       layout: "2x2",
       section: "О компании",
       cells: [

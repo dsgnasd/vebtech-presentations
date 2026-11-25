@@ -128,7 +128,7 @@ async function cmdNew() {
 }
 
 async function buildOne(dir) {
-  const { deckHtml, footerOverlap } = await imp(path.join(DS, 'src/deck-page.mjs'));
+  const { deckHtml, footerOverlap, cardOverflow } = await imp(path.join(DS, 'src/deck-page.mjs'));
   const { collectVisuals, judge, report } = await imp(path.join(DS, 'src/visual-check.mjs'));
   if (!fs.existsSync(path.join(dir, 'deck.jsx'))) throw new Error(path.basename(dir) + ': нет deck.jsx — сначала план и черновик');
   const meta = readMeta(dir);
@@ -158,6 +158,8 @@ async function buildOne(dir) {
   const n = await page.evaluate(() => document.querySelectorAll('.wt-frame').length);
   const over = await page.evaluate(footerOverlap);
   if (over.length) console.log(`  ⚠ ${path.basename(dir)}: содержимое заходит на футер — слайды ${over.join(', ')}`);
+  const cut = await page.evaluate(cardOverflow);
+  if (cut.length) console.log(`  ⚠ ${path.basename(dir)}: содержимое не помещается в карточку — слайды ${cut.join(', ')}: уменьшить график, убрать иконку или строку`);
   const vis = judge(await page.evaluate(collectVisuals));
   meta.visual = { ok: vis.ok, share: +vis.share.toFixed(2), kinds: vis.kinds, problems: vis.problems };
   writeMeta(dir, meta);

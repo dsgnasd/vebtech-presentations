@@ -9,19 +9,43 @@
 @media print{.bar{display:none}#root{padding:0;max-width:none}}</style>
 </head>
 <body>
-<div class="bar wt-no-print"><span>Продуктовая презентация · 11 слайдов · шаблон, ДС 1.19.0</span><button onclick="print()">Сохранить в PDF</button></div>
+<div class="bar wt-no-print"><span>Продуктовая презентация · 11 слайдов · шаблон, ДС 1.19.1</span><button onclick="print()">Сохранить в PDF</button></div>
 <div id="root"></div>
 <script src="lib/react.production.min.js"></script>
 <script src="lib/react-dom.production.min.js"></script>
 <script src="lib/webtech.js"></script>
 <script>
 var W = window.Webtech, h = React.createElement;
-var { TitleSlide, ContentSlide, KpiCard, ImageTextSlide, IconFeature, GridSlide, Card, BulletList, BarChart, ProcessSlide, ProcessFlow, ChartSlide, Quote, TableSlide, ComparisonTable, RoadmapSlide, Roadmap, ContactSlide } = W;
+var { TitleSlide, GridSlide, Card, DonutChart, IconFeature, ImageTextSlide, ProcessSlide, BulletList, BarChart, ProcessFlow, ChartSlide, Quote, KpiCard, TableSlide, ComparisonTable, RoadmapSlide, Roadmap, ContactSlide } = W;
+const Box = ({ x, y, w = 300, ht = 120, title, note, main }) => /* @__PURE__ */ h("g", { transform: "translate(" + x + " " + y + ")" }, /* @__PURE__ */ h("rect", { width: w, height: ht, rx: "20", fill: main ? "var(--brand-strong)" : "var(--brand-50)", stroke: main ? "none" : "var(--brand-200)", strokeWidth: "2" }), /* @__PURE__ */ h("text", { x: w / 2, y: ht / 2 + (note ? -6 : 10), textAnchor: "middle", fontSize: "28", fontWeight: "700", fill: main ? "var(--on-brand)" : "var(--ink)" }, title), note ? /* @__PURE__ */ h("text", { x: w / 2, y: ht / 2 + 32, textAnchor: "middle", fontSize: "24", fontWeight: "500", fill: main ? "var(--on-brand)" : "var(--ink-secondary)" }, note) : null);
+const Arrow = ({ d }) => /* @__PURE__ */ h("path", { d, fill: "none", stroke: "var(--line-strong)", strokeWidth: "3", markerEnd: "url(#arr)" });
+const Scheme = ({ name, width, height, children }) => /* @__PURE__ */ h("svg", { "data-visual": name, role: "img", "aria-label": name, width, height, viewBox: "0 0 " + width + " " + height, style: { fontFamily: "var(--font-sans)", maxWidth: "100%", display: "block" } }, /* @__PURE__ */ h("defs", null, /* @__PURE__ */ h("marker", { id: "arr", viewBox: "0 0 10 10", refX: "9", refY: "5", markerWidth: "7", markerHeight: "7", orient: "auto" }, /* @__PURE__ */ h("path", { d: "M0 0L10 5L0 10z", fill: "var(--line-strong)" }))), children);
 const slides = [
   /* @__PURE__ */ h(TitleSlide, { composition: "hero", overline: "Продукт", title: "Вэбтех Облако 3.0", subtitle: "Управляемая облачная платформа для корпоративных сервисов", date: "Сентябрь 2026" }),
-  /* @__PURE__ */ h(ContentSlide, { overline: "Проблема", title: "Компании тратят до 40% бюджета ИТ на поддержку инфраструктуры", bullets: ["Разрозненные среды разработки и эксплуатации", "Долгий запуск новых сервисов — 2–3 месяца", "Сложно выполнить требования ОАЦ и Закона № 99-З"], aside: /* @__PURE__ */ h(KpiCard, { variant: "brand", size: "lg", value: "40", unit: "%", label: "Бюджета ИТ уходит на инфраструктуру" }), section: "Вэбтех Облако 3.0" }),
+  /* @__PURE__ */ h(
+    GridSlide,
+    {
+      overline: "Проблема",
+      title: "До 40% бюджета ИТ уходит на поддержку инфраструктуры",
+      layout: "halves",
+      section: "Вэбтех Облако 3.0",
+      cells: [
+        /* @__PURE__ */ h(Card, { icon: "chart-pie", title: "Бюджет ИТ", meta: "%" }, /* @__PURE__ */ h(DonutChart, { size: 340, thickness: 64, centerValue: "40%", centerLabel: "поддержка", data: [{ label: "Инфраструктура", value: 40 }, { label: "Развитие", value: 35 }, { label: "Лицензии", value: 25, color: "var(--chart-other)" }] })),
+        /* @__PURE__ */ h(Card, { tone: "tint", icon: "triangle-alert", title: "Что мешает" }, /* @__PURE__ */ h(IconFeature, { layout: "horizontal", icon: "layers", title: "Разрозненные среды" }, "Разработка и эксплуатация раздельно"), /* @__PURE__ */ h(IconFeature, { layout: "horizontal", icon: "clock", title: "Запуск 2–3 месяца" }, "Столько ждёт новый сервис"), /* @__PURE__ */ h(IconFeature, { layout: "horizontal", icon: "shield-check", title: "Требования" }, "ОАЦ и Закон № 99-З"))
+      ],
+      source: "Опрос 38 команд клиентов, 2026"
+    }
+  ),
   /* @__PURE__ */ h(ImageTextSlide, { overline: "Продукт", title: "Всё для запуска сервисов в одной консоли", text: "Kubernetes, базы данных, мониторинг и безопасность как сервис", bullets: ["Запуск среды за 15 минут", "Оплата по потреблению", "Аттестация по требованиям ОАЦ"], caption: "Консоль управления, версия 3.0", section: "Вэбтех Облако 3.0" }),
-  /* @__PURE__ */ h(ContentSlide, { overline: "Возможности", title: "Шесть сервисов закрывают запуск и эксплуатацию", section: "Вэбтех Облако 3.0" }, /* @__PURE__ */ h("div", { style: { display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "48px 64px" } }, /* @__PURE__ */ h(IconFeature, { layout: "horizontal", icon: "server", title: "Kubernetes" }, "Managed-кластеры с автомасштабированием"), /* @__PURE__ */ h(IconFeature, { layout: "horizontal", icon: "database", title: "Базы данных" }, "PostgreSQL, Redis, ClickHouse"), /* @__PURE__ */ h(IconFeature, { layout: "horizontal", icon: "gauge", title: "Мониторинг" }, "Метрики, логи и алерты"), /* @__PURE__ */ h(IconFeature, { layout: "horizontal", icon: "shield-check", title: "Безопасность" }, "WAF, IAM, шифрование"), /* @__PURE__ */ h(IconFeature, { layout: "horizontal", icon: "git-branch", title: "CI/CD" }, "Конвейер от коммита до релиза"), /* @__PURE__ */ h(IconFeature, { layout: "horizontal", icon: "headset", title: "Поддержка" }, "Инженеры 24/7"))),
+  /* @__PURE__ */ h(
+    ProcessSlide,
+    {
+      overline: "Возможности",
+      title: "Шесть сервисов закрывают запуск и эксплуатацию",
+      section: "Вэбтех Облако 3.0",
+      process: /* @__PURE__ */ h(Scheme, { name: "Сервисы платформы", width: 1728, height: 560 }, /* @__PURE__ */ h(Arrow, { d: "M430 100H570" }), /* @__PURE__ */ h(Arrow, { d: "M1030 100H1170" }), /* @__PURE__ */ h(Arrow, { d: "M800 170V230" }), /* @__PURE__ */ h(Box, { x: 130, y: 30, w: 300, ht: 140, title: "CI/CD", note: "код и релиз" }), /* @__PURE__ */ h(Box, { x: 580, y: 30, w: 450, ht: 140, title: "Kubernetes", note: "автомасштабирование", main: true }), /* @__PURE__ */ h(Box, { x: 1180, y: 30, w: 420, ht: 140, title: "Ваши сервисы", note: "в продакшене" }), /* @__PURE__ */ h(Box, { x: 130, y: 240, w: 1470, ht: 110, title: "Базы данных: PostgreSQL, Redis, ClickHouse" }), /* @__PURE__ */ h(Box, { x: 130, y: 390, w: 470, ht: 140, title: "Мониторинг", note: "метрики, логи, алерты" }), /* @__PURE__ */ h(Box, { x: 630, y: 390, w: 470, ht: 140, title: "Безопасность", note: "WAF, IAM, шифрование" }), /* @__PURE__ */ h(Box, { x: 1130, y: 390, w: 470, ht: 140, title: "Поддержка", note: "инженеры 24/7" }))
+    }
+  ),
   /* @__PURE__ */ h(
     GridSlide,
     {

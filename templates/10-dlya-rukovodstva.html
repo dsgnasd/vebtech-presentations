@@ -9,18 +9,33 @@
 @media print{.bar{display:none}#root{padding:0;max-width:none}}</style>
 </head>
 <body>
-<div class="bar wt-no-print"><span>Для руководства и совета директоров · 10 слайдов · шаблон, ДС 1.19.0</span><button onclick="print()">Сохранить в PDF</button></div>
+<div class="bar wt-no-print"><span>Для руководства и совета директоров · 10 слайдов · шаблон, ДС 1.19.1</span><button onclick="print()">Сохранить в PDF</button></div>
 <div id="root"></div>
 <script src="lib/react.production.min.js"></script>
 <script src="lib/react-dom.production.min.js"></script>
 <script src="lib/webtech.js"></script>
 <script>
 var W = window.Webtech, h = React.createElement;
-var { TitleSlide, AgendaSlide, ContentSlide, Callout, DashboardSlide, Card, Text, MeterList, ChartSlide, ComboChart, GridSlide, KpiCard, BarChart, TableSlide, StatusTable, DataTable, Status, BreakdownBar, Checklist } = W;
+var { TitleSlide, AgendaSlide, GridSlide, Card, BarChart, FactList, Text, DashboardSlide, MeterList, ChartSlide, ComboChart, KpiCard, TableSlide, StatusTable, DataTable, Status, BreakdownBar, Checklist, ContentSlide } = W;
 const slides = [
   /* @__PURE__ */ h(TitleSlide, { composition: "quiet", overline: "Заседание совета директоров", title: "Итоги I полугодия 2026 года", subtitle: "Материалы к заседанию 30 сентября", date: "30 сентября 2026" }),
   /* @__PURE__ */ h(AgendaSlide, { items: [{ title: "Резюме", time: "5 мин" }, { title: "Финансовые результаты", time: "15 мин" }, { title: "Ключевые проекты", time: "10 мин" }, { title: "Риски", time: "10 мин" }, { title: "Вопросы на утверждение", time: "20 мин" }] }),
-  /* @__PURE__ */ h(ContentSlide, { overline: "Резюме", title: "Полугодие выше бюджета, прогноз на год повышаем", bullets: [{ title: "Выручка 24,5 млн BYN", text: "+29% г/г, 104% бюджета" }, { title: "EBITDA 8,1 млн BYN", text: "Рентабельность 33%, +3 п. п." }, { title: "Прогноз на год", text: "Повышаем с 46 до 48 млн BYN" }], aside: /* @__PURE__ */ h(Callout, { tone: "warning", title: "Внимание" }, "Риск по срокам проекта «Единая платформа клиента» — см. слайд 7"), section: "Совет директоров", confidential: true }),
+  /* @__PURE__ */ h(
+    GridSlide,
+    {
+      overline: "Резюме",
+      title: "Полугодие выше бюджета, прогноз на год повышаем",
+      layout: "feature-left",
+      section: "Совет директоров",
+      confidential: true,
+      cells: [
+        /* @__PURE__ */ h(Card, { icon: "trending-up", title: "Прогноз выручки на год", meta: "млн BYN" }, /* @__PURE__ */ h(BarChart, { width: 900, height: 420, highlight: "Новый прогноз", data: [{ label: "Бюджет", value: 46 }, { label: "Новый прогноз", value: 48 }] })),
+        /* @__PURE__ */ h(Card, { icon: "gauge", title: "Полугодие" }, /* @__PURE__ */ h(FactList, { items: [{ icon: "wallet", label: "Выручка", value: "24,5 млн" }, { icon: "percent", label: "EBITDA", value: "8,1 млн" }] })),
+        /* @__PURE__ */ h(Card, { tone: "warning", icon: "triangle-alert", title: "Внимание" }, /* @__PURE__ */ h(Text, { variant: "body", tone: "secondary" }, "Риск по срокам «Единой платформы клиента» — слайд 7"))
+      ],
+      source: "Управленческая отчётность, BYN"
+    }
+  ),
   /* @__PURE__ */ h(DashboardSlide, { overline: "План / факт", title: "Полугодие выше бюджета по выручке и прибыли", meta: "I полугодие 2026", cards: [{ title: "Выручка", tone: "tint", unit: "млн BYN", plan: 23.6, fact: 24.5 }, { title: "EBITDA", unit: "млн BYN", plan: 7.8, fact: 8.1 }, { title: "Рентабельность EBITDA", unit: "%", plan: 32.5, fact: 33.1, format: (v) => W.fmt(v, { digits: 1, minDigits: 1 }) + "%" }, { title: "Капитальные вложения", unit: "млн BYN", better: "lower", plan: 3.2, fact: 2.9 }], aside: /* @__PURE__ */ h(Card, { tone: "success", icon: "trending-up", title: "Прогноз на год повышаем" }, /* @__PURE__ */ h(Text, { variant: "body", tone: "secondary" }, "Контракты II полугодия подписаны, выручка года — 48 млн BYN вместо 46."), /* @__PURE__ */ h(MeterList, { items: [{ label: "Бюджет года", value: 46 }, { label: "Новый прогноз", value: 48 }, { label: "Факт полугодия", value: 24.5 }], format: (v) => W.fmt(v, { digits: 1 }) + " млн" })), section: "Совет директоров", confidential: true }),
   /* @__PURE__ */ h(ChartSlide, { overline: "Финансы", title: "Выручка растёт быстрее бюджета", chartTitle: "Выручка по кварталам", chartSubtitle: "млн BYN", chart: /* @__PURE__ */ h(ComboChart, { width: 1080, height: 420, categories: ["Q3 25", "Q4 25", "Q1 26", "Q2 26"], bars: { name: "Факт", values: [10, 11, 11.5, 13] }, line: { name: "Бюджет", values: [9.5, 10.5, 11.2, 12.3] } }), takeaway: "104% бюджета за полугодие", source: "Управленческая отчётность", section: "Совет директоров", confidential: true }),
   /* @__PURE__ */ h(

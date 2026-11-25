@@ -3,6 +3,23 @@
 
 const CONTACTS = `[{ icon: 'mail', value: 'name@company.by' }, { icon: 'phone', value: '+375 00 000-00-00' }, { icon: 'globe', value: 'www.company.by' }, { icon: 'map-pin', value: 'Минск, Беларусь' }]`;
 
+// Свои схемы в шаблонах: узлы и стрелки на токенах (правила — docs/70-visuals.md)
+const SCHEME = `
+const Box = ({ x, y, w = 300, ht = 120, title, note, main }) => (
+  <g transform={'translate(' + x + ' ' + y + ')'}>
+    <rect width={w} height={ht} rx="20" fill={main ? 'var(--brand-strong)' : 'var(--brand-50)'} stroke={main ? 'none' : 'var(--brand-200)'} strokeWidth="2" />
+    <text x={w / 2} y={ht / 2 + (note ? -6 : 10)} textAnchor="middle" fontSize="28" fontWeight="700" fill={main ? 'var(--on-brand)' : 'var(--ink)'}>{title}</text>
+    {note ? <text x={w / 2} y={ht / 2 + 32} textAnchor="middle" fontSize="24" fontWeight="500" fill={main ? 'var(--on-brand)' : 'var(--ink-secondary)'}>{note}</text> : null}
+  </g>
+);
+const Arrow = ({ d }) => <path d={d} fill="none" stroke="var(--line-strong)" strokeWidth="3" markerEnd="url(#arr)" />;
+const Scheme = ({ name, width, height, children }) => (
+  <svg data-visual={name} role="img" aria-label={name} width={width} height={height} viewBox={'0 0 ' + width + ' ' + height} style={{ fontFamily: 'var(--font-sans)', maxWidth: '100%', display: 'block' }}>
+    <defs><marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="var(--line-strong)" /></marker></defs>
+    {children}
+  </svg>
+);`;
+
 export const DECKS = [
   {
     name: 'DeckBasic', file: '01-bazovyj-korporativnyj', title: 'Базовый корпоративный',
@@ -62,7 +79,7 @@ const slides = [
     code: `
 const slides = [
   <TitleSlide composition="hero" textures={['facade']} overline="Презентация компании" title="ВЭБ Технологии" subtitle="Разрабатываем и развиваем цифровые платформы для бизнеса и государства Беларуси" date="2026" />,
-  <ContentSlide overline="Кто мы" title="Создаём надёжные цифровые сервисы для крупного бизнеса" lead="Минская ИТ-компания полного цикла: от аудита и проектирования до эксплуатации 24/7" bullets={[{ title: 'Миссия', text: 'Делать сложные технологии простыми и доступными для клиентов' }, { title: 'Подход', text: 'Продуктовые команды, прозрачные сроки, измеримый результат' }, { title: 'Ответственность', text: 'Собственная инфраструктура и соответствие законодательству РБ о защите персональных данных' }]} section="О компании" />,
+  <ProcessSlide overline="Кто мы" title="Создаём надёжные цифровые сервисы для крупного бизнеса" process={<Pyramid variant="layers" width={1728} levels={[{ title: 'Миссия', text: 'Делать сложные технологии простыми для клиентов' }, { title: 'Подход', text: 'Продуктовые команды, прозрачные сроки, измеримый результат' }, { title: 'Основа', text: 'Своя инфраструктура и защита данных по законам РБ' }]} />} section="О компании" />,
   <TimelineSlide overline="История" title="Семь лет роста" timeline={<Timeline items={[{ date: '2019', title: 'Основание', text: '12 инженеров', status: 'done' }, { date: '2021', title: 'Первый банк', text: 'Платформа ДБО', status: 'done' }, { date: '2023', title: 'Своё облако', text: 'Два ЦОД Tier III', status: 'done' }, { date: '2026', title: '100+ клиентов', text: 'Все областные центры', status: 'current' }, { date: '2028', title: 'Топ-3 рынка', text: 'Цель стратегии', status: 'planned' }]} />} section="О компании" />,
   <KpiSlide overline="В цифрах" title="Вэбтех сегодня: 680 сотрудников, 126 клиентов, 48 млн BYN" items={[{ value: '680', label: 'Сотрудников', icon: 'users' }, { value: '126', label: 'Корпоративных клиентов', icon: 'building' }, { value: '48', unit: 'млн BYN', label: 'Выручка 2026', icon: 'wallet' }, { value: '99,95', unit: '%', label: 'Доступность сервисов', icon: 'gauge' }]} section="О компании" />,
   <GridSlide overline="География" title="Работаем по всей Беларуси — от Минска до Гомеля" layout="top-3" rows="auto 1fr" section="О компании"
@@ -72,8 +89,8 @@ const slides = [
       <KpiCard variant="outline" icon="server" value="2" label="собственных ЦОД в Минске" note="Tier III, резервирование N+1" />,
       <KpiCard variant="outline" icon="clock" value="24/7" label="поддержка клиентов" note="Ответ за 2 минуты" />,
     ]} />,
-  <ContentSlide overline="Направления" title="Четыре направления закрывают весь цикл: от облака до поддержки" section="О компании"><div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 48 }}><IconFeature icon="cloud" title="Облако">IaaS, PaaS и managed-сервисы в своих ЦОД</IconFeature><IconFeature icon="code" title="Разработка">Заказные платформы и мобильные приложения</IconFeature><IconFeature icon="network" title="Интеграция">Связываем системы и данные клиента</IconFeature><IconFeature icon="headset" title="Поддержка">Эксплуатация 24/7 с SLA до 99,95%</IconFeature></div></ContentSlide>,
-  <GridSlide overline="Экспертиза" title="Нам доверяют банки и ритейл: сертификаты ISO и отзывы клиентов" layout="2x2" section="О компании"
+  <ProcessSlide overline="Направления" title="Четыре направления закрывают весь цикл: от кода до поддержки" process={<ProcessFlow steps={[{ icon: 'code', title: 'Разработка', text: 'Платформы и мобильные приложения' }, { icon: 'network', title: 'Интеграция', text: 'Системы и данные клиента' }, { icon: 'cloud', title: 'Облако', text: 'IaaS и PaaS в своих ЦОД' }, { icon: 'headset', title: 'Поддержка', text: '24/7 с SLA до 99,95%' }]} />} section="О компании" />,
+  <GridSlide overline="Экспертиза" title="Нам доверяют: 350+ проектов и стандарты ISO" layout="2x2" section="О компании"
     cells={[
       <Card icon="award" title="Сертификаты и аттестаты"><BulletList size="sm" marker="check" items={['СТБ ISO/IEC 27001 — защита информации', 'СТБ ISO 9001 — управление качеством', 'Аттестат системы защиты информации', 'Статус резидента Парка высоких технологий']} /></Card>,
       <Card tone="tint"><Quote author="Сергей Жук" role="Директор по ИТ, Банк «Пример»">Запускают в срок и не исчезают после запуска</Quote></Card>,
@@ -151,7 +168,12 @@ const slides = [
     code: `
 const slides = [
   <TitleSlide composition="quiet" overline="Статус-отчёт" title="Проект «Единая платформа клиента»" subtitle="Отчёт № 8 за период 1–15 сентября" author="Мария Козлова, руководитель проекта" date="16 сентября 2026" />,
-  <ContentSlide overline="Сводка" title="Проект идёт по графику, есть риск по интеграциям" section="Статус проекта"><div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: 32 }}><KpiCard variant="outline" value="64" unit="%" label="Готовность проекта" delta="+8 п. п. за период" /><KpiCard variant="outline" value="92" unit="%" label="Освоение бюджета к плану" delta="В рамках бюджета" trend="flat" /><KpiCard variant="outline" value="1" label="Критичный риск" delta="Интеграция с биллингом" trend="down" /></div><div style={{ marginTop: 48, display: 'flex', gap: 24, alignItems: 'center' }}><Status status="risk" variant="large" label="Общий статус: риск по срокам интеграций" /></div></ContentSlide>,
+  <GridSlide overline="Сводка" meta="Отчёт № 8" title="Готовность 64%: график держим, риск один" layout="feature-left" section="Статус проекта"
+    cells={[
+      <Card icon="trending-up" title="Готовность проекта" meta="%"><LineChart width={900} height={440} categories={['1 июля', '15 июля', '1 авг', '15 авг', '1 сен', '15 сен']} series={[{ name: 'Факт', values: [18, 28, 39, 48, 56, 64] }, { name: 'План', values: [18, 27, 36, 46, 56, 65], dashed: true }]} format={(v) => v + '%'} labelLast={false} /></Card>,
+      <KpiCard variant="brand" value="92" unit="%" label="Освоение бюджета к плану" />,
+      <Card tone="warning" icon="triangle-alert" title="Критичный риск"><Status status="risk" variant="large" label="Интеграция с биллингом" /></Card>,
+    ]} source="Управление проектом, данные на 15.09.2026" />,
   <GridSlide overline="Сводка" meta="Неделя 38" title="Сроки держим, бюджет в норме, один риск" layout="2x2" section="Статус проекта"
     cells={[
       <Card icon="clipboard-list" title="Паспорт проекта"><FactList items={[{ icon: 'calendar', label: 'Запуск', value: '1 декабря' }, { icon: 'wallet', label: 'Бюджет', value: '2,4 млн BYN' }, { icon: 'users', label: 'Команда', value: '34 человека' }]} /></Card>,
@@ -168,18 +190,38 @@ const slides = [
       <PlanFactCard tone="tint" title="Исполнение плана на дату" unit="тыс. BYN" plan={1450} fact={1392} better="lower" labels={{ plan: 'План на дату', fact: 'Факт' }} rows={[{ label: 'Прогноз на конец', value: 2380 }]} />,
       <Card icon="chart-pie" title="Структура затрат" meta="тыс. BYN"><BreakdownBar totalLabel="Итого" format={(v) => W.fmt(v)} items={[{ label: 'Команда', value: 980 }, { label: 'Лицензии', value: 240 }, { label: 'Инфраструктура', value: 120 }, { label: 'Прочее', value: 52 }]} /></Card>,
     ]} />,
-  <TableSlide overline="Риски" title="Один высокий риск и два средних требуют внимания руководства" table={<DataTable columns={[{ title: 'Риск' }, { title: 'Влияние' }, { title: 'Меры' }, { title: 'Владелец' }]} rows={[['Задержка API биллинга', <Status status="blocked" label="Высокое" />, 'Эскалация на уровень CTO партнёра', 'Козлова М.'], ['Поставка серверов', <Status status="risk" label="Среднее" />, 'Временно — облачные мощности', 'Орлов А.'], ['Нагрузка на команду', <Status status="risk" label="Среднее" />, 'Привлечь 2 разработчиков', 'Петров И.']]} />} section="Статус проекта" />,
+  <GridSlide overline="Риски" title="Один высокий риск и два средних требуют внимания" layout="halves" section="Статус проекта"
+    cells={[
+      <Card icon="triangle-alert" title="Карта рисков"><Matrix2x2 size={420} xLabel="Вероятность" yLabel="Влияние" quadrants={['Следить', 'Действовать', 'Принять', 'Снижать']} items={[{ label: 'API биллинга', x: 0.9, y: 0.68, accent: true }, { label: 'Серверы', x: 0.1, y: 0.62 }, { label: 'Нагрузка', x: 0.9, y: 0.3 }]} /></Card>,
+      <Card tone="tint" icon="shield-check" title="Меры и владельцы"><Checklist items={[{ text: 'Эскалация к CTO партнёра', meta: 'Козлова М.', status: 'progress' }, { text: 'Временно — облачные мощности', meta: 'Орлов А.', status: 'todo' }, { text: 'Привлечь 2 разработчиков', meta: 'Петров И.', status: 'todo' }]} /></Card>,
+    ]} />,
   <ContentSlide overline="Решения" title="Три решения нужны от управляющего комитета" bullets={['Эскалация по API биллинга до 20 сентября', 'Согласовать временную аренду облачных мощностей — 40 тыс. BYN', 'Утвердить расширение команды на 2 человека']} marker="number" section="Статус проекта" />,
 ];`,
   },
   {
     name: 'DeckSales', file: '06-kommercheskoe-predlozhenie', title: 'Коммерческое предложение',
     about: 'Продажа решения клиенту: задача клиента, решение, выгоды в цифрах, как работаем, кейс, варианты и цены, команда, следующие шаги.',
-    code: `
+    code: `${SCHEME}
 const slides = [
   <TitleSlide composition="hero" textures={['circuit']} overline="Коммерческое предложение" title="Цифровой кредитный конвейер для Банка «Пример»" subtitle="Решение ВЭБ Технологии" author="Илья Петров, коммерческий директор" date="Сентябрь 2026" />,
-  <TwoColumnSlide overline="Задача" title="Банк теряет клиентов: кредит выдаётся слишком долго" left={{ icon: 'triangle-alert', title: 'Сейчас', bullets: ['Решение по заявке — до 3 дней', '40% заявок обрабатывается вручную', 'Данные в трёх несвязанных системах'], marker: 'dot' }} right={{ icon: 'target', title: 'Цель банка', tint: true, bullets: ['Решение за 2 часа', 'Автоматизация 80% заявок', 'Единый профиль клиента'], marker: 'check' }} section="Коммерческое предложение" />,
-  <ContentSlide overline="Решение" title="Четыре модуля закрывают весь кредитный процесс под ключ" section="Коммерческое предложение"><div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 48 }}><IconFeature icon="workflow" title="Конвейер">Настраиваемые маршруты заявок без программирования</IconFeature><IconFeature icon="gauge" title="Скоринг">Автоматические проверки и решения</IconFeature><IconFeature icon="network" title="Интеграции">Кредитный регистр, МСИ, АБС банка</IconFeature><IconFeature icon="shield-check" title="Безопасность">Закон № 99-З, требования ОАЦ, размещение в контуре банка</IconFeature></div></ContentSlide>,
+  <GridSlide overline="Задача" title="Банк теряет клиентов: решение по кредиту идёт 3 дня, цель — 2 часа" layout="feature-left" section="Коммерческое предложение"
+    cells={[
+      <Card icon="clock" title="Решение по заявке" meta="часов"><BarChart width={900} height={440} highlight="Цель банка" data={[{ label: 'Сейчас', value: 72 }, { label: 'Цель банка', value: 2 }]} /></Card>,
+      <Card icon="workflow" title="Заявки без ручной обработки"><MeterList max={100} items={[{ label: 'Сейчас', value: 60, display: '60%' }, { label: 'Цель', value: 80, display: '80%' }]} /></Card>,
+      <Card tone="tint" icon="users" title="Профиль клиента"><FactList items={[{ icon: 'database', label: 'Сейчас', value: '3 системы' }, { icon: 'user', label: 'Цель', value: '1 профиль' }]} /></Card>,
+    ]} source="Анкета банка, 2026" />,
+  <ProcessSlide overline="Решение" title="Четыре модуля проводят заявку от канала до решения" section="Коммерческое предложение"
+    process={<Scheme name="Модули кредитного конвейера" width={1728} height={560}>
+      <Arrow d="M300 160H390" /><Arrow d="M780 160H870" /><Arrow d="M1260 160H1350" />
+      <Arrow d="M590 360V250" /><Arrow d="M1070 360V250" />
+      <Box x={0} y={90} w={300} ht={140} title="Заявка" note="сайт, офис" />
+      <Box x={400} y={80} w={380} ht={160} title="Конвейер" note="маршруты без кода" main />
+      <Box x={880} y={80} w={380} ht={160} title="Скоринг" note="проверки и решение" />
+      <Box x={1360} y={90} w={368} ht={140} title="Решение" note="за 2 часа" />
+      <Box x={400} y={370} w={860} ht={110} title="Интеграции: Кредитный регистр, МСИ, АБС банка" />
+      <rect x="345" y="30" width="970" height="474" rx="28" fill="none" stroke="var(--brand-300)" strokeWidth="3" strokeDasharray="10 8" />
+      <text x="830" y="546" textAnchor="middle" fontSize="24" fontWeight="600" fill="var(--ink-secondary)">Безопасность: Закон № 99-З, требования ОАЦ, контур банка</text>
+    </Scheme>} />,
   <KpiSlide overline="Выгоды" title="Что получит банк через 6 месяцев" items={[{ value: '2', unit: 'часа', label: 'Решение по заявке вместо 3 дней', icon: 'clock' }, { value: '+38', unit: '%', label: 'Одобренных онлайн-заявок', icon: 'trending-up' }, { value: '−45', unit: '%', label: 'Затрат на обработку заявки', trend: 'up', icon: 'wallet' }]} note="Оценка на основе 4 внедрений в белорусских банках" section="Коммерческое предложение" />,
   <GridSlide overline="Экономика" title="Проект окупится за 9 месяцев" layout="feature-left" section="Коммерческое предложение"
     cells={[
@@ -191,26 +233,39 @@ const slides = [
   <CaseSlide title="Банк: решение за 2 часа вместо 3 дней" client="Банк из топ-10 Беларуси, 1,2 млн клиентов" problem="Ручная обработка заявок и отток клиентов к конкурентам." solution={['Кредитный конвейер', 'Автоматический скоринг', 'Интеграция с Кредитным регистром']} results={[{ value: '2 часа', label: 'на решение' }, { value: '+38%', label: 'онлайн-одобрений' }]} section="Коммерческое предложение" />,
   <TableSlide overline="Варианты" title="Рекомендуем тариф «Бизнес»" table={<ComparisonTable options={['Базовый', 'Бизнес', 'Корпоративный']} highlight={1} features={[{ name: 'Стоимость, тыс. BYN/год', values: ['200', '370', 'от 600'] }, { name: 'Заявок в месяц', values: ['до 20 тыс.', 'до 100 тыс.', 'без ограничений'] }, { name: 'SLA', values: ['99,5%', '99,9%', '99,95%'] }, { name: 'Выделенная команда', values: [false, true, true] }, { name: 'Размещение в контуре банка', values: [false, false, true] }]} />} note="Цены без НДС, лицензия и поддержка включены" section="Коммерческое предложение" />,
   <TeamSlide overline="Команда" title="Проект ведёт команда с опытом 30+ внедрений в банках" people={[{ name: 'Мария Козлова', role: 'Руководитель проекта', text: '30+ внедрений в банках', photo: W.samplePhoto('Мария Козлова') }, { name: 'Илья Петров', role: 'Аккаунт-менеджер', text: 'Точка входа по всем вопросам', photo: W.samplePhoto('Илья Петров') }, { name: 'Анна Смирнова', role: 'Бизнес-аналитик', text: 'Кредитные процессы', photo: W.samplePhoto('Анна Смирнова') }, { name: 'Алексей Орлов', role: 'Архитектор', text: 'Интеграции с АБС', photo: W.samplePhoto('Алексей Орлов') }]} section="Коммерческое предложение" />,
-  <GridSlide overline="Почему мы" title="Банки выбирают Вэбтех за опыт, фиксированные сроки и поддержку 24/7" layout="bottom-3" section="Коммерческое предложение"
+  <GridSlide overline="Почему мы" title="40 банковских проектов, фиксированный срок и поддержка 24/7" layout="feature-left" section="Коммерческое предложение"
     cells={[
-      <Card icon="building" overline="Опыт" title="40 банковских проектов"><BulletList size="sm" items={['Кредитные конвейеры', 'Дистанционное обслуживание', 'Интеграция с Кредитным регистром']} /></Card>,
-      <Card icon="calendar" overline="Сроки" title="12 недель — фиксированно"><BulletList size="sm" items={['Дата запуска в договоре', 'Еженедельные демо', 'Штраф за срыв срока']} /></Card>,
-      <Card icon="headset" overline="Поддержка" title="24/7 после запуска"><BulletList size="sm" items={['Ответ за 15 минут', 'Своя команда эксплуатации', 'SLA 99,9%']} /></Card>,
-      <Callout tone="accent" title="Гарантия">Если не запустим за 12 недель, следующий месяц поддержки — за наш счёт</Callout>,
-    ]} />,
-  <ContentSlide overline="Следующие шаги" title="Предлагаем начать с бесплатного аудита" bullets={[{ title: 'До 1 октября', text: 'Встреча с командой кредитования банка' }, { title: 'Октябрь', text: 'Аудит процессов — 2 недели, бесплатно' }, { title: 'Ноябрь', text: 'Договор и старт проекта' }]} marker="number" section="Коммерческое предложение" />,
+      <Card icon="building" title="Проекты в банках" meta="нарастающим итогом"><BarChart width={900} height={440} highlight="2026" data={[{ label: '2022', value: 8 }, { label: '2023', value: 17 }, { label: '2024', value: 26 }, { label: '2025', value: 34 }, { label: '2026', value: 40 }]} /></Card>,
+      <KpiCard variant="brand" value="12" unit="недель" label="Срок запуска в договоре" />,
+      <Card tone="tint" icon="headset" title="Поддержка после запуска"><FactList items={[{ icon: 'clock', label: 'Ответ', value: '15 минут' }, { icon: 'gauge', label: 'SLA', value: '99,9%' }]} /></Card>,
+    ]} source="Портфель проектов Вэбтех" />,
+  <TimelineSlide overline="Следующие шаги" title="Предлагаем начать с бесплатного аудита" timeline={<Timeline items={[{ date: 'До 1 октября', title: 'Встреча', text: 'С командой кредитования банка', status: 'current' }, { date: 'Октябрь', title: 'Аудит', text: '2 недели, бесплатно', status: 'planned' }, { date: 'Ноябрь', title: 'Договор', text: 'Старт проекта', status: 'planned' }, { date: 'Январь', title: 'Запуск', text: 'Пилот и обучение', status: 'planned' }]} />} note={<Callout tone="accent" title="Гарантия">Если запуск сдвинется, следующий месяц поддержки — за наш счёт</Callout>} section="Коммерческое предложение" />,
   <ContactSlide title="Спасибо!" subtitle="Готовы обсудить детали" person={{ name: 'Илья Петров', role: 'Коммерческий директор', photo: W.samplePhoto('Илья Петров') }} contacts={${CONTACTS}} />,
 ];`,
   },
   {
     name: 'DeckProduct', file: '07-produktovaya', title: 'Продуктовая презентация',
     about: 'Презентация продукта: проблема, продукт, функции, сценарии, интерфейс, метрики, сравнение с альтернативами, дорожная карта продукта.',
-    code: `
+    code: `${SCHEME}
 const slides = [
   <TitleSlide composition="hero" overline="Продукт" title="Вэбтех Облако 3.0" subtitle="Управляемая облачная платформа для корпоративных сервисов" date="Сентябрь 2026" />,
-  <ContentSlide overline="Проблема" title="Компании тратят до 40% бюджета ИТ на поддержку инфраструктуры" bullets={['Разрозненные среды разработки и эксплуатации', 'Долгий запуск новых сервисов — 2–3 месяца', 'Сложно выполнить требования ОАЦ и Закона № 99-З']} aside={<KpiCard variant="brand" size="lg" value="40" unit="%" label="Бюджета ИТ уходит на инфраструктуру" />} section="Вэбтех Облако 3.0" />,
+  <GridSlide overline="Проблема" title="До 40% бюджета ИТ уходит на поддержку инфраструктуры" layout="halves" section="Вэбтех Облако 3.0"
+    cells={[
+      <Card icon="chart-pie" title="Бюджет ИТ" meta="%"><DonutChart size={340} thickness={64} centerValue="40%" centerLabel="поддержка" data={[{ label: 'Инфраструктура', value: 40 }, { label: 'Развитие', value: 35 }, { label: 'Лицензии', value: 25, color: 'var(--chart-other)' }]} /></Card>,
+      <Card tone="tint" icon="triangle-alert" title="Что мешает"><IconFeature layout="horizontal" icon="layers" title="Разрозненные среды">Разработка и эксплуатация раздельно</IconFeature><IconFeature layout="horizontal" icon="clock" title="Запуск 2–3 месяца">Столько ждёт новый сервис</IconFeature><IconFeature layout="horizontal" icon="shield-check" title="Требования">ОАЦ и Закон № 99-З</IconFeature></Card>,
+    ]} source="Опрос 38 команд клиентов, 2026" />,
   <ImageTextSlide overline="Продукт" title="Всё для запуска сервисов в одной консоли" text="Kubernetes, базы данных, мониторинг и безопасность как сервис" bullets={['Запуск среды за 15 минут', 'Оплата по потреблению', 'Аттестация по требованиям ОАЦ']} caption="Консоль управления, версия 3.0" section="Вэбтех Облако 3.0" />,
-  <ContentSlide overline="Возможности" title="Шесть сервисов закрывают запуск и эксплуатацию" section="Вэбтех Облако 3.0"><div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '48px 64px' }}><IconFeature layout="horizontal" icon="server" title="Kubernetes">Managed-кластеры с автомасштабированием</IconFeature><IconFeature layout="horizontal" icon="database" title="Базы данных">PostgreSQL, Redis, ClickHouse</IconFeature><IconFeature layout="horizontal" icon="gauge" title="Мониторинг">Метрики, логи и алерты</IconFeature><IconFeature layout="horizontal" icon="shield-check" title="Безопасность">WAF, IAM, шифрование</IconFeature><IconFeature layout="horizontal" icon="git-branch" title="CI/CD">Конвейер от коммита до релиза</IconFeature><IconFeature layout="horizontal" icon="headset" title="Поддержка">Инженеры 24/7</IconFeature></div></ContentSlide>,
+  <ProcessSlide overline="Возможности" title="Шесть сервисов закрывают запуск и эксплуатацию" section="Вэбтех Облако 3.0"
+    process={<Scheme name="Сервисы платформы" width={1728} height={560}>
+      <Arrow d="M430 100H570" /><Arrow d="M1030 100H1170" /><Arrow d="M800 170V230" />
+      <Box x={130} y={30} w={300} ht={140} title="CI/CD" note="код и релиз" />
+      <Box x={580} y={30} w={450} ht={140} title="Kubernetes" note="автомасштабирование" main />
+      <Box x={1180} y={30} w={420} ht={140} title="Ваши сервисы" note="в продакшене" />
+      <Box x={130} y={240} w={1470} ht={110} title="Базы данных: PostgreSQL, Redis, ClickHouse" />
+      <Box x={130} y={390} w={470} ht={140} title="Мониторинг" note="метрики, логи, алерты" />
+      <Box x={630} y={390} w={470} ht={140} title="Безопасность" note="WAF, IAM, шифрование" />
+      <Box x={1130} y={390} w={470} ht={140} title="Поддержка" note="инженеры 24/7" />
+    </Scheme>} />,
   <GridSlide overline="Ценность" title="Одна консоль вместо пяти инструментов" layout="feature-right" section="Вэбтех Облако 3.0"
     cells={[
       <Card icon="x" title="Было"><BulletList size="sm" marker="cross" items={['5 консолей и 3 подрядчика', 'Релиз — раз в месяц', 'Мониторинг вручную']} /></Card>,
@@ -234,10 +289,20 @@ const slides = [
   {
     name: 'DeckTech', file: '08-tehnicheskoe-reshenie', title: 'Техническое решение',
     about: 'Описание архитектуры: требования, уровни архитектуры, интеграции, стек, нефункциональные требования (SLA, безопасность), план миграции, риски.',
-    code: `
+    code: `${SCHEME}
 const slides = [
   <TitleSlide composition="column" textures={['server']} overline="Техническое решение" title="Архитектура платформы обработки платежей" subtitle="Целевое решение и план миграции" author="Алексей Орлов, архитектор" date="Сентябрь 2026" />,
-  <TwoColumnSlide overline="Требования" title="Платежи всех типов, сверка с банками и 3 000 транзакций в секунду" left={{ icon: 'list-checks', title: 'Функциональные', bullets: ['Приём платежей всех типов', 'Сверка с банками-партнёрами', 'Личный кабинет мерчанта'] }} right={{ icon: 'gauge', title: 'Нефункциональные', tint: true, bullets: ['3 000 транзакций в секунду', 'Доступность 99,95%', 'Соответствие PCI DSS'] }} section="Платёжная платформа" />,
+  <GridSlide overline="Требования" title="Платформа связывает мерчантов, банки и учёт при 3 000 транзакций в секунду" layout="feature-left" section="Платёжная платформа"
+    cells={[
+      <Card icon="network" title="Контекст системы"><Scheme name="Контекст системы" width={960} height={520}>
+        <Arrow d="M280 130H340V220H390" /><Arrow d="M280 390H340V300H390" /><Arrow d="M680 220H720V130H760" /><Arrow d="M680 300H720V390H760" />
+        <Box x={0} y={70} w={280} title="Мерчанты" note="кабинет, API" /><Box x={0} y={330} w={280} title="Плательщики" note="веб и мобайл" />
+        <Box x={400} y={160} w={280} ht={200} title="Платформа" note="приём, сверка" main />
+        <Box x={770} y={70} w={190} title="Банки" /><Box x={770} y={330} w={190} title="Учёт" />
+      </Scheme></Card>,
+      <Card icon="gauge" title="Нефункциональные"><FactList layout="column" items={[{ icon: 'gauge', label: 'Доступность', value: '99,95%' }, { icon: 'shield-check', label: 'Стандарт', value: 'PCI DSS' }]} /></Card>,
+      <Card tone="tint" icon="list-checks" title="Функциональные"><BulletList size="sm" items={['Платежи всех типов', 'Сверка с банками', 'Кабинет мерчанта']} /></Card>,
+    ]} />,
   <ProcessSlide overline="Архитектура" title="Архитектура из четырёх уровней: от каналов до инфраструктуры" process={<Pyramid variant="layers" width={1728} levels={[{ title: 'Каналы', text: 'Веб, мобильное приложение, API для партнёров' }, { title: 'Сервисы', text: 'Микросервисы на Kotlin, событийная шина Kafka' }, { title: 'Данные', text: 'PostgreSQL, ClickHouse для аналитики, Redis' }, { title: 'Инфраструктура', text: 'Kubernetes в двух ЦОД, active-active' }]} />} section="Платёжная платформа" />,
   <ProcessSlide overline="Поток" title="Платёж проходит четыре шага: приём, антифрод, процессинг, учёт" process={<ProcessFlow steps={[{ icon: 'smartphone', title: 'Приём', text: 'API-шлюз, авторизация' }, { icon: 'shield-check', title: 'Антифрод', text: 'Проверка за 50 мс' }, { icon: 'refresh-cw', title: 'Процессинг', text: 'Маршрутизация в банк' }, { icon: 'database', title: 'Учёт', text: 'Проводки и сверка' }]} />} section="Платёжная платформа" />,
   <TableSlide overline="Стек" title="Стек выбран под экспертизу команды и надёжную доставку событий" table={<DataTable columns={[{ title: 'Слой' }, { title: 'Технологии' }, { title: 'Почему' }]} rows={[['Сервисы', 'Kotlin, Spring Boot', 'Экспертиза команды, производительность'], ['Интеграция', 'Kafka, REST, gRPC', 'Событийная модель, надёжная доставка'], ['Данные', 'PostgreSQL, ClickHouse, Redis', 'Транзакции + аналитика + кэш'], ['Платформа', 'Kubernetes, Istio, ArgoCD', 'Масштабирование и GitOps'], ['Наблюдаемость', 'Prometheus, Grafana, OpenTelemetry', 'Метрики, трассировка, алерты']]} zebra />} section="Платёжная платформа" />,
@@ -250,10 +315,10 @@ const slides = [
     ]} />,
   <KpiSlide overline="SLA" title="Доступность 99,95%, ответ до 200 мс, восстановление за 15 минут" items={[{ value: '99,95', unit: '%', label: 'Доступность', icon: 'gauge' }, { value: '3 000', label: 'Транзакций в секунду', icon: 'zap' }, { value: '< 200', unit: 'мс', label: 'Время ответа (p95)', icon: 'clock' }, { value: '15', unit: 'мин', label: 'RTO при отказе ЦОД', icon: 'refresh-cw' }]} section="Платёжная платформа" />,
   <ContentSlide overline="Безопасность" title="Шифрование и сегментация готовы, аудит PCI DSS и пентест впереди" section="Платёжная платформа"><Checklist items={[{ text: 'Шифрование данных при передаче и хранении', meta: 'TLS 1.3, AES-256', status: 'done' }, { text: 'Сегментация сети и Zero Trust', meta: 'Istio mTLS', status: 'done' }, { text: 'Аудит PCI DSS', meta: 'Ноябрь', status: 'progress' }, { text: 'Пентест внешним подрядчиком', meta: 'Декабрь', status: 'todo' }]} /></ContentSlide>,
-  <GridSlide overline="Риски" title="Риски миграции известны и закрыты мерами" layout="halves" columns="3fr 2fr" section="Платёжная платформа"
+  <GridSlide overline="Риски" title="Риски миграции известны и закрыты мерами" layout="halves" section="Платёжная платформа"
     cells={[
-      <DataTable columns={[{ title: 'Риск' }, { title: 'Уровень' }, { title: 'Мера' }]} rows={[['Потеря транзакций при переключении', <Status status="blocked" variant="text" label="Высокий" />, 'Двойная запись 2 недели'], ['Рост задержек', <Status status="risk" variant="text" label="Средний" />, 'Нагрузочный тест до старта'], ['Нехватка экспертизы', <Status status="risk" variant="text" label="Средний" />, 'Обучение команды банка']]} />,
-      <Card tone="tint" icon="list-checks" title="Готовность к миграции"><Checklist items={[{ text: 'Стенд нагрузочного теста', status: 'done' }, { text: 'План отката', status: 'done' }, { text: 'Двойная запись', status: 'progress' }, { text: 'Обучение дежурных', status: 'todo' }]} /></Card>,
+      <Card icon="triangle-alert" title="Карта рисков"><Matrix2x2 size={420} xLabel="Вероятность" yLabel="Влияние" quadrants={['Следить', 'Действовать', 'Принять', 'Снижать']} items={[{ label: 'Потеря операций', x: 0.06, y: 0.68, accent: true }, { label: 'Рост задержек', x: 0.93, y: 0.62 }, { label: 'Экспертиза', x: 0.9, y: 0.28 }]} /></Card>,
+      <Card tone="tint" icon="list-checks" title="Меры"><Checklist items={[{ text: 'Двойная запись 2 недели', meta: 'Операции', status: 'progress' }, { text: 'Нагрузочный тест до старта', meta: 'Задержки', status: 'done' }, { text: 'План отката', status: 'done' }, { text: 'Обучение команды банка', meta: 'Экспертиза', status: 'todo' }]} /></Card>,
     ]} />,
   <RoadmapSlide overline="Миграция" title="Миграция без остановки сервиса за 6 месяцев" roadmap={<Roadmap periods={['Окт', 'Ноя', 'Дек', 'Янв', 'Фев', 'Мар']} lanes={[{ name: 'Инфраструктура', items: [{ start: 0, end: 2, label: 'Кластеры', status: 'planned' }] }, { name: 'Сервисы', items: [{ start: 1, end: 4, label: 'Перенос сервисов', status: 'planned' }] }, { name: 'Данные', items: [{ start: 2, end: 5, label: 'Миграция данных', status: 'planned' }] }, { name: 'Переключение', items: [{ start: 4.5, end: 6, label: 'Трафик 10→100%', status: 'planned' }] }]} />} section="Платёжная платформа" />,
   <ContactSlide title="Вопросы?" subtitle="Архитектурный комитет" contacts={${CONTACTS}} />,
@@ -293,7 +358,12 @@ const slides = [
 const slides = [
   <TitleSlide composition="quiet" overline="Заседание совета директоров" title="Итоги I полугодия 2026 года" subtitle="Материалы к заседанию 30 сентября" date="30 сентября 2026" />,
   <AgendaSlide items={[{ title: 'Резюме', time: '5 мин' }, { title: 'Финансовые результаты', time: '15 мин' }, { title: 'Ключевые проекты', time: '10 мин' }, { title: 'Риски', time: '10 мин' }, { title: 'Вопросы на утверждение', time: '20 мин' }]} />,
-  <ContentSlide overline="Резюме" title="Полугодие выше бюджета, прогноз на год повышаем" bullets={[{ title: 'Выручка 24,5 млн BYN', text: '+29% г/г, 104% бюджета' }, { title: 'EBITDA 8,1 млн BYN', text: 'Рентабельность 33%, +3 п. п.' }, { title: 'Прогноз на год', text: 'Повышаем с 46 до 48 млн BYN' }]} aside={<Callout tone="warning" title="Внимание">Риск по срокам проекта «Единая платформа клиента» — см. слайд 7</Callout>} section="Совет директоров" confidential />,
+  <GridSlide overline="Резюме" title="Полугодие выше бюджета, прогноз на год повышаем" layout="feature-left" section="Совет директоров" confidential
+    cells={[
+      <Card icon="trending-up" title="Прогноз выручки на год" meta="млн BYN"><BarChart width={900} height={420} highlight="Новый прогноз" data={[{ label: 'Бюджет', value: 46 }, { label: 'Новый прогноз', value: 48 }]} /></Card>,
+      <Card icon="gauge" title="Полугодие"><FactList items={[{ icon: 'wallet', label: 'Выручка', value: '24,5 млн' }, { icon: 'percent', label: 'EBITDA', value: '8,1 млн' }]} /></Card>,
+      <Card tone="warning" icon="triangle-alert" title="Внимание"><Text variant="body" tone="secondary">Риск по срокам «Единой платформы клиента» — слайд 7</Text></Card>,
+    ]} source="Управленческая отчётность, BYN" />,
   <DashboardSlide overline="План / факт" title="Полугодие выше бюджета по выручке и прибыли" meta="I полугодие 2026" cards={[{ title: 'Выручка', tone: 'tint', unit: 'млн BYN', plan: 23.6, fact: 24.5 }, { title: 'EBITDA', unit: 'млн BYN', plan: 7.8, fact: 8.1 }, { title: 'Рентабельность EBITDA', unit: '%', plan: 32.5, fact: 33.1, format: (v) => W.fmt(v, { digits: 1, minDigits: 1 }) + '%' }, { title: 'Капитальные вложения', unit: 'млн BYN', better: 'lower', plan: 3.2, fact: 2.9 }]} aside={<Card tone="success" icon="trending-up" title="Прогноз на год повышаем"><Text variant="body" tone="secondary">Контракты II полугодия подписаны, выручка года — 48 млн BYN вместо 46.</Text><MeterList items={[{ label: 'Бюджет года', value: 46 }, { label: 'Новый прогноз', value: 48 }, { label: 'Факт полугодия', value: 24.5 }]} format={(v) => W.fmt(v, { digits: 1 }) + ' млн'} /></Card>} section="Совет директоров" confidential />,
   <ChartSlide overline="Финансы" title="Выручка растёт быстрее бюджета" chartTitle="Выручка по кварталам" chartSubtitle="млн BYN" chart={<ComboChart width={1080} height={420} categories={['Q3 25', 'Q4 25', 'Q1 26', 'Q2 26']} bars={{ name: 'Факт', values: [10, 11, 11.5, 13] }} line={{ name: 'Бюджет', values: [9.5, 10.5, 11.2, 12.3] }} />} takeaway="104% бюджета за полугодие" source="Управленческая отчётность" section="Совет директоров" confidential />,
   <GridSlide overline="Финансы" meta="I полугодие 2026" title="Денежный поток и долговая нагрузка в норме" layout="feature-right" section="Совет директоров" confidential
@@ -315,10 +385,17 @@ const slides = [
   {
     name: 'DeckOnboarding', file: '11-onbording', title: 'Онбординг сотрудника',
     about: 'Первый день в компании: приветствие, ценности, оргструктура, план на первые 90 дней, полезные сервисы, контакты.',
-    code: `
+    code: `${SCHEME}
 const slides = [
   <TitleSlide composition="band" overline="Добро пожаловать" title="Добро пожаловать в Вэбтех!" subtitle="Всё, что нужно знать в первые дни" date="2026" />,
-  <ContentSlide overline="Ценности" title="Четыре ценности: клиент в центре, открытость, результат, рост" section="Онбординг"><div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 48 }}><IconFeature icon="users" title="Клиент в центре">Решаем задачу клиента, а не пишем код ради кода</IconFeature><IconFeature icon="handshake" title="Открытость">Говорим прямо, делимся знаниями</IconFeature><IconFeature icon="target" title="Результат">Отвечаем за итог, а не за процесс</IconFeature><IconFeature icon="graduation-cap" title="Рост">Учимся каждый день</IconFeature></div></ContentSlide>,
+  <ProcessSlide overline="Ценности" title="В центре — клиент, вокруг — открытость, результат, рост" section="Онбординг"
+    process={<Scheme name="Ценности компании" width={1728} height={460}>
+      <path d="M500 90H604M1124 90H1228M864 170V300" fill="none" stroke="var(--brand-300)" strokeWidth="4" />
+      <Box x={2} y={20} w={498} ht={140} title="Открытость" note="говорим прямо, делимся" />
+      <Box x={1228} y={20} w={498} ht={140} title="Результат" note="отвечаем за итог" />
+      <Box x={604} y={300} w={520} ht={140} title="Рост" note="учимся каждый день" />
+      <Box x={604} y={10} w={520} ht={160} title="Клиент в центре" note="решаем его задачу" main />
+    </Scheme>} />,
   <ProcessSlide overline="Структура" title="Компания делится на три направления: технологии, продажи, продукт" process={<OrgChart root={{ name: 'Алексей Орлов', role: 'Генеральный директор', photo: W.samplePhoto('Алексей Орлов') }} children={[{ name: 'Мария Козлова', role: 'Технологии', photo: W.samplePhoto('Мария Козлова'), team: ['Платформа', 'Разработка', 'SRE'] }, { name: 'Илья Петров', role: 'Продажи и партнёры', photo: W.samplePhoto('Илья Петров'), team: ['Продажи', 'Партнёры'] }, { name: 'Анна Смирнова', role: 'Продукт', photo: W.samplePhoto('Анна Смирнова'), team: ['Продукт', 'Дизайн', 'HR'] }]} />} section="Онбординг" />,
   <GridSlide overline="Люди" title="В первые недели помогут наставник, HR и ИТ-поддержка" layout="top-3" rows="auto 1fr" section="Онбординг"
     cells={[
@@ -328,14 +405,12 @@ const slides = [
       <Card icon="book-open" title="База знаний"><Text variant="body" tone="secondary">Регламенты, шаблоны и ответы на частые вопросы</Text></Card>,
     ]} />,
   <TimelineSlide overline="Первые 90 дней" title="За три месяца вы пройдёте путь от знакомства до самостоятельности" timeline={<Timeline items={[{ date: 'День 1', title: 'Знакомство', text: 'Доступы, наставник, команда', status: 'current' }, { date: 'Неделя 1', title: 'Погружение', text: 'Продукты и процессы', status: 'planned' }, { date: 'Месяц 1', title: 'Первая задача', text: 'С поддержкой наставника', status: 'planned' }, { date: 'Месяц 3', title: 'Итоги', text: 'Встреча с руководителем', status: 'planned' }]} />} section="Онбординг" />,
-  <GridSlide overline="Адаптация" title="Что вы сделаете за первые 90 дней" layout="bottom-3" section="Онбординг"
+  <RoadmapSlide overline="Адаптация" title="За 90 дней — от знакомства до своего участка работы" roadmap={<Roadmap periods={['30 дней', '60 дней', '90 дней']} today={0.1} lanes={[{ name: 'Команда', items: [{ start: 0, end: 1, label: 'Встречи с коллегами', status: 'progress' }, { start: 1, end: 2, label: 'Участие в демо', status: 'planned' }, { start: 2, end: 3, label: 'Обратная связь', status: 'planned' }] }, { name: 'Задачи', items: [{ start: 0, end: 1, label: 'Первая с наставником', status: 'progress' }, { start: 1, end: 2, label: 'Самостоятельные', status: 'planned' }, { start: 2, end: 3, label: 'Свой участок', status: 'planned' }] }, { name: 'Встречи', items: [{ start: 0, end: 1, label: 'С наставником', status: 'progress' }, { start: 1, end: 2, label: 'С HR', status: 'planned' }, { start: 2, end: 3, label: 'Итоговая', status: 'planned' }] }, { name: 'Обучение', items: [{ start: 0, end: 1, label: 'Продукты', status: 'progress' }, { start: 1, end: 2, label: 'Безопасность', status: 'planned' }, { start: 2, end: 3, label: 'План развития', status: 'planned' }] }]} />} section="Онбординг" />,
+  <GridSlide overline="Первый день" title="Первый день: доступы, наставник, курс" layout="halves" columns="3fr 2fr" section="Онбординг"
     cells={[
-      <Card icon="flag" overline="30 дней" title="Знакомство"><Checklist items={[{ text: 'Доступы и рабочее место' }, { text: 'Встречи с командой' }, { text: 'Первая задача' }]} /></Card>,
-      <Card icon="rocket" overline="60 дней" title="Первые результаты"><Checklist items={[{ text: 'Задачи без наставника' }, { text: 'Участие в демо' }, { text: 'Курс по безопасности' }]} /></Card>,
-      <Card icon="trophy" overline="90 дней" title="Самостоятельность"><Checklist items={[{ text: 'Свой участок работы' }, { text: 'Обратная связь от команды' }, { text: 'План развития' }]} /></Card>,
-      <Callout tone="accent" title="Итоговая встреча">На 90-й день — разговор с руководителем: что получилось и куда расти дальше</Callout>,
+      <Card icon="calendar" title="Расписание"><VerticalTimeline items={[{ date: '9:00', title: 'Ноутбук и пропуск', text: 'Ресепшен', status: 'current' }, { date: '10:00', title: 'Почта и мессенджер', text: 'ИТ-поддержка', status: 'planned' }, { date: '11:00', title: 'Встреча с наставником', text: 'Знакомство с командой', status: 'planned' }, { date: '14:00', title: 'Курс по безопасности', text: '30 минут', status: 'planned' }]} /></Card>,
+      <Card tone="tint" icon="list-checks" title="К концу дня"><FactList layout="column" items={[{ icon: 'lock', label: 'Доступы', value: '4 системы' }, { icon: 'users', label: 'Знакомства', value: 'Вся команда' }, { icon: 'graduation-cap', label: 'Обучение', value: '1 курс' }, { icon: 'target', label: 'Задача', value: 'На неделю' }]} /></Card>,
     ]} />,
-  <ContentSlide overline="Чек-лист" title="Первый день: что сделать" section="Онбординг"><Checklist items={[{ text: 'Получить ноутбук и пропуск', meta: 'Ресепшен', status: 'todo' }, { text: 'Войти в корпоративную почту и мессенджер', meta: 'ИТ-поддержка', status: 'todo' }, { text: 'Познакомиться с наставником', meta: '11:00', status: 'todo' }, { text: 'Пройти вводный курс по безопасности', meta: '30 минут', status: 'todo' }]} /></ContentSlide>,
   <TableSlide overline="Сервисы" title="Всё нужное — в четырёх сервисах: трекер, база знаний, HR-портал, ИТ-поддержка" table={<DataTable columns={[{ title: 'Что нужно' }, { title: 'Где' }]} rows={[['Задачи и проекты', 'Трекер задач'], ['База знаний', 'Корпоративная вики'], ['Отпуск, справки, документы', 'HR-портал'], ['Помощь с доступами и техникой', 'ИТ-поддержка, чат 24/7']]} />} section="Онбординг" />,
   <ContactSlide title="Мы рады, что вы с нами!" subtitle="Если что-то непонятно — спрашивайте наставника или HR" contacts={${CONTACTS}} />,
 ];`,
@@ -343,28 +418,37 @@ const slides = [
   {
     name: 'DeckWorkshop', file: '12-obuchenie', title: 'Обучение / воркшоп',
     about: 'Учебная сессия или воркшоп: цели, программа, теоретические блоки, упражнения, чек-лист, итоги и материалы.',
-    code: `
+    code: `${SCHEME}
 const slides = [
   <TitleSlide composition="band" overline="Воркшоп" title="Презентации, которые убеждают" subtitle="Практикум для руководителей и менеджеров" author="Анна Смирнова, ведущая" date="3 часа" />,
-  <ContentSlide overline="Цели" title="Что вы унесёте с воркшопа" bullets={['Структура «вывод → доказательство → действие»', 'Правила графиков, которым верят', 'Своя презентация, пересобранная по шаблону Вэбтех']} marker="check" aside={<KpiCard variant="brand" value="3" unit="часа" label="Теория, практика и разбор" />} section="Воркшоп" />,
+  <GridSlide overline="Цели" title="Три часа: треть времени — практика на своей презентации" layout="halves" section="Воркшоп"
+    cells={[
+      <Card icon="clock" title="Как пройдёт воркшоп" meta="минут"><DonutChart size={340} thickness={64} percent={false} format={(v) => v + ' мин'} centerValue="180" centerLabel="минут" data={[{ label: 'Теория', value: 80 }, { label: 'Практика', value: 60 }, { label: 'Разбор', value: 25 }, { label: 'Перерыв', value: 15, color: 'var(--chart-other)' }]} /></Card>,
+      <Card tone="tint" icon="target" title="Что вы унесёте"><IconFeature layout="horizontal" icon="list-checks" title="Структуру">Вывод, доказательство, действие</IconFeature><IconFeature layout="horizontal" icon="chart-column" title="Правила графиков">Которым верят</IconFeature><IconFeature layout="horizontal" icon="layout-grid" title="Свою презентацию">По шаблону Вэбтех</IconFeature></Card>,
+    ]} />,
   <AgendaSlide title="Программа" items={[{ title: 'Структура и заголовки', time: '40 мин' }, { title: 'Графики и данные', time: '40 мин' }, { title: 'Перерыв', time: '15 мин' }, { title: 'Практика', time: '60 мин' }, { title: 'Разбор и итоги', time: '25 мин' }]} />,
   <SectionSlide number={1} title="Структура и заголовки" />,
-  <TwoColumnSlide overline="Правило 1" title="Заголовок — это вывод, а не тема" left={{ title: 'Тема', bullets: ['Выручка', 'Результаты проекта', 'Риски'], marker: 'cross' }} right={{ title: 'Вывод', tint: true, bullets: ['Выручка выросла на 32%', 'Проект запущен на 2 недели раньше', 'Два риска требуют решения'], marker: 'check' }} section="Воркшоп" />,
+  <GridSlide overline="Правило 1" title="Заголовок — это вывод, а не тема" layout="halves" section="Воркшоп"
+    cells={[
+      <Card icon="x" overline="Тема" title="«Выручка»"><BarChart width={760} height={400} categories={['2023', '2024', '2025', '2026']} series={[{ name: 'Выручка, млн BYN', values: [21, 29, 36, 48], color: 'var(--chart-other)' }]} /><Text variant="body" tone="secondary">Зритель ищет смысл сам</Text></Card>,
+      <Card tone="tint" icon="check" overline="Вывод" title="«Выручка выросла на 33%»"><BarChart width={760} height={400} highlight="2026" data={[{ label: '2023', value: 21 }, { label: '2024', value: 29 }, { label: '2025', value: 36 }, { label: '2026', value: 48 }]} /><Text variant="body" tone="secondary">График доказывает заголовок</Text></Card>,
+    ]} source="Пример, млн BYN" />,
   <GridSlide overline="Анатомия" title="Сильный слайд состоит из пяти элементов" layout="feature-left" section="Воркшоп"
     cells={[
-      <Card icon="layout-grid" title="Пять элементов" style={{ padding: '32px 48px', gap: 24 }}><BulletList marker="number" items={[{ title: 'Заголовок-вывод', text: 'Одна мысль, до двух строк' }, { title: 'Подзаголовок', text: 'Контекст одним предложением' }, { title: 'Доказательство', text: 'График, цифры или пример' }, { title: 'Источник', text: 'Откуда данные' }, { title: 'Действие', text: 'Что просим решить' }]} /></Card>,
+      <Card icon="layout-grid" title="Пять элементов"><Scheme name="Анатомия слайда" width={980} height={560}>
+        <rect x="2" y="2" width="620" height="520" rx="20" fill="var(--surface)" stroke="var(--brand-300)" strokeWidth="3" />
+        <rect x="40" y="44" width="480" height="36" rx="8" fill="var(--ink)" /><rect x="40" y="104" width="360" height="20" rx="6" fill="var(--chart-other)" />
+        <rect x="40" y="170" width="350" height="230" rx="14" fill="var(--brand-50)" />
+        <rect x="80" y="310" width="60" height="70" rx="6" fill="var(--brand-300)" /><rect x="180" y="260" width="60" height="120" rx="6" fill="var(--brand-300)" /><rect x="280" y="200" width="60" height="180" rx="6" fill="var(--accent)" />
+        <rect x="420" y="170" width="165" height="230" rx="14" fill="var(--accent-50)" /><rect x="40" y="458" width="260" height="18" rx="6" fill="var(--chart-other)" />
+        {[['Заголовок-вывод', 62, 530], ['Контекст', 114, 410], ['Доказательство', 220, 395], ['Действие', 340, 590], ['Источник', 467, 310]].map(([t, y, x]) => <g key={t}><path d={'M' + x + ' ' + y + 'H680'} stroke="var(--line-strong)" strokeWidth="2" /><circle cx={x} cy={y} r="6" fill="var(--brand-strong)" /><text x="696" y={y + 10} fontSize="30" fontWeight="700" fill="var(--ink)">{t}</text></g>)}
+      </Scheme></Card>,
       <KpiCard variant="brand" size="lg" value="3" unit="сек" label="чтобы понять слайд" delta="если заголовок — вывод" style={{ justifyContent: 'center', padding: '32px 48px' }} />,
       <Card tone="warning" icon="triangle-alert" title="Частые ошибки" style={{ padding: '32px 48px', gap: 24 }}><BulletList size="lead" marker="cross" items={['Заголовок-тема: «Итоги»', 'Три мысли на слайде', 'График без подписей']} /></Card>,
     ]} />,
   <ProcessSlide overline="Метод" title="Презентация готовится циклом: цель, структура, слайды, прогон" process={<Cycle size={680} center="Итерация" steps={[{ title: 'Цель', icon: 'target' }, { title: 'Структура', icon: 'list-checks' }, { title: 'Слайды', icon: 'layout-grid' }, { title: 'Прогон', icon: 'message-square' }]} />} section="Воркшоп" />,
-  <ContentSlide overline="Упражнение" title="Практика: пересоберите свои три слайда" section="Воркшоп"><NestedList numbered items={[{ title: 'Перепишите заголовки', items: ['Каждый — вывод в одно предложение'] }, { title: 'Проверьте графики', items: ['Одна ось, подписи значений, источник'] }, { title: 'Покажите соседу', items: ['Понятен ли вывод за 5 секунд?'] }]} /></ContentSlide>,
-  <GridSlide overline="Практика" title="Три упражнения по 10 минут" layout="bottom-3" section="Воркшоп"
-    cells={[
-      <Card icon="file-text" overline="Упражнение 1" title="Заголовки"><Text variant="body" tone="secondary">Перепишите заголовки трёх слайдов как выводы</Text><Badge tone="brand" icon="clock" style={{ alignSelf: 'flex-start', marginTop: 'auto' }}>10 минут</Badge></Card>,
-      <Card icon="chart-column" overline="Упражнение 2" title="Данные"><Text variant="body" tone="secondary">Оставьте на графике одну мысль и подпишите значения</Text><Badge tone="brand" icon="clock" style={{ alignSelf: 'flex-start', marginTop: 'auto' }}>10 минут</Badge></Card>,
-      <Card icon="users" overline="Упражнение 3" title="Проверка"><Text variant="body" tone="secondary">Покажите слайд соседу на 3 секунды — что он запомнил?</Text><Badge tone="brand" icon="clock" style={{ alignSelf: 'flex-start', marginTop: 'auto' }}>10 минут</Badge></Card>,
-      <Callout tone="accent" title="Правило">Если сосед не пересказал вывод слайда — перепишите заголовок</Callout>,
-    ]} />,
+  <ProcessSlide overline="Упражнение" title="Практика: пересоберите свои три слайда" process={<ProcessFlow steps={[{ icon: 'file-text', title: 'Заголовки', text: 'Каждый — вывод в одно предложение' }, { icon: 'chart-column', title: 'Графики', text: 'Одна ось, подписи значений, источник' }, { icon: 'users', title: 'Проверка', text: 'Сосед понимает вывод за 5 секунд' }]} />} section="Воркшоп" />,
+  <TimelineSlide overline="Практика" title="Три упражнения по 10 минут" timeline={<Timeline items={[{ date: '0–10 минут', title: 'Заголовки', text: 'Переписать три как выводы', status: 'current' }, { date: '10–20 минут', title: 'Данные', text: 'Оставить одну мысль на графике', status: 'planned' }, { date: '20–30 минут', title: 'Проверка', text: 'Показать соседу на 3 секунды', status: 'planned' }]} />} note={<Callout tone="accent" title="Правило">Если сосед не пересказал вывод слайда — перепишите заголовок</Callout>} section="Воркшоп" />,
   <ContentSlide overline="Итоги" title="Пять проверок перед показом" section="Воркшоп"><Checklist items={[{ text: 'Каждый заголовок — вывод', status: 'done' }, { text: 'Текст не мельче 24px', status: 'done' }, { text: 'Цвет не единственный носитель смысла', status: 'done' }, { text: 'У графиков есть источник', status: 'done' }, { text: 'Проверена печать в PDF', status: 'done' }]} /></ContentSlide>,
   <ContactSlide title="Спасибо за работу!" subtitle="Материалы и шаблоны — в дизайн-системе Вэбтех" contacts={${CONTACTS}} />,
 ];`,
