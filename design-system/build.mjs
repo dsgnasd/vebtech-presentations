@@ -84,5 +84,22 @@ const { DECKS } = await import('./src/specs/decks.mjs?' + Date.now());
 for (const d of DECKS) {
   w(`${T}/${d.file}.html`, deckHtml({ title: d.title, code: d.code, note: `шаблон, ДС ${VERSION}` }));
 }
+// 5. Сборник рецептов: готовый код графиков, схем и комбинированных слайдов одним файлом (для агентов)
+const COOK = [
+  ['Графики', ['BarChart', 'StackedBar', 'LineChart', 'AreaChart', 'DonutChart', 'Waterfall', 'ComboChart', 'BreakdownBar', 'MeterList', 'PlanFactCard', 'Funnel', 'Sparkline']],
+  ['Схемы', ['ProcessFlow', 'Cycle', 'Timeline', 'VerticalTimeline', 'PhaseTimeline', 'Roadmap', 'Pyramid', 'Matrix2x2', 'OrgChart', 'StatusTable', 'ComparisonTable']],
+  ['Цифры и акценты', ['KpiCard', 'FactList', 'ProgressBar', 'Callout', 'IconFeature']],
+  ['Слайды целиком', ['ChartSlide', 'GridSlide', 'DashboardSlide', 'ProcessSlide', 'TimelineSlide', 'RoadmapSlide', 'ComparisonSlide', 'CaseSlide']],
+];
+const by = Object.fromEntries(COMPONENTS.map((c) => [c.name, c]));
+w('cookbook.md', `# Сборник рецептов: графики, схемы, слайды
+
+Собирается из \`src/specs\` командой \`node build.mjs\`, вручную не править. Что выбрать — \`src/docs/70-visuals.md\`; пропсы и правила — \`project/components/<Имя>/README.md\`. В \`deck.jsx\` массив \`slides\` собирается из слайдов, \`const view\` и \`const s\` не нужны: берите сам элемент.
+
+## Содержание
+${COOK.map(([t]) => `- [${t}](#${t.toLowerCase().replaceAll(' ', '-')})`).join('\n')}
+
+${COOK.map(([t, names]) => `## ${t}\n\n${names.map((n) => `### ${n}\n${by[n].readme.trim().split('\n')[0]}\n\`\`\`jsx\n${by[n].code.trim()}\n\`\`\``).join('\n\n')}`).join('\n\n')}
+`);
 w(`${T}/lib/VERSION`, VERSION + '\n');
 console.log('version', VERSION, 'components', COMPONENTS.length, 'decks', DECKS.length, 'bundle', js.length);

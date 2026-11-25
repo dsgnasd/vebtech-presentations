@@ -4,7 +4,8 @@
 //   node tools/deck.mjs intake <тема> <файлы…> [--title "Название"]   исходники → sources/, извлечение, бриф/вопросы/план
 //   node tools/deck.mjs extract <папка>                               повторно извлечь содержимое sources/
 //   node tools/deck.mjs new <тема> [--from 03] [--title "…"]          пустая презентация из шаблона (без исходников)
-//   node tools/deck.mjs stage <папка> <этап> [--note "…"]             перевести на этап
+//   node tools/deck.mjs stage <папка> <этап> [--note "…"]             перевести на этап; review и final — после проверки визуальности
+//        [--text-ok "причина"]                                        пропустить проверку визуальности, причина пишется в историю
 //   node tools/deck.mjs build <папка|all> [--upgrade] [--no-pdf]      собрать HTML и PDF
 //   node tools/deck.mjs list                                          все презентации: этап, версия ДС
 //
@@ -20,6 +21,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath, pathToFileURL } from 'node:url';
 import * as cp from 'node:child_process';
+import { writeHints } from './suggest-visuals.mjs';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const DS = path.join(ROOT, 'design-system');
@@ -56,6 +58,7 @@ function runExtract(dir) {
   const venv = path.join(ROOT, '.venv', process.platform === 'win32' ? 'Scripts/python.exe' : 'bin/python3');
   const r = cp.spawnSync(fs.existsSync(venv) ? venv : 'python3', [path.join(ROOT, 'tools/extract.py'), dir], { stdio: 'inherit', env: { ...process.env, PYTHONUTF8: '1' } });
   if (r.status !== 0) throw new Error('Извлечение не удалось (см. выше)');
+  console.log(`  подсказок для визуализации: ${writeHints(dir)} → ${path.relative(ROOT, path.join(dir, 'extracted/visual-hints.md'))}`);
 }
 
 async function cmdIntake() {
@@ -79,7 +82,7 @@ async function cmdIntake() {
   setStage(meta, 'intake', `исходники: ${files.map((f) => path.basename(f)).join(', ')}`);
   writeMeta(dir, meta);
   console.log(`${existing ? 'Дополнено' : 'Создано'}: ${path.relative(ROOT, dir)}`);
-  console.log('Дальше (Claude): анализ extracted/content.md и pages/ → brief.md, questions.md → вопросы пользователю → plan.md');
+  console.log('Дальше: анализ extracted/content.md, visual-hints.md и pages/ → brief.md, questions.md → вопросы пользователю → plan.md');
 }
 
 async function cmdExtract() {
@@ -90,7 +93,13 @@ async function cmdExtract() {
 function cmdStage() {
   const dir = path.resolve(arg), stage = rest[0];
   const meta = readMeta(dir);
-  setStage(meta, stage, opt('note'));
+  let note = opt('note');
+  if (['review', 'final'].includes(stage) && meta.visual && !meta.visual.ok) {
+    const why = opt('text-ok');
+    if (!why || why === true) throw new Error('Проверка визуальности не пройдена:\n  - ' + meta.visual.problems.join('\n  - ') + '\nПереработайте слайды и соберите заново. Если материал действительно текстовый: --text-ok "причина"');
+    note = [note && note !== true ? note : '', 'текстовая подача: ' + why].filter(Boolean).join('; ');
+  }
+  setStage(meta, stage, note);
   writeMeta(dir, meta);
   console.log(`${path.basename(dir)}: этап «${STAGE_RU[stage]}»`);
 }
@@ -120,6 +129,7 @@ async function cmdNew() {
 
 async function buildOne(dir) {
   const { deckHtml, footerOverlap } = await imp(path.join(DS, 'src/deck-page.mjs'));
+  const { collectVisuals, judge, report } = await imp(path.join(DS, 'src/visual-check.mjs'));
   if (!fs.existsSync(path.join(dir, 'deck.jsx'))) throw new Error(path.basename(dir) + ': нет deck.jsx — сначала план и черновик');
   const meta = readMeta(dir);
   const cur = dsVersion();
@@ -148,11 +158,15 @@ async function buildOne(dir) {
   const n = await page.evaluate(() => document.querySelectorAll('.wt-frame').length);
   const over = await page.evaluate(footerOverlap);
   if (over.length) console.log(`  ⚠ ${path.basename(dir)}: содержимое заходит на футер — слайды ${over.join(', ')}`);
+  const vis = judge(await page.evaluate(collectVisuals));
+  meta.visual = { ok: vis.ok, share: +vis.share.toFixed(2), kinds: vis.kinds, problems: vis.problems };
+  writeMeta(dir, meta);
   const pdf = path.join(dir, path.basename(dir).replace(/^\d{4}-\d{2}-\d{2}-/, '') + '.pdf');
   await page.emulateMedia({ media: 'print' });
   await page.pdf({ path: pdf, preferCSSPageSize: true, printBackground: true });
   await browser.close();
   console.log(`  ${path.relative(ROOT, dir)}: ${n} слайдов → ${path.basename(pdf)} (ДС ${meta.dsVersion})`);
+  console.log(report(vis));
 }
 
 async function cmdBuild() {
