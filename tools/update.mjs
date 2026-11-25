@@ -26,6 +26,7 @@ if (!fs.existsSync(path.join(ROOT, '.git'))) stop('Подключите фабр
 if (git('rev-parse', '--abbrev-ref', 'HEAD').out !== 'main') stop('Открыта другая ветка git. Презентации на месте. Напишите в группу Deck Factory: https://myteam.mail.ru/profile/DeckFactory');
 step('Проверяю обновления');
 const f = git('fetch', '-q', 'origin', 'main');
+if (!f.ok && /not permitted|permission denied|EPERM|read-only file system|FETCH_HEAD|could not resolve host/i.test(f.err)) stop('Запуск ограничен песочницей агента или нет сети. АГЕНТУ: запросите у пользователя разрешение выполнить «node tools/update.mjs» вне песочницы и повторите.\n' + f.err);
 if (!f.ok) stop('GitHub недоступен. Проверьте интернет и VPN. Фабрика работает на прежней версии.\n' + f.err);
 if (git('log', '--format=%h', 'origin/main..HEAD').out) stop('В копии есть локальные коммиты, обновление остановлено. Презентации на месте. Напишите в группу Deck Factory: https://myteam.mail.ru/profile/DeckFactory');
 const before = git('rev-parse', 'HEAD').out;

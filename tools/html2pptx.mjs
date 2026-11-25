@@ -3,12 +3,14 @@
 //   --safe-font — Arial вместо Manrope (кегль −8%): для получателя без Manrope, иначе PowerPoint подставит свой шрифт и вёрстка поедет
 // Как работает: слайды .wt-slide рендерятся в Chromium, из DOM берутся координаты и стили. Тексты становятся текстовыми
 // блоками (Manrope, размеры и межстрочный интервал как в вёрстке), карточки и плашки — фигурами, линии таблиц — линиями.
-// Иконки, логотип и гексагоны с фото вставляются картинками (PNG с прозрачностью). Шрифт Manrope должен стоять на компьютере.
+// Схемы и графики (крупные SVG) — редактируемые фигуры, линии со стрелками и тексты (lib/svg-vector.mjs); подпись узла лежит внутри фигуры.
+// Иконки, логотип, гексагоны с фото и SVG с градиентами или масками вставляются картинками (PNG с прозрачностью). Шрифт Manrope должен стоять на компьютере.
 // Зависимости (pptxgenjs, sharp, playwright) — в design-system/node_modules: cd design-system && npm install.
 import fs from 'node:fs';
 import path from 'node:path';
 import { createRequire } from 'node:module';
 import { fileURLToPath, pathToFileURL } from 'node:url';
+import { svgToItems } from './lib/svg-vector.mjs';
 
 const DS = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../design-system');
 const requireDs = createRequire(path.join(DS, 'package.json'));
@@ -37,7 +39,8 @@ await page.addStyleTag({ content: '.wt-no-print,.bar{display:none!important} bod
 
 const nSlides = await page.evaluate(() => document.querySelectorAll('.wt-slide').length);
 
-const extract = (idx) => page.evaluate((idx) => {
+const extract = (idx) => page.evaluate(([idx, vectorSrc]) => {
+  const svgToItems = new Function('return ' + vectorSrc)();
   const slide = document.querySelectorAll('.wt-slide')[idx];
   const sr = slide.getBoundingClientRect();
   const sc = sr.width / 1920;
@@ -67,6 +70,10 @@ const extract = (idx) => page.evaluate((idx) => {
     const b = rel(el.getBoundingClientRect());
     if (tag === 'svg' || el.matches(ART) || tag === 'img') {
       if (!inside(b)) return;
+      if (tag === 'svg' && !el.matches(ART) && !el.closest(`${ART},.wt-logo,.wt-footer`) && (el.hasAttribute('data-visual') || (b.w >= 200 && b.h >= 120))) {
+        const vec = svgToItems(el, sr, sc);
+        if (vec) { items.push(...vec); return; }
+      }
       el.setAttribute('data-iso', String(isoN));
       const p = tag === 'svg' ? 8 : 0; // у SVG ДС overflow: visible — обводка сот и подписи графиков выходят за рамку; остальное при снимке скрыто, запас безопасен
       const x0 = Math.max(0, b.x - p), y0 = Math.max(0, b.y - p), x1 = Math.min(1920, b.x + b.w + p), y1 = Math.min(1080, b.y + b.h + p);
@@ -124,6 +131,7 @@ const extract = (idx) => page.evaluate((idx) => {
         const fw = parseInt(cs.fontWeight, 10);
         items.push({
           t: 'text', ...tb, text, size: parseFloat(cs.fontSize), bold: fw >= 600, italic: cs.fontStyle === 'italic', color: col.hex,
+          vert: /vertical/.test(cs.writingMode) ? (/matrix\(-1/.test(cs.transform) || [...(function* () { for (let e = el; e && e !== slide; e = e.parentElement) yield e; })()].some((e) => /^matrix\(-1,/.test(getComputedStyle(e).transform) || getComputedStyle(e).rotate === '180deg') ? 'vert270' : 'vert') : null,
           align: /center/.test(cs.textAlign) ? 'center' : /right|end/.test(cs.textAlign) ? 'right' : 'left', lh, ls: parseFloat(cs.letterSpacing) || 0, lines: tops.size, href: (el.closest('a[href]') || {}).href || null,
         });
       }
@@ -133,7 +141,7 @@ const extract = (idx) => page.evaluate((idx) => {
   const sbg = parseColor(getComputedStyle(slide).backgroundColor);
   walk(slide);
   return { bg: sbg ? sbg.hex : 'FFFFFF', items, sc, sr: { x: sr.left, y: sr.top } };
-}, idx);
+}, [idx, svgToItems.toString()]);
 
 const shot = async (idx, it) => {
   await page.evaluate(([idx, iso]) => {
@@ -156,6 +164,8 @@ pres.layout = 'WT';
 pres.title = await page.title();
 pres.company = 'ВЭБ Технологии';
 
+const safeText = (t) => (SAFE ? t.replace(/\u2011/g, '-').replace(/\u2060/g, '') : t);
+const vecLine = (l) => ({ color: l.c, transparency: Math.round((1 - l.a) * 100), width: l.w * 0.75, ...(l.dash ? { dashType: 'dash' } : {}), ...(l.end ? { endArrowType: 'triangle' } : {}), ...(l.start ? { beginArrowType: 'triangle' } : {}) });
 const stats = { rect: 0, text: 0, img: 0, line: 0 };
 for (let i = 0; i < nSlides; i++) {
   const { bg, items } = await extract(i);
@@ -178,16 +188,39 @@ for (let i = 0; i < nSlides; i++) {
     } else if (it.t === 'line') {
       s.addShape(pres.ShapeType.line, { x: Math.min(it.x1, it.x2) * PX, y: Math.min(it.y1, it.y2) * PX, w: Math.abs(it.x2 - it.x1) * PX, h: Math.abs(it.y2 - it.y1) * PX, line: { color: it.c, width: it.w * 0.75 } }); stats.line++;
     } else if (it.t === 'text') {
+      if (it.vert) {
+        s.addText(safeText(it.text), { x: (it.x - 4) * PX, y: (it.y - 8) * PX, w: (it.w + 8) * PX, h: (it.h + 16) * PX, vert: it.vert, fontFace: FONT, fontSize: it.size * 0.75 * K, bold: it.bold, color: it.color, align: 'center', valign: 'middle', margin: 0, wrap: false, fit: 'none', isTextBox: true }); stats.text++;
+        continue;
+      }
       const multi = it.lines > 1;
       const slack = multi ? it.w * 0.015 + 2 : 12;
       const nat = 1.366 * it.size; const dy = Math.max(0, nat - it.lh) * 0.8;
       // ссылки остаются кликабельными в PowerPoint и Google Slides
       const txt = SAFE ? it.text.replace(/\u2011/g, '-').replace(/\u2060/g, '') : it.text; // в Arial нет неразрывного дефиса и склейки U+2060 — рисуются пустотой
       s.addText(it.href ? [{ text: txt, options: { hyperlink: { url: it.href } } }] : txt, {
-        x: it.x * PX, y: (it.y + dy) * PX, w: (it.w + slack) * PX, h: it.h * PX,
+        x: (it.x - (it.align === 'right' ? slack : it.align === 'center' ? slack / 2 : 0)) * PX, y: (it.y + dy) * PX, w: (it.w + slack) * PX, h: it.h * PX,
         fontFace: FONT, fontSize: it.size * 0.75 * K, bold: it.bold, italic: it.italic, color: it.color,
         align: it.align, valign: 'top', margin: 0, lineSpacing: it.lh * 0.75, charSpacing: it.ls * 0.75, wrap: multi, fit: 'none', isTextBox: true,
       }); stats.text++;
+    } else if (it.t === 'vrect' || it.t === 'vellipse' || it.t === 'vpath') {
+      const opts = { x: it.x * PX, y: it.y * PX, w: Math.max(it.w, 0.01) * PX, h: Math.max(it.h, 0.01) * PX, fill: it.fill ? { color: it.fill.hex, transparency: Math.round((1 - it.fill.a) * 100) } : { type: 'none' } };
+      if (it.line) opts.line = vecLine(it.line);
+      let type = it.t === 'vellipse' ? pres.ShapeType.ellipse : pres.ShapeType.rect;
+      if (it.t === 'vpath') {
+        type = pres.ShapeType.custGeom;
+        const X = (v) => (v - it.x) * PX, Y = (v) => (v - it.y) * PX;
+        opts.points = it.pts.map((p) => p.t === 'Z' ? { close: true } : p.t === 'M' ? { x: X(p.x), y: Y(p.y), moveTo: true } : p.t === 'L' ? { x: X(p.x), y: Y(p.y) } : { x: X(p.x), y: Y(p.y), curve: { type: 'cubic', x1: X(p.x1), y1: Y(p.y1), x2: X(p.x2), y2: Y(p.y2) } });
+      } else if (it.radius > 0) { type = pres.ShapeType.roundRect; opts.rectRadius = Math.min(it.radius * PX, Math.min(opts.w, opts.h) / 2); }
+      if (it.texts) {
+        s.addText(it.texts.map((t, k) => ({ text: safeText(t.text), options: { fontFace: FONT, fontSize: t.size * 0.75 * K, bold: t.bold, italic: t.italic, color: t.color, breakLine: k < it.texts.length - 1 } })), { shape: type, ...opts, align: 'center', valign: 'middle', margin: 0, fit: 'none' });
+        stats.text++;
+      } else s.addShape(type, opts);
+      stats.rect++;
+    } else if (it.t === 'vline') {
+      s.addShape(pres.ShapeType.line, { x: Math.min(it.x1, it.x2) * PX, y: Math.min(it.y1, it.y2) * PX, w: Math.abs(it.x2 - it.x1) * PX, h: Math.abs(it.y2 - it.y1) * PX, flipH: it.x2 < it.x1, flipV: it.y2 < it.y1, line: vecLine(it.line) }); stats.line++;
+    } else if (it.t === 'vtext') {
+      const sl = 16, dx = it.align === 'center' ? sl / 2 : it.align === 'right' ? sl : 0;
+      s.addText(safeText(it.text), { x: (it.x - dx) * PX, y: it.y * PX, w: (it.w + sl) * PX, h: it.h * PX, fontFace: FONT, fontSize: it.size * 0.75 * K, bold: it.bold, italic: it.italic, color: it.color, align: it.align, valign: 'middle', margin: 0, wrap: false, fit: 'none', isTextBox: true }); stats.text++;
     } else if (it.t === 'img') {
       const buf = await shot(i, it);
       const b64 = 'image/png;base64,' + buf.toString('base64');
