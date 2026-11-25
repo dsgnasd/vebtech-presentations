@@ -7,6 +7,7 @@
 //   node tools/deck.mjs stage <папка> <этап> [--note "…"]             перевести на этап; review и final — после проверки визуальности
 //        [--text-ok "причина"]                                        пропустить проверку визуальности, причина пишется в историю
 //   node tools/deck.mjs build <папка|all> [--upgrade] [--no-pdf]      собрать HTML и PDF
+//   node tools/deck.mjs check <папка>                                 проверка дизайна: снимки слайдов, замечания, лист осмотра
 //   node tools/deck.mjs list                                          все презентации: этап, версия ДС
 //
 // Этапы: intake → analyzed → questions → planned → draft → review → final
@@ -22,6 +23,7 @@ import path from 'node:path';
 import { fileURLToPath, pathToFileURL } from 'node:url';
 import * as cp from 'node:child_process';
 import { writeHints } from './suggest-visuals.mjs';
+import { writeCheck, reviewProblems } from './design-gate.mjs';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const DS = path.join(ROOT, 'design-system');
@@ -94,6 +96,10 @@ function cmdStage() {
   const dir = path.resolve(arg), stage = rest[0];
   const meta = readMeta(dir);
   let note = opt('note');
+  if (['review', 'final'].includes(stage) && meta.design) {
+    const bad = reviewProblems(dir);
+    if (bad.length) throw new Error('Проверка дизайна не пройдена:\n  - ' + bad.join('\n  - ') + '\nПорядок — скил design-check.');
+  }
   if (['review', 'final'].includes(stage) && meta.visual && !meta.visual.ok) {
     const why = opt('text-ok');
     if (!why || why === true) throw new Error('Проверка визуальности не пройдена:\n  - ' + meta.visual.problems.join('\n  - ') + '\nПереработайте слайды и соберите заново. Если материал действительно текстовый: --text-ok "причина"');
@@ -162,6 +168,7 @@ async function buildOne(dir) {
   if (cut.length) console.log(`  ⚠ ${path.basename(dir)}: содержимое не помещается в карточку — слайды ${cut.join(', ')}: уменьшить график, убрать иконку или строку`);
   const vis = judge(await page.evaluate(collectVisuals));
   meta.visual = { ok: vis.ok, share: +vis.share.toFixed(2), kinds: vis.kinds, problems: vis.problems };
+  meta.design = await writeCheck(page, dir, { code: fs.readFileSync(path.join(dir, 'deck.jsx'), 'utf8'), cut, over });
   writeMeta(dir, meta);
   const pdf = path.join(dir, path.basename(dir).replace(/^\d{4}-\d{2}-\d{2}-/, '') + '.pdf');
   await page.emulateMedia({ media: 'print' });
@@ -169,6 +176,7 @@ async function buildOne(dir) {
   await browser.close();
   console.log(`  ${path.relative(ROOT, dir)}: ${n} слайдов → ${path.basename(pdf)} (ДС ${meta.dsVersion})`);
   console.log(report(vis));
+  console.log(meta.design.summary);
 }
 
 async function cmdBuild() {
@@ -193,7 +201,7 @@ try {
   else if (cmd === 'extract') await cmdExtract();
   else if (cmd === 'stage') cmdStage();
   else if (cmd === 'new') await cmdNew();
-  else if (cmd === 'build') await cmdBuild();
+  else if (cmd === 'build' || cmd === 'check') await cmdBuild();
   else if (cmd === 'list') cmdList();
   else console.log(fs.readFileSync(fileURLToPath(import.meta.url), 'utf8').split('\n').slice(1, 22).map((l) => l.replace(/^\/\/ ?/, '')).join('\n'));
 } catch (e) { console.error('Ошибка:', e.message); process.exit(1); }

@@ -11,6 +11,7 @@ import path from 'node:path';
 import { createRequire } from 'node:module';
 import { fileURLToPath, pathToFileURL } from 'node:url';
 import { svgToItems } from './lib/svg-vector.mjs';
+import { reviewProblems } from './design-gate.mjs';
 
 const DS = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../design-system');
 const requireDs = createRequire(path.join(DS, 'package.json'));
@@ -26,7 +27,12 @@ const FONT = SAFE ? 'Arial' : 'Manrope';
 const K = SAFE ? 0.92 : 1; // жирный Arial на крупных кеглях шире Manrope — с запасом, чтобы заголовки не уходили на лишнюю строку
 if (!target) { console.error('Укажите папку презентации или index.html'); process.exit(1); }
 const htmlPath = fs.statSync(target).isDirectory() ? path.join(target, 'index.html') : target;
-const outPath = outArg || path.join(path.dirname(htmlPath), path.basename(path.dirname(path.resolve(htmlPath))).replace(/^\d{4}-\d{2}-\d{2}-/, '') + '.pptx');
+// Выдача без проверки дизайна запрещена; --draft — рабочая копия для просмотра, имя с «-draft»
+const DRAFT = args.includes('--draft');
+const deckDir = path.dirname(path.resolve(htmlPath));
+const notReady = fs.existsSync(path.join(deckDir, 'meta.json')) && JSON.parse(fs.readFileSync(path.join(deckDir, 'meta.json'), 'utf8')).design ? reviewProblems(deckDir) : [];
+if (notReady.length && !DRAFT) { console.error('✗ PPTX не выгружен, проверка дизайна не пройдена:\n  - ' + notReady.join('\n  - ') + '\nПорядок — скил design-check. Рабочая копия — с --draft.'); process.exit(1); }
+const outPath = outArg || path.join(path.dirname(htmlPath), path.basename(path.dirname(path.resolve(htmlPath))).replace(/^\d{4}-\d{2}-\d{2}-/, '') + (notReady.length ? '-draft.pptx' : '.pptx'));
 const PX = 1 / 96; // 1920px = 20in
 const DSF = 3;
 

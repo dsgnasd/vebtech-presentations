@@ -19,7 +19,9 @@ export function collectVisuals() {
     const k = s.getBoundingClientRect().width / 1920 || 1;
     const big = (el) => { const r = el.getBoundingClientRect(); return r.width / k >= 400 && r.height / k >= 200; };
     const free = (el) => !el.closest(ART);
-    const custom = [...s.querySelectorAll('svg, [data-visual]')].some((el) => free(el) && !el.closest('.wt-chart-svg') && big(el));
+    // своя схема — только SVG с графикой; текстовая вёрстка с пометкой data-visual схемой не считается
+    const drawn = (el) => el.querySelectorAll('rect, circle, ellipse, path, line, polygon, polyline').length >= 4;
+    const custom = [...s.querySelectorAll('svg')].some((el) => free(el) && !el.closest('.wt-chart-svg') && big(el) && drawn(el));
     const image = [...s.querySelectorAll('img')].some((el) => free(el) && big(el)) || [...s.querySelectorAll('.wt-image-frame')].some((el) => !el.querySelector('.wt-image-placeholder'));
     const copy = s.cloneNode(true);
     copy.querySelectorAll(`${ART}, h1, h2, .wt-source, svg`).forEach((el) => el.remove());
